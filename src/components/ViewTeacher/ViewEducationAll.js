@@ -1,0 +1,84 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' //fornt
+import { faEdit, faPen, faSearch, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  Row, Col, Button, FormGroup, Label, Input,
+  NavLink, Table
+} from 'reactstrap';
+
+
+const ViewEducationAll = () => {
+  const [education, setEducation] = useState([])
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/Education/index")
+      .then((response) => {
+        setEducation(response.data.education);
+      });
+
+  }, []);
+
+  return (
+    <div>
+      <div class="container">
+        <br />
+        <Row>
+          <Col xs="6">
+            <FormGroup>
+              <Label for="year_edu">ค้นหา</Label>
+              <Input type="text" name="year_edu" id="year_edu"  >
+                <FontAwesomeIcon icon={faSearch} /></Input>
+            </FormGroup></Col>
+        </Row>
+      </div>
+      <br />
+      <div class="container">
+        <Row>
+          <Col></Col>
+          <Col></Col>
+          <Col><NavLink href="./inserteducation">เพิ่มรายละเอียดข้อมูลการเข้าศึกษาต่อ</NavLink>
+          </Col>
+        </Row>
+        <Table>
+          <thead>
+            <tr>
+              <th>ปี</th>
+              <th>รอบ</th>
+              <th>ชื่อมหาลัย</th>
+              <th>วันที่เปิดรับสมัคร</th>
+              <th>วันที่ปิดรับสมัคร</th>
+              <th>เเก้ไขข้อมูล</th>
+              <th>เพิ่มรายละเอียดข้อมูลการศึกษาต่อ</th>
+            </tr>
+          </thead>
+          <tbody>
+            {education.map((education) => {
+              return (
+                <tr key={education.id_education}>
+                  <td>{education.year_edu}</td>
+                  <td>{education.name_round}</td>
+                  <td>{education.name_uni}</td>
+                  <td>{education.open_date}</td>
+                  <td>{education.close_date}</td>
+                  <td>  <Button color="info" href={"/editeducation/" + education.id_education}>
+                    <FontAwesomeIcon icon={faEdit} />แก้ไขข้อมูล
+                        </Button>{" "}</td>
+                  <td>  <Button outline color="info" href={"/edudatailall/" + education.id_education}>
+                    <FontAwesomeIcon icon={faPen} />เพิ่มรายละเอียดข้อมูลการศึกษาต่อ
+                        </Button>{" "}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </Table>
+      </div>
+
+
+
+
+    </div>
+  );
+}
+
+export default ViewEducationAll;

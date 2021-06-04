@@ -1,0 +1,2229 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)http://localhost:8080/student/updateProfileStudent/ -->
+<html><script src="chrome-extension://ljdobmomdgdljniojadhoplhkpialdid/page/prompt.js"></script><script src="chrome-extension://ljdobmomdgdljniojadhoplhkpialdid/page/runScript.js"></script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta name="robots" content="noindex">
+
+	<title>mysqli_sql_exception</title>
+	<style type="text/css">
+		body { height: 100%; background: #fafafa; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #777; font-weight: 300; margin: 0; padding: 0; } h1 { font-weight: lighter; letter-spacing: 0.8; font-size: 3rem; color: #222; margin: 0; } h1.headline { margin-top: 20%; font-size: 5rem; } .text-center { text-align: center; } p.lead { font-size: 1.6rem; } .container { max-width: 75rem; margin: 0 auto; padding: 1rem; } .header { background: #85271f; color: #fff; } .header h1 { color: #fff; } .header p { font-size: 1.2rem; margin: 0; line-height: 2.5; } .header a { color: rgba(255,255,255,0.5); margin-left: 2rem; display: none; text-decoration: none; } .header:hover a { display: inline; } .footer .container { border-top: 1px solid #e7e7e7; margin-top: 1rem; text-align: center; } .source { background: #333; color: #c7c7c7; padding: 0.5em 1em; border-radius: 5px; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; margin: 0; overflow-x: scroll; } .source span.line { line-height: 1.4; } .source span.line .number { color: #666; } .source .line .highlight { display: block; background: #555; color: #fff; } .source span.highlight .number { color: #fff; } .tabs { list-style: none; list-style-position: inside; margin: 0; padding: 0; margin-bottom: -1px; } .tabs li { display: inline; } .tabs a:link, .tabs a:visited { padding: 0rem 1rem; line-height: 2.7; text-decoration: none; color: #a7a7a7; background: #f1f1f1; border: 1px solid #e7e7e7; border-bottom: 0; border-top-left-radius: 5px; border-top-right-radius: 5px; display: inline-block; } .tabs a:hover { background: #e7e7e7; border-color: #e1e1e1; } .tabs a.active { background: #fff; } .tab-content { background: #fff; border: 1px solid #efefef; } .content { padding: 1rem; } .hide { display: none; } .alert { margin-top: 2rem; display: block; text-align: center; line-height: 3.0; background: #d9edf7; border: 1px solid #bcdff1; border-radius: 5px; color: #31708f; } ul, ol { line-height: 1.8; } table { width: 100%; overflow: hidden; } th { text-align: left; border-bottom: 1px solid #e7e7e7; padding-bottom: 0.5rem; } td { padding: 0.2rem 0.5rem 0.2rem 0; } tr:hover td { background: #f1f1f1; } td pre { white-space: pre-wrap; } .trace a { color: inherit; } .trace table { width: auto; } .trace tr td:first-child { min-width: 5em; font-weight: bold; } .trace td { background: #e7e7e7; padding: 0 1rem; } .trace td pre { margin: 0; } .args { display: none; }	</style>
+
+	<script type="text/javascript">
+		//--------------------------------------------------------------------
+// Tabs
+//--------------------------------------------------------------------
+
+var tabLinks    = new Array();
+var contentDivs = new Array();
+
+function init()
+{
+	// Grab the tab links and content divs from the page
+	var tabListItems = document.getElementById('tabs').childNodes;
+	console.log(tabListItems);
+	for (var i = 0; i < tabListItems.length; i ++)
+	{
+		if (tabListItems[i].nodeName == "LI")
+		{
+			var tabLink     = getFirstChildWithTagName(tabListItems[i], 'A');
+			var id          = getHash(tabLink.getAttribute('href'));
+			tabLinks[id]    = tabLink;
+			contentDivs[id] = document.getElementById(id);
+		}
+	}
+
+	// Assign onclick events to the tab links, and
+	// highlight the first tab
+	var i = 0;
+
+	for (var id in tabLinks)
+	{
+		tabLinks[id].onclick = showTab;
+		tabLinks[id].onfocus = function () {
+			this.blur()
+		};
+		if (i == 0)
+		{
+			tabLinks[id].className = 'active';
+		}
+		i ++;
+	}
+
+	// Hide all content divs except the first
+	var i = 0;
+
+	for (var id in contentDivs)
+	{
+		if (i != 0)
+		{
+			console.log(contentDivs[id]);
+			contentDivs[id].className = 'content hide';
+		}
+		i ++;
+	}
+}
+
+//--------------------------------------------------------------------
+
+function showTab()
+{
+	var selectedId = getHash(this.getAttribute('href'));
+
+	// Highlight the selected tab, and dim all others.
+	// Also show the selected content div, and hide all others.
+	for (var id in contentDivs)
+	{
+		if (id == selectedId)
+		{
+			tabLinks[id].className    = 'active';
+			contentDivs[id].className = 'content';
+		}
+		else
+		{
+			tabLinks[id].className    = '';
+			contentDivs[id].className = 'content hide';
+		}
+	}
+
+	// Stop the browser following the link
+	return false;
+}
+
+//--------------------------------------------------------------------
+
+function getFirstChildWithTagName(element, tagName)
+{
+	for (var i = 0; i < element.childNodes.length; i ++)
+	{
+		if (element.childNodes[i].nodeName == tagName)
+		{
+			return element.childNodes[i];
+		}
+	}
+}
+
+//--------------------------------------------------------------------
+
+function getHash(url)
+{
+	var hashPos = url.lastIndexOf('#');
+	return url.substring(hashPos + 1);
+}
+
+//--------------------------------------------------------------------
+
+function toggle(elem)
+{
+	elem = document.getElementById(elem);
+
+	if (elem.style && elem.style['display'])
+	{
+		// Only works with the "style" attr
+		var disp = elem.style['display'];
+	}
+	else if (elem.currentStyle)
+	{
+		// For MSIE, naturally
+		var disp = elem.currentStyle['display'];
+	}
+	else if (window.getComputedStyle)
+	{
+		// For most other browsers
+		var disp = document.defaultView.getComputedStyle(elem, null).getPropertyValue('display');
+	}
+
+	// Toggle the state of the "display" style
+	elem.style.display = disp == 'block' ? 'none' : 'block';
+
+	return false;
+}	</script>
+<script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head>
+<body onload="init()">
+
+	<!-- Header -->
+	<div class="header">
+		<div class="container">
+			<h1>mysqli_sql_exception #1452</h1>
+			<p>
+				Cannot add or update a child row: a foreign key constraint fails (`education_service`.`student`, CONSTRAINT `student_ibfk_1` FOREIGN KEY (`id_curriculum`) REFERENCES `curriculum` (`id_curriculum`))				<a href="https://www.google.com/search?q=mysqli_sql_exception+Cannot+add+or+update+a+child+row%3A+a+foreign+key+constraint+fails+%28%60education_service%60.%60student%60%2C+CONSTRAINT+%60student_ibfk_1%60+FOREIGN+KEY+%28%60id_curriculum%60%29+REFERENCES+%60curriculum%60+%28%60id_curriculum%60%29%29" rel="noreferrer" target="_blank">search →</a>
+			</p>
+		</div>
+	</div>
+
+	<!-- Source -->
+	<div class="container">
+		<p><b>SYSTEMPATH\Database\MySQLi\Connection.php</b> at line <b>314</b></p>
+
+					<div class="source">
+				<pre><code><span class="line"><span class="number">307</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #c7c7c7">$res&nbsp;</span><span style="color: #f1ce61;">=&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">connID</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">store_result</span><span style="color: #f1ce61;">())
+<span class="line"><span class="number">308</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">309</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$res</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">free</span><span style="color: #f1ce61;">();
+<span class="line"><span class="number">310</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">311</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">312</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try
+<span class="line"><span class="number">313</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line highlight"><span class="number">314</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;$this-&gt;connID-&gt;query($this-&gt;prepQuery($sql));
+</span></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"><span class="line"><span class="number">315</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">316</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;catch&nbsp;(</span><span style="color: #c7c7c7">mysqli_sql_exception&nbsp;$e</span><span style="color: #f1ce61;">)
+<span class="line"><span class="number">317</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">318</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">log_message</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'error'</span><span style="color: #f1ce61;">,&nbsp;</span><span style="color: #c7c7c7">$e</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">319</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">DBDebug</span><span style="color: #f1ce61;">)
+<span class="line"><span class="number">320</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">321</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw&nbsp;</span><span style="color: #c7c7c7">$e</span><span style="color: #f1ce61;">;
+</span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>			</div>
+			</div>
+
+	<div class="container">
+
+		<ul class="tabs" id="tabs">
+			<li><a href="http://localhost:8080/student/updateProfileStudent/#backtrace" class="active">Backtrace</a></li>
+				<li><a href="http://localhost:8080/student/updateProfileStudent/#server">Server</a></li>
+				<li><a href="http://localhost:8080/student/updateProfileStudent/#request">Request</a></li>
+				<li><a href="http://localhost:8080/student/updateProfileStudent/#response">Response</a></li>
+				<li><a href="http://localhost:8080/student/updateProfileStudent/#files">Files</a></li>
+				<li><a href="http://localhost:8080/student/updateProfileStudent/#memory">Memory</a></li>
+			
+		</ul>
+
+		<div class="tab-content">
+
+			<!-- Backtrace -->
+			<div class="content" id="backtrace">
+
+				<ol class="trace">
+				
+					<li>
+						<p>
+							<!-- Trace info -->
+															SYSTEMPATH\Database\MySQLi\Connection.php : 314							
+							<!-- Class/Method -->
+															&nbsp;&nbsp;—&nbsp;&nbsp;mysqli-&gt;query																										( <a href="http://localhost:8080/student/updateProfileStudent/#" onclick="return toggle(&#39;error6041d34e12e9e1.58489633args0&#39;);">arguments</a> )
+									</p><div class="args" id="error6041d34e12e9e1.58489633args0">
+										<table cellspacing="0">
+
+																					<tbody><tr>
+												<td><code>$query</code></td>
+												<td><pre>UPDATE `student` SET `fname_stu` = NULL, `lname_stu` = NULL, `id_curriculum` = NULL, `GPA_stu` = NULL, `year_class` = NULL, `class` = NULL, `year_stu` = NULL, `password_stu` = NULL</pre></td>
+											</tr>
+										
+										</tbody></table>
+									</div>
+															
+													<p></p>
+
+						<!-- Source? -->
+													<div class="source">
+								<pre><code><span class="line"><span class="number">307</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #c7c7c7">$res&nbsp;</span><span style="color: #f1ce61;">=&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">connID</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">store_result</span><span style="color: #f1ce61;">())
+<span class="line"><span class="number">308</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">309</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$res</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">free</span><span style="color: #f1ce61;">();
+<span class="line"><span class="number">310</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">311</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">312</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try
+<span class="line"><span class="number">313</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line highlight"><span class="number">314</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;$this-&gt;connID-&gt;query($this-&gt;prepQuery($sql));
+</span></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"><span class="line"><span class="number">315</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">316</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;catch&nbsp;(</span><span style="color: #c7c7c7">mysqli_sql_exception&nbsp;$e</span><span style="color: #f1ce61;">)
+<span class="line"><span class="number">317</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">318</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">log_message</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'error'</span><span style="color: #f1ce61;">,&nbsp;</span><span style="color: #c7c7c7">$e</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">319</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">DBDebug</span><span style="color: #f1ce61;">)
+<span class="line"><span class="number">320</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">321</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw&nbsp;</span><span style="color: #c7c7c7">$e</span><span style="color: #f1ce61;">;
+</span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>							</div>
+											</li>
+
+				
+					<li>
+						<p>
+							<!-- Trace info -->
+															SYSTEMPATH\Database\BaseConnection.php : 713							
+							<!-- Class/Method -->
+															&nbsp;&nbsp;—&nbsp;&nbsp;CodeIgniter\Database\MySQLi\Connection-&gt;execute																										( <a href="http://localhost:8080/student/updateProfileStudent/#" onclick="return toggle(&#39;error6041d34e12e9e1.58489633args1&#39;);">arguments</a> )
+									</p><div class="args" id="error6041d34e12e9e1.58489633args1">
+										<table cellspacing="0">
+
+																					<tbody><tr>
+												<td><code>$sql</code></td>
+												<td><pre>UPDATE `student` SET `fname_stu` = NULL, `lname_stu` = NULL, `id_curriculum` = NULL, `GPA_stu` = NULL, `year_class` = NULL, `class` = NULL, `year_stu` = NULL, `password_stu` = NULL</pre></td>
+											</tr>
+										
+										</tbody></table>
+									</div>
+															
+													<p></p>
+
+						<!-- Source? -->
+													<div class="source">
+								<pre><code><span class="line"><span class="number">706</span> &nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #f1ce61;">public&nbsp;function&nbsp;</span><span style="color: #c7c7c7">simpleQuery</span><span style="color: #f1ce61;">(</span><span style="color: #c7c7c7">string&nbsp;$sql</span><span style="color: #f1ce61;">)
+<span class="line"><span class="number">707</span> &nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">708</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(empty(</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">connID</span><span style="color: #f1ce61;">))
+<span class="line"><span class="number">709</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">710</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">initialize</span><span style="color: #f1ce61;">();
+<span class="line"><span class="number">711</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">712</span> 
+<span class="line highlight"><span class="number">713</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;$this-&gt;execute($sql);
+</span></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"><span class="line"><span class="number">714</span> &nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">715</span> 
+<span class="line"><span class="number">716</span> &nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #767a7e; font-style: italic">//--------------------------------------------------------------------
+<span class="line"><span class="number">717</span> 
+<span class="line"><span class="number">718</span> &nbsp;&nbsp;&nbsp;&nbsp;/**
+<span class="line"><span class="number">719</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Disable&nbsp;Transactions
+<span class="line"><span class="number">720</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*
+</span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>							</div>
+											</li>
+
+				
+					<li>
+						<p>
+							<!-- Trace info -->
+															SYSTEMPATH\Database\BaseConnection.php : 641							
+							<!-- Class/Method -->
+															&nbsp;&nbsp;—&nbsp;&nbsp;CodeIgniter\Database\BaseConnection-&gt;simpleQuery																										( <a href="http://localhost:8080/student/updateProfileStudent/#" onclick="return toggle(&#39;error6041d34e12e9e1.58489633args2&#39;);">arguments</a> )
+									</p><div class="args" id="error6041d34e12e9e1.58489633args2">
+										<table cellspacing="0">
+
+																					<tbody><tr>
+												<td><code>$sql</code></td>
+												<td><pre>UPDATE `student` SET `fname_stu` = NULL, `lname_stu` = NULL, `id_curriculum` = NULL, `GPA_stu` = NULL, `year_class` = NULL, `class` = NULL, `year_stu` = NULL, `password_stu` = NULL</pre></td>
+											</tr>
+										
+										</tbody></table>
+									</div>
+															
+													<p></p>
+
+						<!-- Source? -->
+													<div class="source">
+								<pre><code><span class="line"><span class="number">634</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$startTime&nbsp;</span><span style="color: #f1ce61;">=&nbsp;</span><span style="color: #c7c7c7">microtime</span><span style="color: #f1ce61;">(</span><span style="color: #c7c7c7">true</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">635</span> 
+<span class="line"><span class="number">636</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #767a7e; font-style: italic">//&nbsp;Always&nbsp;save&nbsp;the&nbsp;last&nbsp;query&nbsp;so&nbsp;we&nbsp;can&nbsp;use
+<span class="line"><span class="number">637</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;the&nbsp;getLastQuery()&nbsp;method.
+<span class="line"><span class="number">638</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">lastQuery&nbsp;</span><span style="color: #f1ce61;">=&nbsp;</span><span style="color: #c7c7c7">$query</span><span style="color: #f1ce61;">;
+<span class="line"><span class="number">639</span> 
+<span class="line"><span class="number">640</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #767a7e; font-style: italic">//&nbsp;Run&nbsp;the&nbsp;query&nbsp;for&nbsp;real
+<span class="line highlight"><span class="number">641</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!&nbsp;$this-&gt;pretend&nbsp;&amp;&amp;&nbsp;false&nbsp;===&nbsp;($this-&gt;resultID&nbsp;=&nbsp;$this-&gt;simpleQuery($query-&gt;getQuery())))
+</span></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"><span class="line"><span class="number">642</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">643</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$query</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">setDuration</span><span style="color: #f1ce61;">(</span><span style="color: #c7c7c7">$startTime</span><span style="color: #f1ce61;">,&nbsp;</span><span style="color: #c7c7c7">$startTime</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">644</span> 
+<span class="line"><span class="number">645</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #767a7e; font-style: italic">//&nbsp;This&nbsp;will&nbsp;trigger&nbsp;a&nbsp;rollback&nbsp;if&nbsp;transactions&nbsp;are&nbsp;being&nbsp;used
+<span class="line"><span class="number">646</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #f1ce61;">if&nbsp;(</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">transDepth&nbsp;</span><span style="color: #f1ce61;">!==&nbsp;</span><span style="color: #c7c7c7">0</span><span style="color: #f1ce61;">)
+<span class="line"><span class="number">647</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">648</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">transStatus&nbsp;</span><span style="color: #f1ce61;">=&nbsp;</span><span style="color: #c7c7c7">false</span><span style="color: #f1ce61;">;
+</span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>							</div>
+											</li>
+
+				
+					<li>
+						<p>
+							<!-- Trace info -->
+															SYSTEMPATH\Database\BaseBuilder.php : 2468							
+							<!-- Class/Method -->
+															&nbsp;&nbsp;—&nbsp;&nbsp;CodeIgniter\Database\BaseConnection-&gt;query																										( <a href="http://localhost:8080/student/updateProfileStudent/#" onclick="return toggle(&#39;error6041d34e12e9e1.58489633args3&#39;);">arguments</a> )
+									</p><div class="args" id="error6041d34e12e9e1.58489633args3">
+										<table cellspacing="0">
+
+																					<tbody><tr>
+												<td><code>$sql</code></td>
+												<td><pre>UPDATE `student` SET `fname_stu` = :fname_stu:, `lname_stu` = :lname_stu:, `id_curriculum` = :id_curriculum:, `GPA_stu` = :GPA_stu:, `year_class` = :year_class:, `class` = :class:, `year_stu` = :year_stu:, `password_stu` = :password_stu:</pre></td>
+											</tr>
+																					<tr>
+												<td><code>$binds</code></td>
+												<td><pre>Array
+(
+    [fname_stu] =&gt; Array
+        (
+            [0] =&gt; 
+            [1] =&gt; 1
+        )
+
+    [lname_stu] =&gt; Array
+        (
+            [0] =&gt; 
+            [1] =&gt; 1
+        )
+
+    [id_curriculum] =&gt; Array
+        (
+            [0] =&gt; 
+            [1] =&gt; 1
+        )
+
+    [GPA_stu] =&gt; Array
+        (
+            [0] =&gt; 
+            [1] =&gt; 1
+        )
+
+    [year_class] =&gt; Array
+        (
+            [0] =&gt; 
+            [1] =&gt; 1
+        )
+
+    [class] =&gt; Array
+        (
+            [0] =&gt; 
+            [1] =&gt; 1
+        )
+
+    [year_stu] =&gt; Array
+        (
+            [0] =&gt; 
+            [1] =&gt; 1
+        )
+
+    [password_stu] =&gt; Array
+        (
+            [0] =&gt; 
+            [1] =&gt; 1
+        )
+
+)
+</pre></td>
+											</tr>
+																					<tr>
+												<td><code>$setEscapeFlags</code></td>
+												<td><pre></pre></td>
+											</tr>
+										
+										</tbody></table>
+									</div>
+															
+													<p></p>
+
+						<!-- Source? -->
+													<div class="source">
+								<pre><code><span class="line"><span class="number">2461</span> 
+<span class="line"><span class="number">2462</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$sql&nbsp;</span><span style="color: #f1ce61;">=&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">_update</span><span style="color: #f1ce61;">(</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">QBFrom</span><span style="color: #f1ce61;">[</span><span style="color: #c7c7c7">0</span><span style="color: #f1ce61;">],&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">QBSet</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">2463</span> 
+<span class="line"><span class="number">2464</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(!&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">testMode</span><span style="color: #f1ce61;">)
+<span class="line"><span class="number">2465</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">2466</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">resetWrite</span><span style="color: #f1ce61;">();
+<span class="line"><span class="number">2467</span> 
+<span class="line highlight"><span class="number">2468</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$result&nbsp;=&nbsp;$this-&gt;db-&gt;query($sql,&nbsp;$this-&gt;binds,&nbsp;false);
+</span></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"><span class="line"><span class="number">2469</span> 
+<span class="line"><span class="number">2470</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #c7c7c7">$result</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">resultID&nbsp;</span><span style="color: #f1ce61;">!==&nbsp;</span><span style="color: #c7c7c7">false</span><span style="color: #f1ce61;">)
+<span class="line"><span class="number">2471</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">2472</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #767a7e; font-style: italic">//&nbsp;Clear&nbsp;our&nbsp;binds&nbsp;so&nbsp;we&nbsp;don't&nbsp;eat&nbsp;up&nbsp;memory
+<span class="line"><span class="number">2473</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">binds&nbsp;</span><span style="color: #f1ce61;">=&nbsp;[];
+<span class="line"><span class="number">2474</span> 
+<span class="line"><span class="number">2475</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #c7c7c7">true</span><span style="color: #f1ce61;">;
+</span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>							</div>
+											</li>
+
+				
+					<li>
+						<p>
+							<!-- Trace info -->
+															SYSTEMPATH\Model.php : 353							
+							<!-- Class/Method -->
+															&nbsp;&nbsp;—&nbsp;&nbsp;CodeIgniter\Database\BaseBuilder-&gt;update																	()
+															
+													</p>
+
+						<!-- Source? -->
+													<div class="source">
+								<pre><code><span class="line"><span class="number">346</span> 
+<span class="line"><span class="number">347</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #767a7e; font-style: italic">//&nbsp;Must&nbsp;use&nbsp;the&nbsp;set()&nbsp;method&nbsp;to&nbsp;ensure&nbsp;to&nbsp;set&nbsp;the&nbsp;correct&nbsp;escape&nbsp;flag
+<span class="line"><span class="number">348</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #f1ce61;">foreach&nbsp;(</span><span style="color: #c7c7c7">$data&nbsp;</span><span style="color: #f1ce61;">as&nbsp;</span><span style="color: #c7c7c7">$key&nbsp;</span><span style="color: #f1ce61;">=&gt;&nbsp;</span><span style="color: #c7c7c7">$val</span><span style="color: #f1ce61;">)
+<span class="line"><span class="number">349</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">350</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$builder</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">set</span><span style="color: #f1ce61;">(</span><span style="color: #c7c7c7">$key</span><span style="color: #f1ce61;">,&nbsp;</span><span style="color: #c7c7c7">$val</span><span style="color: #f1ce61;">,&nbsp;</span><span style="color: #c7c7c7">$escape</span><span style="color: #f1ce61;">[</span><span style="color: #c7c7c7">$key</span><span style="color: #f1ce61;">]&nbsp;??&nbsp;</span><span style="color: #c7c7c7">null</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">351</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">352</span> 
+<span class="line highlight"><span class="number">353</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;$builder-&gt;update();
+</span></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"><span class="line"><span class="number">354</span> &nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">355</span> 
+<span class="line"><span class="number">356</span> &nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #767a7e; font-style: italic">/**
+<span class="line"><span class="number">357</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;Compiles&nbsp;an&nbsp;update&nbsp;string&nbsp;and&nbsp;runs&nbsp;the&nbsp;query
+<span class="line"><span class="number">358</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;This&nbsp;methods&nbsp;works&nbsp;only&nbsp;with&nbsp;dbCalls
+<span class="line"><span class="number">359</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*
+<span class="line"><span class="number">360</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;@param&nbsp;array|null&nbsp;&nbsp;$set&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An&nbsp;associative&nbsp;array&nbsp;of&nbsp;update&nbsp;values
+</span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>							</div>
+											</li>
+
+				
+					<li>
+						<p>
+							<!-- Trace info -->
+															SYSTEMPATH\BaseModel.php : 901							
+							<!-- Class/Method -->
+															&nbsp;&nbsp;—&nbsp;&nbsp;CodeIgniter\Model-&gt;doUpdate																										( <a href="http://localhost:8080/student/updateProfileStudent/#" onclick="return toggle(&#39;error6041d34e12e9e1.58489633args5&#39;);">arguments</a> )
+									</p><div class="args" id="error6041d34e12e9e1.58489633args5">
+										<table cellspacing="0">
+
+																					<tbody><tr>
+												<td><code>$id</code></td>
+												<td><pre></pre></td>
+											</tr>
+																					<tr>
+												<td><code>$data</code></td>
+												<td><pre>Array
+(
+    [fname_stu] =&gt; 
+    [lname_stu] =&gt; 
+    [id_curriculum] =&gt; 
+    [GPA_stu] =&gt; 
+    [year_class] =&gt; 
+    [class] =&gt; 
+    [year_stu] =&gt; 
+    [password_stu] =&gt; 
+)
+</pre></td>
+											</tr>
+										
+										</tbody></table>
+									</div>
+															
+													<p></p>
+
+						<!-- Source? -->
+													<div class="source">
+								<pre><code><span class="line"><span class="number">894</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">895</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$eventData&nbsp;</span><span style="color: #f1ce61;">=&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">trigger</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'beforeUpdate'</span><span style="color: #f1ce61;">,&nbsp;</span><span style="color: #c7c7c7">$eventData</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">896</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">897</span> 
+<span class="line"><span class="number">898</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$eventData&nbsp;</span><span style="color: #f1ce61;">=&nbsp;[
+<span class="line"><span class="number">899</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #869d6a">'id'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #f1ce61;">=&gt;&nbsp;</span><span style="color: #c7c7c7">$id</span><span style="color: #f1ce61;">,
+<span class="line"><span class="number">900</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #869d6a">'data'&nbsp;&nbsp;&nbsp;</span><span style="color: #f1ce61;">=&gt;&nbsp;</span><span style="color: #c7c7c7">$eventData</span><span style="color: #f1ce61;">[</span><span style="color: #869d6a">'data'</span><span style="color: #f1ce61;">],
+<span class="line highlight"><span class="number">901</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'result'&nbsp;=&gt;&nbsp;$this-&gt;doUpdate($id,&nbsp;$eventData['data']),
+</span></span><span style="color: #869d6a"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #869d6a"></span><span style="color: #f1ce61;"><span class="line"><span class="number">902</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;];
+<span class="line"><span class="number">903</span> 
+<span class="line"><span class="number">904</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;(</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">tempAllowCallbacks</span><span style="color: #f1ce61;">)
+<span class="line"><span class="number">905</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">906</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">trigger</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'afterUpdate'</span><span style="color: #f1ce61;">,&nbsp;</span><span style="color: #c7c7c7">$eventData</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">907</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">908</span> 
+</span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>							</div>
+											</li>
+
+				
+					<li>
+						<p>
+							<!-- Trace info -->
+															SYSTEMPATH\Model.php : 737							
+							<!-- Class/Method -->
+															&nbsp;&nbsp;—&nbsp;&nbsp;CodeIgniter\BaseModel-&gt;update																										( <a href="http://localhost:8080/student/updateProfileStudent/#" onclick="return toggle(&#39;error6041d34e12e9e1.58489633args6&#39;);">arguments</a> )
+									</p><div class="args" id="error6041d34e12e9e1.58489633args6">
+										<table cellspacing="0">
+
+																					<tbody><tr>
+												<td><code>$id</code></td>
+												<td><pre></pre></td>
+											</tr>
+																					<tr>
+												<td><code>$data</code></td>
+												<td><pre>Array
+(
+    [fname_stu] =&gt; 
+    [lname_stu] =&gt; 
+    [id_curriculum] =&gt; 
+    [GPA_stu] =&gt; 
+    [year_class] =&gt; 
+    [class] =&gt; 
+    [year_stu] =&gt; 
+    [password_stu] =&gt; 
+)
+</pre></td>
+											</tr>
+										
+										</tbody></table>
+									</div>
+															
+													<p></p>
+
+						<!-- Source? -->
+													<div class="source">
+								<pre><code><span class="line"><span class="number">730</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$data&nbsp;</span><span style="color: #f1ce61;">=&nbsp;</span><span style="color: #c7c7c7">array_merge</span><span style="color: #f1ce61;">(</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">tempData</span><span style="color: #f1ce61;">[</span><span style="color: #869d6a">'data'</span><span style="color: #f1ce61;">],&nbsp;</span><span style="color: #c7c7c7">$data</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">731</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">732</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">733</span> 
+<span class="line"><span class="number">734</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">escape&nbsp;&nbsp;&nbsp;</span><span style="color: #f1ce61;">=&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">tempData</span><span style="color: #f1ce61;">[</span><span style="color: #869d6a">'escape'</span><span style="color: #f1ce61;">]&nbsp;??&nbsp;[];
+<span class="line"><span class="number">735</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">tempData&nbsp;</span><span style="color: #f1ce61;">=&nbsp;[];
+<span class="line"><span class="number">736</span> 
+<span class="line highlight"><span class="number">737</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;parent::update($id,&nbsp;$data);
+</span></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"><span class="line"><span class="number">738</span> &nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">739</span> 
+<span class="line"><span class="number">740</span> &nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #767a7e; font-style: italic">//&nbsp;endregion
+<span class="line"><span class="number">741</span> 
+<span class="line"><span class="number">742</span> &nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;region&nbsp;Utility
+<span class="line"><span class="number">743</span> 
+<span class="line"><span class="number">744</span> &nbsp;&nbsp;&nbsp;&nbsp;/**
+</span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>							</div>
+											</li>
+
+				
+					<li>
+						<p>
+							<!-- Trace info -->
+															APPPATH\Controllers\Student.php : 83							
+							<!-- Class/Method -->
+															&nbsp;&nbsp;—&nbsp;&nbsp;CodeIgniter\Model-&gt;update																										( <a href="http://localhost:8080/student/updateProfileStudent/#" onclick="return toggle(&#39;error6041d34e12e9e1.58489633args7&#39;);">arguments</a> )
+									</p><div class="args" id="error6041d34e12e9e1.58489633args7">
+										<table cellspacing="0">
+
+																					<tbody><tr>
+												<td><code>$id</code></td>
+												<td><pre></pre></td>
+											</tr>
+																					<tr>
+												<td><code>$data</code></td>
+												<td><pre>Array
+(
+    [id_title ] =&gt; 
+    [fname_stu] =&gt; 
+    [lname_stu] =&gt; 
+    [id_curriculum] =&gt; 
+    [GPA_stu] =&gt; 
+    [year_class] =&gt; 
+    [class] =&gt; 
+    [year_stu] =&gt; 
+    [password_stu] =&gt; 
+)
+</pre></td>
+											</tr>
+										
+										</tbody></table>
+									</div>
+															
+													<p></p>
+
+						<!-- Source? -->
+													<div class="source">
+								<pre><code><span class="line"><span class="number">76</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #869d6a">"id_curriculum"</span><span style="color: #f1ce61;">=&gt;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">request</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">getvar</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'id_curriculum'</span><span style="color: #f1ce61;">),
+<span class="line"><span class="number">77</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #869d6a">"GPA_stu"</span><span style="color: #f1ce61;">=&gt;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">request</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">getvar</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'GPA_stu'</span><span style="color: #f1ce61;">),
+<span class="line"><span class="number">78</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #869d6a">"year_class"</span><span style="color: #f1ce61;">=&gt;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">request</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">getvar</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'year_class'</span><span style="color: #f1ce61;">),
+<span class="line"><span class="number">79</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #869d6a">"class"</span><span style="color: #f1ce61;">=&gt;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">request</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">getvar</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'class'</span><span style="color: #f1ce61;">),
+<span class="line"><span class="number">80</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #869d6a">"year_stu"</span><span style="color: #f1ce61;">=&gt;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">request</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">getvar</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'year_stu'</span><span style="color: #f1ce61;">),
+<span class="line"><span class="number">81</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #869d6a">"password_stu"</span><span style="color: #f1ce61;">=&gt;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">request</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">getvar</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'password_stu'</span><span style="color: #f1ce61;">),
+<span class="line"><span class="number">82</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;];
+<span class="line highlight"><span class="number">83</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$model-&gt;update($studentID,&nbsp;$studentdata);
+</span></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"><span class="line"><span class="number">84</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$response</span><span style="color: #f1ce61;">=[
+<span class="line"><span class="number">85</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #869d6a">'satatus'</span><span style="color: #f1ce61;">=&gt;</span><span style="color: #c7c7c7">201</span><span style="color: #f1ce61;">,
+<span class="line"><span class="number">86</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #869d6a">'error'</span><span style="color: #f1ce61;">=&gt;</span><span style="color: #c7c7c7">null</span><span style="color: #f1ce61;">,
+<span class="line"><span class="number">87</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #869d6a">'meessage'</span><span style="color: #f1ce61;">=&gt;[
+<span class="line"><span class="number">88</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #869d6a">'success'&nbsp;</span><span style="color: #f1ce61;">=&gt;&nbsp;</span><span style="color: #869d6a">'อัพเดตข้อมูลส่วนตัวเสร็จสิ้น'
+<span class="line"><span class="number">89</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #f1ce61;">]
+<span class="line"><span class="number">90</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;];
+</span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>							</div>
+											</li>
+
+				
+					<li>
+						<p>
+							<!-- Trace info -->
+															SYSTEMPATH\CodeIgniter.php : 936							
+							<!-- Class/Method -->
+															&nbsp;&nbsp;—&nbsp;&nbsp;App\Controllers\Student-&gt;updateProfileStudent																	()
+															
+													</p>
+
+						<!-- Source? -->
+													<div class="source">
+								<pre><code><span class="line"><span class="number">929</span> 
+<span class="line"><span class="number">930</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #f1ce61;">if&nbsp;(</span><span style="color: #c7c7c7">method_exists</span><span style="color: #f1ce61;">(</span><span style="color: #c7c7c7">$class</span><span style="color: #f1ce61;">,&nbsp;</span><span style="color: #869d6a">'_remap'</span><span style="color: #f1ce61;">))
+<span class="line"><span class="number">931</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">932</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$output&nbsp;</span><span style="color: #f1ce61;">=&nbsp;</span><span style="color: #c7c7c7">$class</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">_remap</span><span style="color: #f1ce61;">(</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">method</span><span style="color: #f1ce61;">,&nbsp;...</span><span style="color: #c7c7c7">$params</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">933</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">934</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else
+<span class="line"><span class="number">935</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line highlight"><span class="number">936</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$output&nbsp;=&nbsp;$class-&gt;{$this-&gt;method}(...$params);
+</span></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"><span class="line"><span class="number">937</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">938</span> 
+<span class="line"><span class="number">939</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">benchmark</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">stop</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'controller'</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">940</span> 
+<span class="line"><span class="number">941</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #c7c7c7">$output</span><span style="color: #f1ce61;">;
+<span class="line"><span class="number">942</span> &nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">943</span> 
+</span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>							</div>
+											</li>
+
+				
+					<li>
+						<p>
+							<!-- Trace info -->
+															SYSTEMPATH\CodeIgniter.php : 432							
+							<!-- Class/Method -->
+															&nbsp;&nbsp;—&nbsp;&nbsp;CodeIgniter\CodeIgniter-&gt;runController																										( <a href="http://localhost:8080/student/updateProfileStudent/#" onclick="return toggle(&#39;error6041d34e12e9e1.58489633args9&#39;);">arguments</a> )
+									</p><div class="args" id="error6041d34e12e9e1.58489633args9">
+										<table cellspacing="0">
+
+																					<tbody><tr>
+												<td><code>$class</code></td>
+												<td><pre>App\Controllers\Student Object
+(
+    [modelName:protected] =&gt; 
+    [model:protected] =&gt; 
+    [helpers:protected] =&gt; Array
+        (
+        )
+
+    [request:protected] =&gt; CodeIgniter\HTTP\IncomingRequest Object
+        (
+            [enableCSRF:protected] =&gt; 
+            [uri] =&gt; CodeIgniter\HTTP\URI Object
+                (
+                    [uriString:protected] =&gt; 
+                    [segments:protected] =&gt; Array
+                        (
+                            [0] =&gt; student
+                            [1] =&gt; updateProfileStudent
+                        )
+
+                    [scheme:protected] =&gt; http
+                    [user:protected] =&gt; 
+                    [password:protected] =&gt; 
+                    [host:protected] =&gt; localhost
+                    [port:protected] =&gt; 8080
+                    [path:protected] =&gt; student/updateProfileStudent
+                    [fragment:protected] =&gt; 
+                    [query:protected] =&gt; Array
+                        (
+                        )
+
+                    [defaultPorts:protected] =&gt; Array
+                        (
+                            [http] =&gt; 80
+                            [https] =&gt; 443
+                            [ftp] =&gt; 21
+                            [sftp] =&gt; 22
+                        )
+
+                    [showPassword:protected] =&gt; 
+                    [silent:protected] =&gt; 
+                    [rawQueryString:protected] =&gt; 
+                )
+
+            [files:protected] =&gt; 
+            [negotiator:protected] =&gt; 
+            [defaultLocale:protected] =&gt; en
+            [locale:protected] =&gt; en
+            [validLocales:protected] =&gt; Array
+                (
+                    [0] =&gt; en
+                )
+
+            [config] =&gt; Config\App Object
+                (
+                    [baseURL] =&gt; http://localhost:8080/
+                    [indexPage] =&gt; index.php
+                    [uriProtocol] =&gt; REQUEST_URI
+                    [defaultLocale] =&gt; en
+                    [negotiateLocale] =&gt; 
+                    [supportedLocales] =&gt; Array
+                        (
+                            [0] =&gt; en
+                        )
+
+                    [appTimezone] =&gt; America/Chicago
+                    [charset] =&gt; UTF-8
+                    [forceGlobalSecureRequests] =&gt; 
+                    [sessionDriver] =&gt; CodeIgniter\Session\Handlers\FileHandler
+                    [sessionCookieName] =&gt; ci_session
+                    [sessionExpiration] =&gt; 7200
+                    [sessionSavePath] =&gt; C:\xampp\htdocs\EducationService\writable\session
+                    [sessionMatchIP] =&gt; 
+                    [sessionTimeToUpdate] =&gt; 300
+                    [sessionRegenerateDestroy] =&gt; 
+                    [cookiePrefix] =&gt; 
+                    [cookieDomain] =&gt; 
+                    [cookiePath] =&gt; /
+                    [cookieSecure] =&gt; 
+                    [cookieHTTPOnly] =&gt; 
+                    [cookieSameSite] =&gt; Lax
+                    [proxyIPs] =&gt; 
+                    [CSRFTokenName] =&gt; csrf_test_name
+                    [CSRFHeaderName] =&gt; X-CSRF-TOKEN
+                    [CSRFCookieName] =&gt; csrf_cookie_name
+                    [CSRFExpire] =&gt; 7200
+                    [CSRFRegenerate] =&gt; 1
+                    [CSRFRedirect] =&gt; 1
+                    [CSRFSameSite] =&gt; Lax
+                    [CSPEnabled] =&gt; 
+                )
+
+            [oldInput:protected] =&gt; Array
+                (
+                )
+
+            [userAgent:protected] =&gt; CodeIgniter\HTTP\UserAgent Object
+                (
+                    [agent:protected] =&gt; Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36
+                    [isBrowser:protected] =&gt; 1
+                    [isRobot:protected] =&gt; 
+                    [isMobile:protected] =&gt; 
+                    [config:protected] =&gt; Config\UserAgents Object
+                        (
+                            [platforms] =&gt; Array
+                                (
+                                    [windows nt 10.0] =&gt; Windows 10
+                                    [windows nt 6.3] =&gt; Windows 8.1
+                                    [windows nt 6.2] =&gt; Windows 8
+                                    [windows nt 6.1] =&gt; Windows 7
+                                    [windows nt 6.0] =&gt; Windows Vista
+                                    [windows nt 5.2] =&gt; Windows 2003
+                                    [windows nt 5.1] =&gt; Windows XP
+                                    [windows nt 5.0] =&gt; Windows 2000
+                                    [windows nt 4.0] =&gt; Windows NT 4.0
+                                    [winnt4.0] =&gt; Windows NT 4.0
+                                    [winnt 4.0] =&gt; Windows NT
+                                    [winnt] =&gt; Windows NT
+                                    [windows 98] =&gt; Windows 98
+                                    [win98] =&gt; Windows 98
+                                    [windows 95] =&gt; Windows 95
+                                    [win95] =&gt; Windows 95
+                                    [windows phone] =&gt; Windows Phone
+                                    [windows] =&gt; Unknown Windows OS
+                                    [android] =&gt; Android
+                                    [blackberry] =&gt; BlackBerry
+                                    [iphone] =&gt; iOS
+                                    [ipad] =&gt; iOS
+                                    [ipod] =&gt; iOS
+                                    [os x] =&gt; Mac OS X
+                                    [ppc mac] =&gt; Power PC Mac
+                                    [freebsd] =&gt; FreeBSD
+                                    [ppc] =&gt; Macintosh
+                                    [linux] =&gt; Linux
+                                    [debian] =&gt; Debian
+                                    [sunos] =&gt; Sun Solaris
+                                    [beos] =&gt; BeOS
+                                    [apachebench] =&gt; ApacheBench
+                                    [aix] =&gt; AIX
+                                    [irix] =&gt; Irix
+                                    [osf] =&gt; DEC OSF
+                                    [hp-ux] =&gt; HP-UX
+                                    [netbsd] =&gt; NetBSD
+                                    [bsdi] =&gt; BSDi
+                                    [openbsd] =&gt; OpenBSD
+                                    [gnu] =&gt; GNU/Linux
+                                    [unix] =&gt; Unknown Unix OS
+                                    [symbian] =&gt; Symbian OS
+                                )
+
+                            [browsers] =&gt; Array
+                                (
+                                    [OPR] =&gt; Opera
+                                    [Flock] =&gt; Flock
+                                    [Edge] =&gt; Spartan
+                                    [Edg] =&gt; Edge
+                                    [Chrome] =&gt; Chrome
+                                    [Opera.*?Version] =&gt; Opera
+                                    [Opera] =&gt; Opera
+                                    [MSIE] =&gt; Internet Explorer
+                                    [Internet Explorer] =&gt; Internet Explorer
+                                    [Trident.* rv] =&gt; Internet Explorer
+                                    [Shiira] =&gt; Shiira
+                                    [Firefox] =&gt; Firefox
+                                    [Chimera] =&gt; Chimera
+                                    [Phoenix] =&gt; Phoenix
+                                    [Firebird] =&gt; Firebird
+                                    [Camino] =&gt; Camino
+                                    [Netscape] =&gt; Netscape
+                                    [OmniWeb] =&gt; OmniWeb
+                                    [Safari] =&gt; Safari
+                                    [Mozilla] =&gt; Mozilla
+                                    [Konqueror] =&gt; Konqueror
+                                    [icab] =&gt; iCab
+                                    [Lynx] =&gt; Lynx
+                                    [Links] =&gt; Links
+                                    [hotjava] =&gt; HotJava
+                                    [amaya] =&gt; Amaya
+                                    [IBrowse] =&gt; IBrowse
+                                    [Maxthon] =&gt; Maxthon
+                                    [Ubuntu] =&gt; Ubuntu Web Browser
+                                    [Vivaldi] =&gt; Vivaldi
+                                )
+
+                            [mobiles] =&gt; Array
+                                (
+                                    [mobileexplorer] =&gt; Mobile Explorer
+                                    [palmsource] =&gt; Palm
+                                    [palmscape] =&gt; Palmscape
+                                    [motorola] =&gt; Motorola
+                                    [nokia] =&gt; Nokia
+                                    [palm] =&gt; Palm
+                                    [iphone] =&gt; Apple iPhone
+                                    [ipad] =&gt; iPad
+                                    [ipod] =&gt; Apple iPod Touch
+                                    [sony] =&gt; Sony Ericsson
+                                    [ericsson] =&gt; Sony Ericsson
+                                    [blackberry] =&gt; BlackBerry
+                                    [cocoon] =&gt; O2 Cocoon
+                                    [blazer] =&gt; Treo
+                                    [lg] =&gt; LG
+                                    [amoi] =&gt; Amoi
+                                    [xda] =&gt; XDA
+                                    [mda] =&gt; MDA
+                                    [vario] =&gt; Vario
+                                    [htc] =&gt; HTC
+                                    [samsung] =&gt; Samsung
+                                    [sharp] =&gt; Sharp
+                                    [sie-] =&gt; Siemens
+                                    [alcatel] =&gt; Alcatel
+                                    [benq] =&gt; BenQ
+                                    [ipaq] =&gt; HP iPaq
+                                    [mot-] =&gt; Motorola
+                                    [playstation portable] =&gt; PlayStation Portable
+                                    [playstation 3] =&gt; PlayStation 3
+                                    [playstation vita] =&gt; PlayStation Vita
+                                    [hiptop] =&gt; Danger Hiptop
+                                    [nec-] =&gt; NEC
+                                    [panasonic] =&gt; Panasonic
+                                    [philips] =&gt; Philips
+                                    [sagem] =&gt; Sagem
+                                    [sanyo] =&gt; Sanyo
+                                    [spv] =&gt; SPV
+                                    [zte] =&gt; ZTE
+                                    [sendo] =&gt; Sendo
+                                    [nintendo dsi] =&gt; Nintendo DSi
+                                    [nintendo ds] =&gt; Nintendo DS
+                                    [nintendo 3ds] =&gt; Nintendo 3DS
+                                    [wii] =&gt; Nintendo Wii
+                                    [open web] =&gt; Open Web
+                                    [openweb] =&gt; OpenWeb
+                                    [android] =&gt; Android
+                                    [symbian] =&gt; Symbian
+                                    [SymbianOS] =&gt; SymbianOS
+                                    [elaine] =&gt; Palm
+                                    [series60] =&gt; Symbian S60
+                                    [windows ce] =&gt; Windows CE
+                                    [obigo] =&gt; Obigo
+                                    [netfront] =&gt; Netfront Browser
+                                    [openwave] =&gt; Openwave Browser
+                                    [mobilexplorer] =&gt; Mobile Explorer
+                                    [operamini] =&gt; Opera Mini
+                                    [opera mini] =&gt; Opera Mini
+                                    [opera mobi] =&gt; Opera Mobile
+                                    [fennec] =&gt; Firefox Mobile
+                                    [digital paths] =&gt; Digital Paths
+                                    [avantgo] =&gt; AvantGo
+                                    [xiino] =&gt; Xiino
+                                    [novarra] =&gt; Novarra Transcoder
+                                    [vodafone] =&gt; Vodafone
+                                    [docomo] =&gt; NTT DoCoMo
+                                    [o2] =&gt; O2
+                                    [mobile] =&gt; Generic Mobile
+                                    [wireless] =&gt; Generic Mobile
+                                    [j2me] =&gt; Generic Mobile
+                                    [midp] =&gt; Generic Mobile
+                                    [cldc] =&gt; Generic Mobile
+                                    [up.link] =&gt; Generic Mobile
+                                    [up.browser] =&gt; Generic Mobile
+                                    [smartphone] =&gt; Generic Mobile
+                                    [cellphone] =&gt; Generic Mobile
+                                )
+
+                            [robots] =&gt; Array
+                                (
+                                    [googlebot] =&gt; Googlebot
+                                    [msnbot] =&gt; MSNBot
+                                    [baiduspider] =&gt; Baiduspider
+                                    [bingbot] =&gt; Bing
+                                    [slurp] =&gt; Inktomi Slurp
+                                    [yahoo] =&gt; Yahoo
+                                    [ask jeeves] =&gt; Ask Jeeves
+                                    [fastcrawler] =&gt; FastCrawler
+                                    [infoseek] =&gt; InfoSeek Robot 1.0
+                                    [lycos] =&gt; Lycos
+                                    [yandex] =&gt; YandexBot
+                                    [mediapartners-google] =&gt; MediaPartners Google
+                                    [CRAZYWEBCRAWLER] =&gt; Crazy Webcrawler
+                                    [adsbot-google] =&gt; AdsBot Google
+                                    [feedfetcher-google] =&gt; Feedfetcher Google
+                                    [curious george] =&gt; Curious George
+                                    [ia_archiver] =&gt; Alexa Crawler
+                                    [MJ12bot] =&gt; Majestic-12
+                                    [Uptimebot] =&gt; Uptimebot
+                                )
+
+                        )
+
+                    [platform:protected] =&gt; Windows 10
+                    [browser:protected] =&gt; Chrome
+                    [version:protected] =&gt; 88.0.4324.190
+                    [mobile:protected] =&gt; 
+                    [robot:protected] =&gt; 
+                    [referrer:protected] =&gt; 
+                )
+
+            [proxyIPs:protected] =&gt; 
+            [method:protected] =&gt; GET
+            [protocolVersion:protected] =&gt; 1.1
+            [validProtocolVersions:protected] =&gt; Array
+                (
+                    [0] =&gt; 1.0
+                    [1] =&gt; 1.1
+                    [2] =&gt; 2.0
+                )
+
+            [body:protected] =&gt; 
+            [headers:protected] =&gt; Array
+                (
+                    [Host] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; Host
+                            [value:protected] =&gt; localhost:8080
+                        )
+
+                    [Connection] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; Connection
+                            [value:protected] =&gt; keep-alive
+                        )
+
+                    [Sec-Ch-Ua] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; Sec-Ch-Ua
+                            [value:protected] =&gt; "Chromium";v="88", "Google Chrome";v="88", ";Not A Brand";v="99"
+                        )
+
+                    [Sec-Ch-Ua-Mobile] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; Sec-Ch-Ua-Mobile
+                            [value:protected] =&gt; ?0
+                        )
+
+                    [Upgrade-Insecure-Requests] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; Upgrade-Insecure-Requests
+                            [value:protected] =&gt; 1
+                        )
+
+                    [User-Agent] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; User-Agent
+                            [value:protected] =&gt; Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36
+                        )
+
+                    [Accept] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; Accept
+                            [value:protected] =&gt; text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+                        )
+
+                    [Sec-Fetch-Site] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; Sec-Fetch-Site
+                            [value:protected] =&gt; none
+                        )
+
+                    [Sec-Fetch-Mode] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; Sec-Fetch-Mode
+                            [value:protected] =&gt; navigate
+                        )
+
+                    [Sec-Fetch-User] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; Sec-Fetch-User
+                            [value:protected] =&gt; ?1
+                        )
+
+                    [Sec-Fetch-Dest] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; Sec-Fetch-Dest
+                            [value:protected] =&gt; document
+                        )
+
+                    [Accept-Encoding] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; Accept-Encoding
+                            [value:protected] =&gt; gzip, deflate, br
+                        )
+
+                    [Accept-Language] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; Accept-Language
+                            [value:protected] =&gt; th-TH,th;q=0.9
+                        )
+
+                )
+
+            [headerMap:protected] =&gt; Array
+                (
+                    [host] =&gt; Host
+                    [connection] =&gt; Connection
+                    [sec-ch-ua] =&gt; Sec-Ch-Ua
+                    [sec-ch-ua-mobile] =&gt; Sec-Ch-Ua-Mobile
+                    [upgrade-insecure-requests] =&gt; Upgrade-Insecure-Requests
+                    [user-agent] =&gt; User-Agent
+                    [accept] =&gt; Accept
+                    [sec-fetch-site] =&gt; Sec-Fetch-Site
+                    [sec-fetch-mode] =&gt; Sec-Fetch-Mode
+                    [sec-fetch-user] =&gt; Sec-Fetch-User
+                    [sec-fetch-dest] =&gt; Sec-Fetch-Dest
+                    [accept-encoding] =&gt; Accept-Encoding
+                    [accept-language] =&gt; Accept-Language
+                )
+
+            [ipAddress:protected] =&gt; 
+            [globals:protected] =&gt; Array
+                (
+                    [server] =&gt; Array
+                        (
+                            [DOCUMENT_ROOT] =&gt; C:\xampp\htdocs\EducationService\public
+                            [REMOTE_ADDR] =&gt; ::1
+                            [REMOTE_PORT] =&gt; 59682
+                            [SERVER_SOFTWARE] =&gt; PHP 8.0.2 Development Server
+                            [SERVER_PROTOCOL] =&gt; HTTP/1.1
+                            [SERVER_NAME] =&gt; localhost
+                            [SERVER_PORT] =&gt; 8080
+                            [REQUEST_URI] =&gt; /student/updateProfileStudent/
+                            [REQUEST_METHOD] =&gt; GET
+                            [SCRIPT_NAME] =&gt; /index.php
+                            [SCRIPT_FILENAME] =&gt; C:\xampp\htdocs\EducationService\public\index.php
+                            [PATH_INFO] =&gt; /student/updateProfileStudent/
+                            [PHP_SELF] =&gt; /index.php/student/updateProfileStudent/
+                            [HTTP_HOST] =&gt; localhost:8080
+                            [HTTP_CONNECTION] =&gt; keep-alive
+                            [HTTP_SEC_CH_UA] =&gt; "Chromium";v="88", "Google Chrome";v="88", ";Not A Brand";v="99"
+                            [HTTP_SEC_CH_UA_MOBILE] =&gt; ?0
+                            [HTTP_UPGRADE_INSECURE_REQUESTS] =&gt; 1
+                            [HTTP_USER_AGENT] =&gt; Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36
+                            [HTTP_ACCEPT] =&gt; text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+                            [HTTP_SEC_FETCH_SITE] =&gt; none
+                            [HTTP_SEC_FETCH_MODE] =&gt; navigate
+                            [HTTP_SEC_FETCH_USER] =&gt; ?1
+                            [HTTP_SEC_FETCH_DEST] =&gt; document
+                            [HTTP_ACCEPT_ENCODING] =&gt; gzip, deflate, br
+                            [HTTP_ACCEPT_LANGUAGE] =&gt; th-TH,th;q=0.9
+                            [REQUEST_TIME_FLOAT] =&gt; 1614926669.5414
+                            [REQUEST_TIME] =&gt; 1614926669
+                            [CI_ENVIRONMENT] =&gt; development
+                        )
+
+                    [get] =&gt; Array
+                        (
+                        )
+
+                    [request] =&gt; Array
+                        (
+                        )
+
+                )
+
+        )
+
+    [response:protected] =&gt; CodeIgniter\HTTP\Response Object
+        (
+            [reason:protected] =&gt; Internal Server Error
+            [statusCode:protected] =&gt; 500
+            [pretend:protected] =&gt; 
+            [protocolVersion:protected] =&gt; 1.1
+            [validProtocolVersions:protected] =&gt; Array
+                (
+                    [0] =&gt; 1.0
+                    [1] =&gt; 1.1
+                    [2] =&gt; 2.0
+                )
+
+            [body:protected] =&gt; 
+            [headers:protected] =&gt; Array
+                (
+                    [Cache-control] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; Cache-control
+                            [value:protected] =&gt; Array
+                                (
+                                    [0] =&gt; no-store
+                                    [1] =&gt; max-age=0
+                                    [2] =&gt; no-cache
+                                )
+
+                        )
+
+                    [Content-Type] =&gt; CodeIgniter\HTTP\Header Object
+                        (
+                            [name:protected] =&gt; Content-Type
+                            [value:protected] =&gt; text/html; charset=UTF-8
+                        )
+
+                )
+
+            [headerMap:protected] =&gt; Array
+                (
+                    [cache-control] =&gt; Cache-control
+                    [content-type] =&gt; Content-Type
+                )
+
+            [CSPEnabled:protected] =&gt; 
+            [CSP] =&gt; CodeIgniter\HTTP\ContentSecurityPolicy Object
+                (
+                    [baseURI:protected] =&gt; 
+                    [childSrc:protected] =&gt; self
+                    [connectSrc:protected] =&gt; self
+                    [defaultSrc:protected] =&gt; 
+                    [fontSrc:protected] =&gt; 
+                    [formAction:protected] =&gt; self
+                    [frameAncestors:protected] =&gt; 
+                    [imageSrc:protected] =&gt; self
+                    [mediaSrc:protected] =&gt; 
+                    [objectSrc:protected] =&gt; self
+                    [pluginTypes:protected] =&gt; 
+                    [reportURI:protected] =&gt; 
+                    [sandbox:protected] =&gt; 
+                    [scriptSrc:protected] =&gt; self
+                    [styleSrc:protected] =&gt; self
+                    [manifestSrc:protected] =&gt; 
+                    [upgradeInsecureRequests:protected] =&gt; 
+                    [reportOnly:protected] =&gt; 
+                    [validSources:protected] =&gt; Array
+                        (
+                            [0] =&gt; self
+                            [1] =&gt; none
+                            [2] =&gt; unsafe-inline
+                            [3] =&gt; unsafe-eval
+                        )
+
+                    [nonces:protected] =&gt; Array
+                        (
+                        )
+
+                    [tempHeaders:protected] =&gt; Array
+                        (
+                        )
+
+                    [reportOnlyHeaders:protected] =&gt; Array
+                        (
+                        )
+
+                )
+
+            [cookiePrefix:protected] =&gt; 
+            [cookieDomain:protected] =&gt; 
+            [cookiePath:protected] =&gt; /
+            [cookieSecure:protected] =&gt; 
+            [cookieHTTPOnly:protected] =&gt; 
+            [cookieSameSite:protected] =&gt; Lax
+            [cookies:protected] =&gt; Array
+                (
+                )
+
+            [bodyFormat:protected] =&gt; html
+        )
+
+    [logger:protected] =&gt; CodeIgniter\Log\Logger Object
+        (
+            [logLevels:protected] =&gt; Array
+                (
+                    [emergency] =&gt; 1
+                    [alert] =&gt; 2
+                    [critical] =&gt; 3
+                    [error] =&gt; 4
+                    [warning] =&gt; 5
+                    [notice] =&gt; 6
+                    [info] =&gt; 7
+                    [debug] =&gt; 8
+                )
+
+            [loggableLevels:protected] =&gt; Array
+                (
+                    [0] =&gt; emergency
+                    [1] =&gt; alert
+                    [2] =&gt; critical
+                    [3] =&gt; error
+                )
+
+            [filePermissions:protected] =&gt; 420
+            [dateFormat:protected] =&gt; Y-m-d H:i:s
+            [fileExt:protected] =&gt; 
+            [handlers:protected] =&gt; Array
+                (
+                    [CodeIgniter\Log\Handlers\FileHandler] =&gt; CodeIgniter\Log\Handlers\FileHandler Object
+                        (
+                            [path:protected] =&gt; C:\xampp\htdocs\EducationService\writable\logs/
+                            [fileExtension:protected] =&gt; log
+                            [filePermissions:protected] =&gt; 420
+                            [handles:protected] =&gt; Array
+                                (
+                                    [0] =&gt; critical
+                                    [1] =&gt; alert
+                                    [2] =&gt; emergency
+                                    [3] =&gt; debug
+                                    [4] =&gt; error
+                                    [5] =&gt; info
+                                    [6] =&gt; notice
+                                    [7] =&gt; warning
+                                )
+
+                            [dateFormat:protected] =&gt; Y-m-d H:i:s
+                        )
+
+                )
+
+            [handlerConfig:protected] =&gt; Array
+                (
+                    [CodeIgniter\Log\Handlers\FileHandler] =&gt; Array
+                        (
+                            [handles] =&gt; Array
+                                (
+                                    [0] =&gt; critical
+                                    [1] =&gt; alert
+                                    [2] =&gt; emergency
+                                    [3] =&gt; debug
+                                    [4] =&gt; error
+                                    [5] =&gt; info
+                                    [6] =&gt; notice
+                                    [7] =&gt; warning
+                                )
+
+                            [fileExtension] =&gt; 
+                            [filePermissions] =&gt; 420
+                            [path] =&gt; 
+                        )
+
+                )
+
+            [logCache] =&gt; Array
+                (
+                    [0] =&gt; Array
+                        (
+                            [level] =&gt; error
+                            [msg] =&gt; mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`education_service`.`student`, CONSTRAINT `student_ibfk_1` FOREIGN KEY (`id_curriculum`) REFERENCES `curriculum` (`id_curriculum`)) in C:\xampp\htdocs\EducationService\system\Database\MySQLi\Connection.php:314
+Stack trace:
+#0 C:\xampp\htdocs\EducationService\system\Database\MySQLi\Connection.php(314): mysqli-&gt;query('UPDATE `student...')
+#1 C:\xampp\htdocs\EducationService\system\Database\BaseConnection.php(713): CodeIgniter\Database\MySQLi\Connection-&gt;execute('UPDATE `student...')
+#2 C:\xampp\htdocs\EducationService\system\Database\BaseConnection.php(641): CodeIgniter\Database\BaseConnection-&gt;simpleQuery('UPDATE `student...')
+#3 C:\xampp\htdocs\EducationService\system\Database\BaseBuilder.php(2468): CodeIgniter\Database\BaseConnection-&gt;query('UPDATE `student...', Array, false)
+#4 C:\xampp\htdocs\EducationService\system\Model.php(353): CodeIgniter\Database\BaseBuilder-&gt;update()
+#5 C:\xampp\htdocs\EducationService\system\BaseModel.php(901): CodeIgniter\Model-&gt;doUpdate(NULL, Array)
+#6 C:\xampp\htdocs\EducationService\system\Model.php(737): CodeIgniter\BaseModel-&gt;update(NULL, Array)
+#7 C:\xampp\htdocs\EducationService\app\Controllers\Student.php(83): CodeIgniter\Model-&gt;update(NULL, Array)
+#8 C:\xampp\htdocs\EducationService\system\CodeIgniter.php(936): App\Controllers\Student-&gt;updateProfileStudent()
+#9 C:\xampp\htdocs\EducationService\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter-&gt;runController(Object(App\Controllers\Student))
+#10 C:\xampp\htdocs\EducationService\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter-&gt;handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\EducationService\public\index.php(51): CodeIgniter\CodeIgniter-&gt;run()
+#12 C:\xampp\htdocs\EducationService\system\Commands\Server\rewrite.php(45): require_once('C:\\xampp\\htdocs...')
+#13 {main}
+                        )
+
+                    [1] =&gt; Array
+                        (
+                            [level] =&gt; critical
+                            [msg] =&gt; Cannot add or update a child row: a foreign key constraint fails (`education_service`.`student`, CONSTRAINT `student_ibfk_1` FOREIGN KEY (`id_curriculum`) REFERENCES `curriculum` (`id_curriculum`))
+#0 C:\xampp\htdocs\EducationService\system\Database\MySQLi\Connection.php(314): mysqli-&gt;query('UPDATE `student...')
+#1 C:\xampp\htdocs\EducationService\system\Database\BaseConnection.php(713): CodeIgniter\Database\MySQLi\Connection-&gt;execute('UPDATE `student...')
+#2 C:\xampp\htdocs\EducationService\system\Database\BaseConnection.php(641): CodeIgniter\Database\BaseConnection-&gt;simpleQuery('UPDATE `student...')
+#3 C:\xampp\htdocs\EducationService\system\Database\BaseBuilder.php(2468): CodeIgniter\Database\BaseConnection-&gt;query('UPDATE `student...', Array, false)
+#4 C:\xampp\htdocs\EducationService\system\Model.php(353): CodeIgniter\Database\BaseBuilder-&gt;update()
+#5 C:\xampp\htdocs\EducationService\system\BaseModel.php(901): CodeIgniter\Model-&gt;doUpdate(NULL, Array)
+#6 C:\xampp\htdocs\EducationService\system\Model.php(737): CodeIgniter\BaseModel-&gt;update(NULL, Array)
+#7 C:\xampp\htdocs\EducationService\app\Controllers\Student.php(83): CodeIgniter\Model-&gt;update(NULL, Array)
+#8 C:\xampp\htdocs\EducationService\system\CodeIgniter.php(936): App\Controllers\Student-&gt;updateProfileStudent()
+#9 C:\xampp\htdocs\EducationService\system\CodeIgniter.php(432): CodeIgniter\CodeIgniter-&gt;runController(Object(App\Controllers\Student))
+#10 C:\xampp\htdocs\EducationService\system\CodeIgniter.php(333): CodeIgniter\CodeIgniter-&gt;handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\EducationService\public\index.php(51): CodeIgniter\CodeIgniter-&gt;run()
+#12 C:\xampp\htdocs\EducationService\system\Commands\Server\rewrite.php(45): require_once('C:\\xampp\\htdocs...')
+#13 {main}
+                        )
+
+                )
+
+            [cacheLogs:protected] =&gt; 1
+        )
+
+    [forceHTTPS:protected] =&gt; 0
+    [validator:protected] =&gt; 
+    [codes:protected] =&gt; Array
+        (
+            [created] =&gt; 201
+            [deleted] =&gt; 200
+            [updated] =&gt; 200
+            [no_content] =&gt; 204
+            [invalid_request] =&gt; 400
+            [unsupported_response_type] =&gt; 400
+            [invalid_scope] =&gt; 400
+            [temporarily_unavailable] =&gt; 400
+            [invalid_grant] =&gt; 400
+            [invalid_credentials] =&gt; 400
+            [invalid_refresh] =&gt; 400
+            [no_data] =&gt; 400
+            [invalid_data] =&gt; 400
+            [access_denied] =&gt; 401
+            [unauthorized] =&gt; 401
+            [invalid_client] =&gt; 401
+            [forbidden] =&gt; 403
+            [resource_not_found] =&gt; 404
+            [not_acceptable] =&gt; 406
+            [resource_exists] =&gt; 409
+            [conflict] =&gt; 409
+            [resource_gone] =&gt; 410
+            [payload_too_large] =&gt; 413
+            [unsupported_media_type] =&gt; 415
+            [too_many_requests] =&gt; 429
+            [server_error] =&gt; 500
+            [unsupported_grant_type] =&gt; 501
+            [not_implemented] =&gt; 501
+        )
+
+    [format:protected] =&gt; json
+    [formatter:protected] =&gt; 
+)
+</pre></td>
+											</tr>
+										
+										</tbody></table>
+									</div>
+															
+													<p></p>
+
+						<!-- Source? -->
+													<div class="source">
+								<pre><code><span class="line"><span class="number">425</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">426</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;throw&nbsp;</span><span style="color: #c7c7c7">PageNotFoundException</span><span style="color: #f1ce61;">::</span><span style="color: #c7c7c7">forMethodNotFound</span><span style="color: #f1ce61;">(</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">method</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">427</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">428</span> 
+<span class="line"><span class="number">429</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #767a7e; font-style: italic">//&nbsp;Is&nbsp;there&nbsp;a&nbsp;"post_controller_constructor"&nbsp;event?
+<span class="line"><span class="number">430</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">Events</span><span style="color: #f1ce61;">::</span><span style="color: #c7c7c7">trigger</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'post_controller_constructor'</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">431</span> 
+<span class="line highlight"><span class="number">432</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$returned&nbsp;=&nbsp;$this-&gt;runController($controller);
+</span></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"><span class="line"><span class="number">433</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">434</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else
+<span class="line"><span class="number">435</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">436</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">benchmark</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">stop</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'controller_constructor'</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">437</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">benchmark</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">stop</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'controller'</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">438</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">439</span> 
+</span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>							</div>
+											</li>
+
+				
+					<li>
+						<p>
+							<!-- Trace info -->
+															SYSTEMPATH\CodeIgniter.php : 333							
+							<!-- Class/Method -->
+															&nbsp;&nbsp;—&nbsp;&nbsp;CodeIgniter\CodeIgniter-&gt;handleRequest																										( <a href="http://localhost:8080/student/updateProfileStudent/#" onclick="return toggle(&#39;error6041d34e12e9e1.58489633args10&#39;);">arguments</a> )
+									</p><div class="args" id="error6041d34e12e9e1.58489633args10">
+										<table cellspacing="0">
+
+																					<tbody><tr>
+												<td><code>$routes</code></td>
+												<td><pre></pre></td>
+											</tr>
+																					<tr>
+												<td><code>$cacheConfig</code></td>
+												<td><pre>Config\Cache Object
+(
+    [handler] =&gt; file
+    [backupHandler] =&gt; dummy
+    [storePath] =&gt; C:\xampp\htdocs\EducationService\writable\cache/
+    [cacheQueryString] =&gt; 
+    [prefix] =&gt; 
+    [file] =&gt; Array
+        (
+            [storePath] =&gt; C:\xampp\htdocs\EducationService\writable\cache/
+            [mode] =&gt; 416
+        )
+
+    [memcached] =&gt; Array
+        (
+            [host] =&gt; 127.0.0.1
+            [port] =&gt; 11211
+            [weight] =&gt; 1
+            [raw] =&gt; 
+        )
+
+    [redis] =&gt; Array
+        (
+            [host] =&gt; 127.0.0.1
+            [password] =&gt; 
+            [port] =&gt; 6379
+            [timeout] =&gt; 0
+            [database] =&gt; 0
+        )
+
+    [validHandlers] =&gt; Array
+        (
+            [dummy] =&gt; CodeIgniter\Cache\Handlers\DummyHandler
+            [file] =&gt; CodeIgniter\Cache\Handlers\FileHandler
+            [memcached] =&gt; CodeIgniter\Cache\Handlers\MemcachedHandler
+            [predis] =&gt; CodeIgniter\Cache\Handlers\PredisHandler
+            [redis] =&gt; CodeIgniter\Cache\Handlers\RedisHandler
+            [wincache] =&gt; CodeIgniter\Cache\Handlers\WincacheHandler
+        )
+
+)
+</pre></td>
+											</tr>
+																					<tr>
+												<td><code>$returnResponse</code></td>
+												<td><pre></pre></td>
+											</tr>
+										
+										</tbody></table>
+									</div>
+															
+													<p></p>
+
+						<!-- Source? -->
+													<div class="source">
+								<pre><code><span class="line"><span class="number">326</span> 
+<span class="line"><span class="number">327</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">response</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">pretend</span><span style="color: #f1ce61;">(</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">useSafeOutput</span><span style="color: #f1ce61;">)-&gt;</span><span style="color: #c7c7c7">send</span><span style="color: #f1ce61;">();
+<span class="line"><span class="number">328</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$this</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">callExit</span><span style="color: #f1ce61;">(</span><span style="color: #c7c7c7">EXIT_SUCCESS</span><span style="color: #f1ce61;">);
+<span class="line"><span class="number">329</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">330</span> 
+<span class="line"><span class="number">331</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try
+<span class="line"><span class="number">332</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line highlight"><span class="number">333</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;$this-&gt;handleRequest($routes,&nbsp;$cacheConfig,&nbsp;$returnResponse);
+</span></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"><span class="line"><span class="number">334</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<span class="line"><span class="number">335</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;catch&nbsp;(</span><span style="color: #c7c7c7">RedirectException&nbsp;$e</span><span style="color: #f1ce61;">)
+<span class="line"><span class="number">336</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<span class="line"><span class="number">337</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$logger&nbsp;</span><span style="color: #f1ce61;">=&nbsp;</span><span style="color: #c7c7c7">Services</span><span style="color: #f1ce61;">::</span><span style="color: #c7c7c7">logger</span><span style="color: #f1ce61;">();
+<span class="line"><span class="number">338</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #c7c7c7">$logger</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">info</span><span style="color: #f1ce61;">(</span><span style="color: #869d6a">'REDIRECTED&nbsp;ROUTE&nbsp;at&nbsp;'&nbsp;</span><span style="color: #f1ce61;">.&nbsp;</span><span style="color: #c7c7c7">$e</span><span style="color: #f1ce61;">-&gt;</span><span style="color: #c7c7c7">getMessage</span><span style="color: #f1ce61;">());
+<span class="line"><span class="number">339</span> 
+<span class="line"><span class="number">340</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #767a7e; font-style: italic">//&nbsp;If&nbsp;the&nbsp;route&nbsp;is&nbsp;a&nbsp;'redirect'&nbsp;route,&nbsp;it&nbsp;throws
+</span></span></span></span></span></span></span></span></span></span></span></span></span></span></code></pre>							</div>
+											</li>
+
+				
+					<li>
+						<p>
+							<!-- Trace info -->
+															FCPATH\index.php : 51							
+							<!-- Class/Method -->
+															&nbsp;&nbsp;—&nbsp;&nbsp;CodeIgniter\CodeIgniter-&gt;run																	()
+															
+													</p>
+
+						<!-- Source? -->
+													<div class="source">
+								<pre><code><span class="line"><span class="number">44</span> </span><span style="color: #767a7e; font-style: italic">/*
+<span class="line"><span class="number">45</span> &nbsp;*---------------------------------------------------------------
+<span class="line"><span class="number">46</span> &nbsp;*&nbsp;LAUNCH&nbsp;THE&nbsp;APPLICATION
+<span class="line"><span class="number">47</span> &nbsp;*---------------------------------------------------------------
+<span class="line"><span class="number">48</span> &nbsp;*&nbsp;Now&nbsp;that&nbsp;everything&nbsp;is&nbsp;setup,&nbsp;it's&nbsp;time&nbsp;to&nbsp;actually&nbsp;fire
+<span class="line"><span class="number">49</span> &nbsp;*&nbsp;up&nbsp;the&nbsp;engines&nbsp;and&nbsp;make&nbsp;this&nbsp;app&nbsp;do&nbsp;its&nbsp;thang.
+<span class="line"><span class="number">50</span> &nbsp;*/
+<span class="line highlight"><span class="number">51</span> $app-&gt;run();
+</span></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"></span><span style="color: #c7c7c7"></span><span style="color: #f1ce61;"><span class="line"><span class="number">52</span> </span>
+</span></span></span></span></span></span></span></code></pre>							</div>
+											</li>
+
+				
+					<li>
+						<p>
+							<!-- Trace info -->
+															require_once SYSTEMPATH\Commands\Server\rewrite.php							
+							<!-- Class/Method -->
+							
+															&nbsp;&nbsp;—&nbsp;&nbsp;	require_once()
+													</p>
+
+						<!-- Source? -->
+											</li>
+
+								</ol>
+
+			</div>
+
+			<!-- Server -->
+			<div class="content hide" id="server">
+									
+					<h3>$_SERVER</h3>
+
+					<table>
+						<thead>
+							<tr>
+								<th>Key</th>
+								<th>Value</th>
+							</tr>
+						</thead>
+						<tbody>
+													<tr>
+								<td>DOCUMENT_ROOT</td>
+								<td>
+																			C:\xampp\htdocs\EducationService\public																	</td>
+							</tr>
+													<tr>
+								<td>REMOTE_ADDR</td>
+								<td>
+																			::1																	</td>
+							</tr>
+													<tr>
+								<td>REMOTE_PORT</td>
+								<td>
+																			59682																	</td>
+							</tr>
+													<tr>
+								<td>SERVER_SOFTWARE</td>
+								<td>
+																			PHP 8.0.2 Development Server																	</td>
+							</tr>
+													<tr>
+								<td>SERVER_PROTOCOL</td>
+								<td>
+																			HTTP/1.1																	</td>
+							</tr>
+													<tr>
+								<td>SERVER_NAME</td>
+								<td>
+																			localhost																	</td>
+							</tr>
+													<tr>
+								<td>SERVER_PORT</td>
+								<td>
+																			8080																	</td>
+							</tr>
+													<tr>
+								<td>REQUEST_URI</td>
+								<td>
+																			/student/updateProfileStudent/																	</td>
+							</tr>
+													<tr>
+								<td>REQUEST_METHOD</td>
+								<td>
+																			GET																	</td>
+							</tr>
+													<tr>
+								<td>SCRIPT_NAME</td>
+								<td>
+																			/index.php																	</td>
+							</tr>
+													<tr>
+								<td>SCRIPT_FILENAME</td>
+								<td>
+																			C:\xampp\htdocs\EducationService\public\index.php																	</td>
+							</tr>
+													<tr>
+								<td>PATH_INFO</td>
+								<td>
+																			/student/updateProfileStudent/																	</td>
+							</tr>
+													<tr>
+								<td>PHP_SELF</td>
+								<td>
+																			/index.php/student/updateProfileStudent/																	</td>
+							</tr>
+													<tr>
+								<td>HTTP_HOST</td>
+								<td>
+																			localhost:8080																	</td>
+							</tr>
+													<tr>
+								<td>HTTP_CONNECTION</td>
+								<td>
+																			keep-alive																	</td>
+							</tr>
+													<tr>
+								<td>HTTP_SEC_CH_UA</td>
+								<td>
+																			"Chromium";v="88", "Google Chrome";v="88", ";Not A Brand";v="99"																	</td>
+							</tr>
+													<tr>
+								<td>HTTP_SEC_CH_UA_MOBILE</td>
+								<td>
+																			?0																	</td>
+							</tr>
+													<tr>
+								<td>HTTP_UPGRADE_INSECURE_REQUESTS</td>
+								<td>
+																			1																	</td>
+							</tr>
+													<tr>
+								<td>HTTP_USER_AGENT</td>
+								<td>
+																			Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36																	</td>
+							</tr>
+													<tr>
+								<td>HTTP_ACCEPT</td>
+								<td>
+																			text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9																	</td>
+							</tr>
+													<tr>
+								<td>HTTP_SEC_FETCH_SITE</td>
+								<td>
+																			none																	</td>
+							</tr>
+													<tr>
+								<td>HTTP_SEC_FETCH_MODE</td>
+								<td>
+																			navigate																	</td>
+							</tr>
+													<tr>
+								<td>HTTP_SEC_FETCH_USER</td>
+								<td>
+																			?1																	</td>
+							</tr>
+													<tr>
+								<td>HTTP_SEC_FETCH_DEST</td>
+								<td>
+																			document																	</td>
+							</tr>
+													<tr>
+								<td>HTTP_ACCEPT_ENCODING</td>
+								<td>
+																			gzip, deflate, br																	</td>
+							</tr>
+													<tr>
+								<td>HTTP_ACCEPT_LANGUAGE</td>
+								<td>
+																			th-TH,th;q=0.9																	</td>
+							</tr>
+													<tr>
+								<td>REQUEST_TIME_FLOAT</td>
+								<td>
+																			<pre>1614926669.5414</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>REQUEST_TIME</td>
+								<td>
+																			<pre>1614926669</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>CI_ENVIRONMENT</td>
+								<td>
+																			development																	</td>
+							</tr>
+													<tr>
+								<td>QUERY_STRING</td>
+								<td>
+																																				</td>
+							</tr>
+												</tbody>
+					</table>
+
+									
+				<!-- Constants -->
+													<h3>Constants</h3>
+
+					<table>
+						<thead>
+							<tr>
+								<th>Key</th>
+								<th>Value</th>
+							</tr>
+						</thead>
+						<tbody>
+													<tr>
+								<td>FCPATH</td>
+								<td>
+																			C:\xampp\htdocs\EducationService\public\																	</td>
+							</tr>
+													<tr>
+								<td>APPPATH</td>
+								<td>
+																			C:\xampp\htdocs\EducationService\app\																	</td>
+							</tr>
+													<tr>
+								<td>ROOTPATH</td>
+								<td>
+																			C:\xampp\htdocs\EducationService\																	</td>
+							</tr>
+													<tr>
+								<td>SYSTEMPATH</td>
+								<td>
+																			C:\xampp\htdocs\EducationService\system\																	</td>
+							</tr>
+													<tr>
+								<td>WRITEPATH</td>
+								<td>
+																			C:\xampp\htdocs\EducationService\writable\																	</td>
+							</tr>
+													<tr>
+								<td>TESTPATH</td>
+								<td>
+																			\																	</td>
+							</tr>
+													<tr>
+								<td>APP_NAMESPACE</td>
+								<td>
+																			App																	</td>
+							</tr>
+													<tr>
+								<td>COMPOSER_PATH</td>
+								<td>
+																			C:\xampp\htdocs\EducationService\vendor/autoload.php																	</td>
+							</tr>
+													<tr>
+								<td>SECOND</td>
+								<td>
+																			<pre>1</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>MINUTE</td>
+								<td>
+																			<pre>60</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>HOUR</td>
+								<td>
+																			<pre>3600</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>DAY</td>
+								<td>
+																			<pre>86400</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>WEEK</td>
+								<td>
+																			<pre>604800</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>MONTH</td>
+								<td>
+																			<pre>2592000</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>YEAR</td>
+								<td>
+																			<pre>31536000</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>DECADE</td>
+								<td>
+																			<pre>315360000</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>EXIT_SUCCESS</td>
+								<td>
+																			<pre>0</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>EXIT_ERROR</td>
+								<td>
+																			<pre>1</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>EXIT_CONFIG</td>
+								<td>
+																			<pre>3</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>EXIT_UNKNOWN_FILE</td>
+								<td>
+																			<pre>4</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>EXIT_UNKNOWN_CLASS</td>
+								<td>
+																			<pre>5</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>EXIT_UNKNOWN_METHOD</td>
+								<td>
+																			<pre>6</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>EXIT_USER_INPUT</td>
+								<td>
+																			<pre>7</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>EXIT_DATABASE</td>
+								<td>
+																			<pre>8</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>EXIT__AUTO_MIN</td>
+								<td>
+																			<pre>9</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>EXIT__AUTO_MAX</td>
+								<td>
+																			<pre>125</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>ENVIRONMENT</td>
+								<td>
+																			development																	</td>
+							</tr>
+													<tr>
+								<td>SHOW_DEBUG_BACKTRACE</td>
+								<td>
+																			<pre>1</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>CI_DEBUG</td>
+								<td>
+																			<pre>1</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>KINT_DIR</td>
+								<td>
+																			C:\xampp\htdocs\EducationService\system\ThirdParty\Kint																	</td>
+							</tr>
+													<tr>
+								<td>KINT_WIN</td>
+								<td>
+																			<pre>1</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>KINT_PHP56</td>
+								<td>
+																			<pre>1</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>KINT_PHP70</td>
+								<td>
+																			<pre>1</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>KINT_PHP72</td>
+								<td>
+																			<pre>1</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>KINT_PHP73</td>
+								<td>
+																			<pre>1</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>KINT_PHP74</td>
+								<td>
+																			<pre>1</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>EVENT_PRIORITY_LOW</td>
+								<td>
+																			<pre>200</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>EVENT_PRIORITY_NORMAL</td>
+								<td>
+																			<pre>100</pre>
+																	</td>
+							</tr>
+													<tr>
+								<td>EVENT_PRIORITY_HIGH</td>
+								<td>
+																			<pre>10</pre>
+																	</td>
+							</tr>
+												</tbody>
+					</table>
+							</div>
+
+			<!-- Request -->
+			<div class="content hide" id="request">
+				
+				<table>
+					<tbody>
+						<tr>
+							<td style="width: 10em">Path</td>
+							<td>http://localhost:8080/student/updateProfileStudent</td>
+						</tr>
+						<tr>
+							<td>HTTP Method</td>
+							<td>GET</td>
+						</tr>
+						<tr>
+							<td>IP Address</td>
+							<td>::1</td>
+						</tr>
+						<tr>
+							<td style="width: 10em">Is AJAX Request?</td>
+							<td>no</td>
+						</tr>
+						<tr>
+							<td>Is CLI Request?</td>
+							<td>no</td>
+						</tr>
+						<tr>
+							<td>Is Secure Request?</td>
+							<td>no</td>
+						</tr>
+						<tr>
+							<td>User Agent</td>
+							<td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36</td>
+						</tr>
+
+					</tbody>
+				</table>
+
+
+																							
+				
+					<div class="alert">
+						No $_GET, $_POST, or $_COOKIE Information to show.
+					</div>
+
+				
+								
+					<h3>Headers</h3>
+
+					<table>
+						<thead>
+							<tr>
+								<th>Header</th>
+								<th>Value</th>
+							</tr>
+						</thead>
+						<tbody>
+																																			<tr>
+									<td>Host</td>
+									<td>localhost:8080</td>
+								</tr>
+																																										<tr>
+									<td>Connection</td>
+									<td>keep-alive</td>
+								</tr>
+																																										<tr>
+									<td>Sec-Ch-Ua</td>
+									<td>"Chromium";v="88", "Google Chrome";v="88", ";Not A Brand";v="99"</td>
+								</tr>
+																																										<tr>
+									<td>Sec-Ch-Ua-Mobile</td>
+									<td>?0</td>
+								</tr>
+																																										<tr>
+									<td>Upgrade-Insecure-Requests</td>
+									<td>1</td>
+								</tr>
+																																										<tr>
+									<td>User-Agent</td>
+									<td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36</td>
+								</tr>
+																																										<tr>
+									<td>Accept</td>
+									<td>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9</td>
+								</tr>
+																																										<tr>
+									<td>Sec-Fetch-Site</td>
+									<td>none</td>
+								</tr>
+																																										<tr>
+									<td>Sec-Fetch-Mode</td>
+									<td>navigate</td>
+								</tr>
+																																										<tr>
+									<td>Sec-Fetch-User</td>
+									<td>?1</td>
+								</tr>
+																																										<tr>
+									<td>Sec-Fetch-Dest</td>
+									<td>document</td>
+								</tr>
+																																										<tr>
+									<td>Accept-Encoding</td>
+									<td>gzip, deflate, br</td>
+								</tr>
+																																										<tr>
+									<td>Accept-Language</td>
+									<td>th-TH,th;q=0.9</td>
+								</tr>
+																			</tbody>
+					</table>
+
+							</div>
+
+			<!-- Response -->
+						<div class="content hide" id="response">
+				<table>
+					<tbody><tr>
+						<td style="width: 15em">Response Status</td>
+						<td>500 - Internal Server Error</td>
+					</tr>
+				</tbody></table>
+
+													
+					<h3>Headers</h3>
+
+					<table>
+						<thead>
+							<tr>
+								<th>Header</th>
+								<th>Value</th>
+							</tr>
+						</thead>
+						<tbody>
+													<tr>
+								<td>Cache-control</td>
+								<td>no-store, max-age=0, no-cache</td>
+							</tr>
+													<tr>
+								<td>Content-Type</td>
+								<td>text/html; charset=UTF-8</td>
+							</tr>
+												</tbody>
+					</table>
+
+							</div>
+
+			<!-- Files -->
+			<div class="content hide" id="files">
+				
+				<ol>
+									<li>SYSTEMPATH\Commands\Server\rewrite.php</li>
+									<li>FCPATH\index.php</li>
+									<li>APPPATH\Config\Paths.php</li>
+									<li>SYSTEMPATH\bootstrap.php</li>
+									<li>APPPATH\Config\Constants.php</li>
+									<li>APPPATH\Common.php</li>
+									<li>SYSTEMPATH\Common.php</li>
+									<li>SYSTEMPATH\Config\AutoloadConfig.php</li>
+									<li>APPPATH\Config\Autoload.php</li>
+									<li>SYSTEMPATH\Modules\Modules.php</li>
+									<li>APPPATH\Config\Modules.php</li>
+									<li>SYSTEMPATH\Autoloader\Autoloader.php</li>
+									<li>SYSTEMPATH\Config\BaseService.php</li>
+									<li>SYSTEMPATH\Config\Services.php</li>
+									<li>APPPATH\Config\Services.php</li>
+									<li>SYSTEMPATH\Config\DotEnv.php</li>
+									<li>SYSTEMPATH\Autoloader\FileLocator.php</li>
+									<li>SYSTEMPATH\Helpers\url_helper.php</li>
+									<li>SYSTEMPATH\CodeIgniter.php</li>
+									<li>APPPATH\Config\App.php</li>
+									<li>SYSTEMPATH\Config\BaseConfig.php</li>
+									<li>SYSTEMPATH\Config\Factories.php</li>
+									<li>SYSTEMPATH\Config\Factory.php</li>
+									<li>APPPATH\Config\Boot\development.php</li>
+									<li>APPPATH\Config\Exceptions.php</li>
+									<li>SYSTEMPATH\HTTP\IncomingRequest.php</li>
+									<li>SYSTEMPATH\HTTP\Request.php</li>
+									<li>SYSTEMPATH\HTTP\Message.php</li>
+									<li>SYSTEMPATH\HTTP\MessageInterface.php</li>
+									<li>SYSTEMPATH\HTTP\MessageTrait.php</li>
+									<li>SYSTEMPATH\HTTP\RequestInterface.php</li>
+									<li>SYSTEMPATH\HTTP\RequestTrait.php</li>
+									<li>SYSTEMPATH\HTTP\URI.php</li>
+									<li>SYSTEMPATH\HTTP\UserAgent.php</li>
+									<li>APPPATH\Config\UserAgents.php</li>
+									<li>SYSTEMPATH\HTTP\Header.php</li>
+									<li>SYSTEMPATH\HTTP\Response.php</li>
+									<li>SYSTEMPATH\HTTP\ResponseInterface.php</li>
+									<li>SYSTEMPATH\HTTP\ResponseTrait.php</li>
+									<li>SYSTEMPATH\HTTP\ContentSecurityPolicy.php</li>
+									<li>APPPATH\Config\ContentSecurityPolicy.php</li>
+									<li>SYSTEMPATH\Debug\Exceptions.php</li>
+									<li>SYSTEMPATH\API\ResponseTrait.php</li>
+									<li>SYSTEMPATH\ThirdParty\Kint\init.php</li>
+									<li>SYSTEMPATH\ThirdParty\Kint\Kint.php</li>
+									<li>SYSTEMPATH\ThirdParty\Kint\Utils.php</li>
+									<li>APPPATH\Config\Kint.php</li>
+									<li>SYSTEMPATH\ThirdParty\Kint\init_helpers.php</li>
+									<li>SYSTEMPATH\ThirdParty\Kint\Renderer\Renderer.php</li>
+									<li>SYSTEMPATH\ThirdParty\Kint\Renderer\RichRenderer.php</li>
+									<li>SYSTEMPATH\ThirdParty\Kint\Renderer\CliRenderer.php</li>
+									<li>SYSTEMPATH\ThirdParty\Kint\Renderer\TextRenderer.php</li>
+									<li>SYSTEMPATH\Debug\Timer.php</li>
+									<li>SYSTEMPATH\Events\Events.php</li>
+									<li>APPPATH\Config\Events.php</li>
+									<li>APPPATH\Config\Toolbar.php</li>
+									<li>SYSTEMPATH\Debug\Toolbar.php</li>
+									<li>SYSTEMPATH\Debug\Toolbar\Collectors\Timers.php</li>
+									<li>SYSTEMPATH\Debug\Toolbar\Collectors\BaseCollector.php</li>
+									<li>SYSTEMPATH\Debug\Toolbar\Collectors\Database.php</li>
+									<li>APPPATH\Config\Database.php</li>
+									<li>SYSTEMPATH\Database\Config.php</li>
+									<li>SYSTEMPATH\Debug\Toolbar\Collectors\Logs.php</li>
+									<li>SYSTEMPATH\Debug\Toolbar\Collectors\Views.php</li>
+									<li>APPPATH\Config\View.php</li>
+									<li>SYSTEMPATH\Config\View.php</li>
+									<li>SYSTEMPATH\View\View.php</li>
+									<li>SYSTEMPATH\View\RendererInterface.php</li>
+									<li>SYSTEMPATH\Log\Logger.php</li>
+									<li>SYSTEMPATH\ThirdParty\PSR\Log\LoggerInterface.php</li>
+									<li>APPPATH\Config\Logger.php</li>
+									<li>SYSTEMPATH\Debug\Toolbar\Collectors\Files.php</li>
+									<li>SYSTEMPATH\Debug\Toolbar\Collectors\Routes.php</li>
+									<li>SYSTEMPATH\Debug\Toolbar\Collectors\Events.php</li>
+									<li>APPPATH\Config\Cache.php</li>
+									<li>SYSTEMPATH\Cache\CacheFactory.php</li>
+									<li>SYSTEMPATH\Cache\Handlers\FileHandler.php</li>
+									<li>SYSTEMPATH\Cache\Handlers\BaseHandler.php</li>
+									<li>SYSTEMPATH\Cache\CacheInterface.php</li>
+									<li>APPPATH\Config\Routes.php</li>
+									<li>SYSTEMPATH\Router\RouteCollection.php</li>
+									<li>SYSTEMPATH\Router\RouteCollectionInterface.php</li>
+									<li>SYSTEMPATH\Config\Routes.php</li>
+									<li>SYSTEMPATH\Router\Router.php</li>
+									<li>SYSTEMPATH\Router\RouterInterface.php</li>
+									<li>APPPATH\Controllers\Student.php</li>
+									<li>SYSTEMPATH\RESTful\ResourceController.php</li>
+									<li>SYSTEMPATH\RESTful\BaseResource.php</li>
+									<li>SYSTEMPATH\Controller.php</li>
+									<li>APPPATH\Config\Filters.php</li>
+									<li>SYSTEMPATH\Filters\Filters.php</li>
+									<li>APPPATH\Models\StudentModel.php</li>
+									<li>SYSTEMPATH\Model.php</li>
+									<li>SYSTEMPATH\BaseModel.php</li>
+									<li>APPPATH\Config\Validation.php</li>
+									<li>SYSTEMPATH\Validation\Validation.php</li>
+									<li>SYSTEMPATH\Validation\ValidationInterface.php</li>
+									<li>SYSTEMPATH\Database\Database.php</li>
+									<li>SYSTEMPATH\Database\MySQLi\Connection.php</li>
+									<li>SYSTEMPATH\Database\BaseConnection.php</li>
+									<li>SYSTEMPATH\Database\ConnectionInterface.php</li>
+									<li>SYSTEMPATH\Database\MySQLi\Builder.php</li>
+									<li>SYSTEMPATH\Database\BaseBuilder.php</li>
+									<li>SYSTEMPATH\Database\Query.php</li>
+									<li>SYSTEMPATH\Database\QueryInterface.php</li>
+									<li>SYSTEMPATH\Log\Handlers\FileHandler.php</li>
+									<li>SYSTEMPATH\Log\Handlers\BaseHandler.php</li>
+									<li>SYSTEMPATH\Log\Handlers\HandlerInterface.php</li>
+									<li>APPPATH\Views\errors\html\error_exception.php</li>
+									<li>SYSTEMPATH\ThirdParty\Escaper\Escaper.php</li>
+									<li>SYSTEMPATH\Validation\FormatRules.php</li>
+								</ol>
+			</div>
+
+			<!-- Memory -->
+			<div class="content hide" id="memory">
+
+				<table>
+					<tbody>
+						<tr>
+							<td>Memory Usage</td>
+							<td>4MB</td>
+						</tr>
+						<tr>
+							<td style="width: 12em">Peak Memory Usage:</td>
+							<td>6MB</td>
+						</tr>
+						<tr>
+							<td>Memory Limit:</td>
+							<td>512M</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div>
+
+		</div>  <!-- /tab-content -->
+
+	</div> <!-- /container -->
+
+	<div class="footer">
+		<div class="container">
+
+			<p>
+				Displayed at 00:44:30am —
+				PHP: 8.0.2  —
+				CodeIgniter: 4.1.1			</p>
+
+		</div>
+	</div>
+
+
+
+</body></html>
