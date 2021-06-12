@@ -5,10 +5,16 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: theme => ({
+        'logo-golo': "url('/img/t1.jpg')",
+       })
+    },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundImage: ['hover', 'focus'],
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

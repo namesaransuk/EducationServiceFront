@@ -22,15 +22,15 @@ const ViewProfile = ({ id }) => {
 
         <div className="md:grid md:grid-cols-3 md:gap-6">
           <div className="md:col-span-1">
-            <div className="p-3 rounded-t-lg md:rounded-md px-4 px-0 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500">
+            <div className="p-3 text-center rounded-t-lg md:rounded-md px-4 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
               <img
-                className="mx-auto h-20 w-20 rounded-full ring-2 ring-white"
+                className="mx-auto mt-3 h-20 w-20 rounded-full ring-2 ring-white"
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                 alt=""
               /> 
-              <h3 className="mt-4 text-lg font-medium leading-6 text-gray-900">Profile</h3>
-              <p className="mt-1 text-sm text-gray-600">
-                This information will be displayed publicly so be careful what you share.
+              <h3 className="mt-4 text-lg text-white font-medium leading-6 text-gray-900">{student.fname_stu} {student.lname_stu}</h3>
+              <p className="mt-1 text-sm text-white">
+                รหัสนักศึกษา : {student.id_stu}
               </p>
             </div>
           </div>

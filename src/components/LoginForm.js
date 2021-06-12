@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardBody, Row, Col, Button, FormGroup, Label, Input } from 'reactstrap';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -31,13 +31,15 @@ const LoginForm = () => {
         setUser({ ...user, [name]: value });
     }
 
-    const saveStudent = () => {
+    const saveStudent = async (e) => {
+        e.preventDefault();
+        
         var data = {
             id_user: user.id_user,
             password_user: user.password_user,
         };
 
-        axios.post("http://localhost:8080/Login", data)
+        await axios.post("http://localhost:8080/Login", data)
             .then((res) => {
                 console.log(res.data.message);
                 if (res.data.message == "Student") {
@@ -99,7 +101,7 @@ const LoginForm = () => {
                             มหาวิทยาลัยราชภัฏนครปฐม
                         </p>
                     </div>
-                    <form className="mt-8 space-y-6">
+                    <form className="mt-8 space-y-6" onSubmit={saveStudent}>
                         <input type="hidden" name="remember" defaultValue="true" />
                         <div className="rounded-md shadow-sm -space-y-px">
                             <div>
@@ -157,11 +159,12 @@ const LoginForm = () => {
                         <div>
                             <button
                                 type="submit"
-                                name="but"
-                                onClick={saveStudent}
                                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                id="but"
+                                name="but"
+                                // OnClick={saveStudent}
                             >
-              เข้าสู่ระบบ
+                                เข้าสู่ระบบ
             </button>
                         </div>
                     </form>
