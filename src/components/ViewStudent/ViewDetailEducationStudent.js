@@ -64,14 +64,22 @@ const ViewDetailEducationStudent = ({ id }) => {
 
           <Label for="id_curriculum">กลุ่มสาขา :</Label> {education.name_major}
 
-          <Row>
-            <Col></Col>
-            <Col></Col>
-            <Col></Col>
-            <Col><NavLink href={"/updatedetaileducationstudent/" + student.id_stu}>เเก้ไขข้อมูลการศึกษาต่อ</NavLink>
-            </Col>
-
-          </Row>
+          <div className="mx-auto text-center">
+                  <a
+                    type="button"
+                    href="/home"
+                    className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    กลับหน้าหลัก
+                </a>
+                  <a
+                    type="button"
+                    href={"/updatedetaileducationstudent/" + student.id_stu}
+                    className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    เเก้ไขข้อมูลการศึกษาต่อ
+                </a>
+                </div>
         </Form>
 
       </div>
