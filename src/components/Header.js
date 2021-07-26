@@ -1,21 +1,5 @@
 import React, { Fragment, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {
-    Container,
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    NavbarText,
-    Button
-} from 'reactstrap';
 import Swal from 'sweetalert2';
 import { Disclosure, Menu, Transition, Popover } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
@@ -74,7 +58,7 @@ const Header = () => {
             <div className="fixed left-0 right-0 z-50 top-0">
                 {/* เต็มหน้าจอ */}
                 <div className="mx-auto">
-                    <div className="pb-2 sm:pt-4 md:pt-4 bg-gray-800">
+                    <div className="pb-2 sm:pt-4 md:pt-4 bg-yellow-600">
                         <Popover>
                             {({ open }) => (
                                 <>
@@ -88,12 +72,12 @@ const Header = () => {
                                                     <a href="/">
                                                         <span className="sr-only">Workflow</span>
                                                         <img
-                                                            className="h-16 w-auto"
-                                                            src="https://www.npru.ac.th/2019/img/Npru-logo.png"
+                                                            className="h-16 w-auto "
+                                                            src="https://lh3.googleusercontent.com/proxy/hoaequhrWh6Usn8cE3Sk4hiWHfjxoiee32U5NYt7FSI-iai4NX1dULCMkxHeeDGdnfLOA4i4IQ7Qho6XNpUUaSgQArFWjFiUbtMSqA9vs6aGhMSI5pjFYIs"
                                                         />
                                                     </a>
                                                     <div className="-mr-2 flex items-center md:hidden">
-                                                        <Popover.Button className="bg-gray-800 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                                                        <Popover.Button className="rounded-md p-2 inline-flex items-center justify-center text-white hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-yellow-800">
                                                             <span className="sr-only">Open main menu</span>
                                                             <MenuIcon className="h-6 w-6" aria-hidden="true" />
                                                         </Popover.Button>
@@ -106,7 +90,7 @@ const Header = () => {
                                                         {item.name}
                                                     </a>
                                                 ))}
-                                                <a href="/login" type="button" className="items-center justify-center px-4 py-2.5 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                                                <a href="/login" type="button" className="items-center justify-center px-4 py-2.5 border border-transparent text-base font-medium rounded-md text-white bg-red-700 hover:bg-red-800">
                                                     เข้าสู่ระบบ
                                                      </a>
                                             </div>
@@ -132,11 +116,11 @@ const Header = () => {
                                             <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
                                                 <div className="px-5 pt-4 flex items-center justify-between">
                                                     <div>
-                                                        <img
+                                                        {/* <img
                                                             className="h-12 w-auto"
                                                             src="https://www.npru.ac.th/2019/img/Npru-logo.png"
                                                             alt=""
-                                                        />
+                                                        /> */}
                                                     </div>
                                                     <div className="-mr-2">
                                                         <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -158,7 +142,7 @@ const Header = () => {
                                                 </div>
                                                 <a
                                                     href="/login"
-                                                    className="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100"
+                                                    className="block w-full px-5 py-3 text-center font-medium text-white bg-red-500 hover:bg-red-600"
                                                 >
                                                     เข้าสู่ระบบ
                                                     </a>
@@ -177,7 +161,7 @@ const Header = () => {
             <div className="fixed left-0 right-0 z-50 top-0">
                 {/* เต็มหน้าจอ */}
                 <div className="mx-auto">
-                    <div className="pb-2 sm:pt-4 md:pt-4 bg-gray-800">
+                    <div className="pb-2 sm:pt-4 md:pt-4 bg-yellow-600">
                         <Popover>
                             {({ open }) => (
                                 <>
@@ -192,11 +176,11 @@ const Header = () => {
                                                         <span className="sr-only">Workflow</span>
                                                         <img
                                                             className="h-16 w-auto"
-                                                            src="https://www.npru.ac.th/2019/img/Npru-logo.png"
+                                                            src="https://lh3.googleusercontent.com/proxy/hoaequhrWh6Usn8cE3Sk4hiWHfjxoiee32U5NYt7FSI-iai4NX1dULCMkxHeeDGdnfLOA4i4IQ7Qho6XNpUUaSgQArFWjFiUbtMSqA9vs6aGhMSI5pjFYIs"
                                                         />
                                                     </a>
                                                     <div className="-mr-2 flex items-center md:hidden">
-                                                        <Popover.Button className="bg-gray-800 rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
+                                                        <Popover.Button className="rounded-md p-2 inline-flex items-center justify-center text-white hover:text-gray-100 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
                                                             <span className="sr-only">Open main menu</span>
                                                             <MenuIcon className="h-6 w-6" aria-hidden="true" />
                                                         </Popover.Button>
@@ -216,7 +200,7 @@ const Header = () => {
                                                     {({ open }) => (
                                                         <>
                                                             <div>
-                                                                <Menu.Button className="bg-gray-800 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                                                <Menu.Button className="bg-yellow-600 rounded-full flex items-center focus:outline-none focus:ring-3 focus:ring-offset-2 focus:ring-offset-yellow-600 focus:ring-white">
                                                                     <span className="sr-only">Open user menu</span>
                                                                     <a href="#!" className="font-medium text-white hover:text-gray hover:no-underline mr-2">{session.fname}{" "}{session.lname}</a>
                                                                     <img
@@ -291,11 +275,11 @@ const Header = () => {
                                             <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
                                                 <div className="px-5 pt-4 flex items-center justify-between">
                                                     <div>
-                                                        <img
+                                                        {/* <img
                                                             className="h-12 w-auto"
                                                             src="https://www.npru.ac.th/2019/img/Npru-logo.png"
                                                             alt=""
-                                                        />
+                                                        /> */}
                                                     </div>
                                                     <div className="-mr-2">
                                                         <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">

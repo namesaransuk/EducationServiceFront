@@ -93,12 +93,12 @@ const LoginForm = () => {
                     <div>
                         <img
                             className="mx-auto h-32 w-auto"
-                            src="https://www.npru.ac.th/2019/img/Npru-logo.png"
+                            src="https://lh3.googleusercontent.com/proxy/hoaequhrWh6Usn8cE3Sk4hiWHfjxoiee32U5NYt7FSI-iai4NX1dULCMkxHeeDGdnfLOA4i4IQ7Qho6XNpUUaSgQArFWjFiUbtMSqA9vs6aGhMSI5pjFYIs"
                             alt="Workflow"
                         />
                         <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900">เข้าสู่ระบบ</h2>
                         <p className="mt-2 text-center text-2xl text-gray-600">
-                            มหาวิทยาลัยราชภัฏนครปฐม
+                            โรงเรียนประสาทรัฐประชากิจ
                         </p>
                     </div>
                     <form className="mt-8 space-y-6" onSubmit={saveStudent}>

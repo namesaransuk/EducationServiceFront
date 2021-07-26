@@ -10,16 +10,10 @@ import {
 
 const items = [
   {
-    src: 'https://www.npru.ac.th/2019/img/slide/banner1920x600-04.jpg',
-   
+    src: 'https://scontent.fbkk22-1.fna.fbcdn.net/v/t1.6435-9/105402551_113182790439456_806841832412441641_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=e3f864&_nc_eui2=AeFH3UvknB5ibnTxk8kjLYKHdtDBk20SvN920MGTbRK831KNfwY3gtYh5wyEnlX47KO4ty5J9cceyVzJ2EqVXTNY&_nc_ohc=SHaRMnp8C5YAX-FY385&_nc_ht=scontent.fbkk22-1.fna&oh=3f886144e26d817049bcf3fd2e141f8d&oe=612415FC',
   },
   {
-    src: 'https://www.npru.ac.th/2019/img/slide/banner1920x600-02.jpg',
-  
-  },
-  {
-    src: 'https://www.npru.ac.th/2019/img/slide/banner1920x600-03.jpg',
-   
+    src: 'require(`../../img/maxresdefault.jpg`)'
   }
 ];
 

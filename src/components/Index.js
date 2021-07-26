@@ -40,23 +40,23 @@ function Index() {
 
   return (
     <div>
-      <div className="pt-40 bg-gray-800 mx-auto">
-        <div className="mx-auto sm:text-center lg:text-left pb-12 md:pb-20">
+      <div className="pt-40 md:pt-48 bg-yellow-600 mx-auto">
+        <div className="mx-auto sm:text-center lg:text-left pb-12 md:pb-28">
           <h1 className="text-center mx-auto text-3xl font-extrabold text-white sm:text-5xl md:text-6xl lg:text-7xl sm:max-w-5xl md:max-w-4xl lg:max-w-6xl">
-            <span className="block xl:inline">มหาวิทยาลัยราชภัฏนครปฐม</span>{' '}
-            <span className="block text-indigo-600 xl:inline">Nakhon Pathom Rajabhat University</span>
+            <span className="block xl:inline">โรงเรียนประสาทรัฐประชากิจ</span>{' '}
+            <span className="block text-red-800 xl:inline">Prasartratprachakit School</span>
           </h1>
-          <p className="mt-3 text-center text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-2xl sm:mx-auto md:mt-5">
+          <p className="mt-3 text-center text-base text-dark sm:mt-5 sm:text-lg sm:max-w-2xl sm:mx-auto md:mt-5">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, explicabo. Ex a error perspiciatis eos nulla aut dicta dolores? Culpa, quia! Corrupti, adipisci harum laboriosam dolores odit possimus veritatis tenetur.
-                                     </p>
-          <div className="mr-3 ml-3 mt-3 sm:mt-8 sm:flex sm:justify-center">
+          </p>
+          {/* <div className="mr-3 ml-3 mt-3 sm:mt-8 sm:flex sm:justify-center">
             <div className="mt-2 sm:mt-0 sm:ml-3">
               <a
                 href="#"
                 className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
               >
                 เข้าสู่ระบบ
-                                            </a>
+              </a>
             </div>
             <div className="mt-2 sm:mt-0 sm:ml-3">
               <a
@@ -66,7 +66,7 @@ function Index() {
                 ลงทะเบียน
                                             </a>
             </div>
-          </div>
+          </div> */}
         </div>
         <SilderIndex />
       </div>
@@ -87,11 +87,11 @@ function Index() {
                         <div className="">
                           <div className="mt-2 flex items-center text-sm text-gray-500">
                             <BriefcaseIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                          รับจำนวน : {educationdata.number_of_edu}
+                            รับจำนวน : {educationdata.number_of_edu}
                           </div>
                           <div className="mt-2 flex items-center text-sm text-gray-500">
                             <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                          รอบ : {educationdata.name_round}
+                            รอบ : {educationdata.name_round}
                           </div>
                         </div>
                       </div>
@@ -103,7 +103,7 @@ function Index() {
                             className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                           >
                             ดูรายละเอียด
-                        </a>
+                          </a>
                         </span>
                       </div>
                     </div>
