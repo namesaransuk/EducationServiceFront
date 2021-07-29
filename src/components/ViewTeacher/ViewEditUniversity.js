@@ -4,6 +4,7 @@ import {
   Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Card, CardText, CardBody, CardLink,
   CardTitle, CardSubtitle, From, Table, Alert
 } from 'reactstrap';
+import Swal from 'sweetalert2';
 
 const ViewEditUniversity = ({ id }) => {
   const initUniversity = {
@@ -52,13 +53,18 @@ const ViewEditUniversity = ({ id }) => {
   return (
 
     <div class="container">
-      <Form>
-        {submited ? (<Alert color="success"><br /><br /><br /><br />
-          <center>อัพเดตเสร็จสิ้น!!<br /><br /><br /><br /><br />
-            <Button color="btn btn-success" href="/universityAll">ยืนยัน</Button></center>
-        </Alert>
-        ) : (
-          <Form>
+     <Form>
+
+{submited ? (
+   Swal.fire(
+
+    'เเก้ไขข้อมูลมหาลัยเรียบร้อย',
+    ' ',
+     'success',
+ )
+ (window.location.assign("/universityall"))
+                ) : (
+<Form>
             <center><h2>เเก้ไขมหาวิทยาลัย</h2></center>
             <Row>
               <Label for="logo_uni">โลโก้มหาลัย</Label>

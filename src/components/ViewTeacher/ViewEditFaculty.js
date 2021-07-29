@@ -4,6 +4,7 @@ import {
   Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Card, CardText, CardBody, CardLink,
   CardTitle, CardSubtitle, Jumbotron, Table, Alert
 } from 'reactstrap';
+import Swal from 'sweetalert2';
 
 const ViewEditFaculty = ({ id }) => {
   const initFaculty = {
@@ -46,13 +47,18 @@ const ViewEditFaculty = ({ id }) => {
   return (
 
     <div class="container">
-      <Form>
-      {submited ? (<Alert color="success"><br /><br /><br /><br />
-          <center>อัพเดตเสร็จสิ้น!!<br /><br /><br /><br /><br />
-            <Button color="btn btn-success" href="/fucultyall">ยืนยัน</Button></center>
-        </Alert>
-        ) : ( 
-          <Form>
+     <Form>
+
+{submited ? (
+   Swal.fire(
+
+    'เเก้ไขข้อมูลคณะเรียบร้อย',
+    ' ',
+     'success',
+ )
+ (window.location.assign("/fucultyall"))
+                ) : (
+<Form>
           <center><h2>เเก้ไขคณะ</h2></center>
   
           <Jumbotron>

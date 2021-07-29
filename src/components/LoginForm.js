@@ -14,11 +14,12 @@ const LoginForm = () => {
         fname: localStorage.getItem('fname'),
         lname: localStorage.getItem('lname'),
         // id_staff: localStorage.getItem('id_staff'),
-        // fname_staff: localStorage.getItem('fname_staff'),
-        // lname_staff: localStorage.getItem('lname_staff'),
+        fname_staff: localStorage.getItem('fname_staff'),
+        lname_staff: localStorage.getItem('lname_staff'),
+        fname_staff: localStorage.getItem('fname_admin'),
+        lname_staff: localStorage.getItem('lname_admin'),
     }
     // const sessionstaff = {
-    //     id_staff: localStorage.getItem('id_staff'),
     //     fname_staff: localStorage.getItem('fname_staff'),
     //     lname_staff: localStorage.getItem('lname_staff'),
     // }
@@ -57,11 +58,11 @@ const LoginForm = () => {
                 }
                 else if (res.data.message == "Teacher") {
                     localStorage.setItem('id', res.data.id);
-                    localStorage.setItem('fname', res.data.fname);
-                    localStorage.setItem('lname', res.data.lname);
+                    // localStorage.setItem('fname', res.data.fname);
+                    // localStorage.setItem('lname', res.data.lname);
                     // localStorage.setItem('id_staff', res.data.id_staff);
-                    // localStorage.setItem('fname_staff', res.data.fname_staff);
-                    // localStorage.setItem('lname_staff', res.data.lname_staff);
+                    localStorage.setItem('fname_staff', res.data.fname_staff);
+                    localStorage.setItem('lname_staff', res.data.lname_staff);
 
                     Swal.fire(
 
@@ -71,7 +72,24 @@ const LoginForm = () => {
                         window.location.assign("/DashboardTeacher")
                     )
                     window.location.assign("/DashboardTeacher")
-                } else {
+                } 
+                else if (res.data.message == "Admin") {
+                    localStorage.setItem('id', res.data.id);
+                    // localStorage.setItem('fname', res.data.fname);
+                    // localStorage.setItem('lname', res.data.lname);
+                    // localStorage.setItem('id_staff', res.data.id_staff);
+                    localStorage.setItem('fname_admin', res.data.fname_admin);
+                    localStorage.setItem('lname_admin', res.data.lname_admin);
+
+                    Swal.fire(
+
+                        'เข้าสู่ระบบเสร็จสิ้น',
+                        'คุณเป็น เเอดมิน ',
+                        'success',
+                        window.location.assign("/DashBoardAdmin")
+                    )
+                    window.location.assign("/DashBoardAdmin")
+                }else {
                     Swal.fire(
                         'เข้าสู่ระบบล้มเหลว',
                         'กรุณากรอกรหัสผ่านกับอีเมลใหม่ ',
@@ -93,7 +111,7 @@ const LoginForm = () => {
                     <div>
                         <img
                             className="mx-auto h-32 w-auto"
-                            src="https://lh3.googleusercontent.com/proxy/hoaequhrWh6Usn8cE3Sk4hiWHfjxoiee32U5NYt7FSI-iai4NX1dULCMkxHeeDGdnfLOA4i4IQ7Qho6XNpUUaSgQArFWjFiUbtMSqA9vs6aGhMSI5pjFYIs"
+                            src="https://lh3.googleusercontent.com/proxy/sFH-HbHtnXnn1mfvVRkAC66F3HWv7iUVcEWFlCs0OVP3Iykod4zYHPuWueE0DgW_s9bj-SQwZi3lrGuo7sVR9nEERCaz7s1W7FGn8UV78ELqT1S2XOL5qAM"
                             alt="Workflow"
                         />
                         <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900">เข้าสู่ระบบ</h2>

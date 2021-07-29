@@ -17,7 +17,7 @@ const ViewCourseAll = (props) => {
     axios.get("http://localhost:8080/course")
       .then((response) => {
         console.log(response);
-        setCourse(response.data.course);
+        setCourse(response.data);
         console.log("select Course.....");
       });
   };
@@ -71,7 +71,7 @@ const ViewCourseAll = (props) => {
                   <td>{course.id_course}</td>
                   <td>{course.name_course}</td>
                   <td>
-                    <Button href={"./editCourse" + course.id_course}>
+                    <Button href={"./editCourse/" + course.id_course}>
                       <FontAwesomeIcon icon={faEdit} />เเก้ไข
                    </Button>
                   </td>

@@ -40,7 +40,7 @@ function Index() {
 
   return (
     <div>
-      <div className="pt-40 md:pt-48 bg-yellow-600 mx-auto">
+      <div className="pt-36 md:pt-52 bg-yellow-600 mx-auto">
         <div className="mx-auto sm:text-center lg:text-left pb-12 md:pb-28">
           <h1 className="text-center mx-auto text-3xl font-extrabold text-white sm:text-5xl md:text-6xl lg:text-7xl sm:max-w-5xl md:max-w-4xl lg:max-w-6xl">
             <span className="block xl:inline">โรงเรียนประสาทรัฐประชากิจ</span>{' '}

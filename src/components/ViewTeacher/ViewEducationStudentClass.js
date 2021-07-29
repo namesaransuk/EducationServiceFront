@@ -7,17 +7,19 @@ import {
   CardTitle, CardSubtitle, NavLink, Table
 } from 'reactstrap';
 
-const ViewEducationStudentAll = (props) => {
+const ViewEducationStudentClass = ({ id }) => {
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const toggle = () => setDropdownOpen(prevState => !prevState);
-    const [year, setYear] = useState([]);
+    const [classS, setClassS] = useState([]);
+
     //ไปดึง api ของอันเก่ามาใช้จาก url
     useEffect(() => {
-      axios.get("http://localhost:8080/Teacher/getYear").then((response) => {
+      axios.get("http://localhost:8080/Teacher/getYearClass/"+ id).then((response) => {
         console.log(response);
-        setYear(response.data.year);
+        setClassS(response.data);
       });
     }, []);
+
     return (
         <div>
      <div class="container">
@@ -26,7 +28,7 @@ const ViewEducationStudentAll = (props) => {
 <Col xs="12"> 
   <FormGroup>
     <br />  <br />  <br />  <br />
-       <center> <Label for="exampleSelect">ดูข้อมูลนักเรียน</Label></center>
+       <center> <Label for="exampleSelect">เลือกห้องเรียน</Label></center>
       </FormGroup>
       
 </Col>
@@ -45,23 +47,23 @@ const ViewEducationStudentAll = (props) => {
         <Table>
           <thead>
             <tr>
-              <th>ปีการศีกษา</th>
-              <th>เลือกห้องเรียน</th>
+              <th>ห้องเรียน</th>
+              <th>ดูรายชื่อนักเรียน</th>
             </tr>
           </thead>
           <tbody>
-            {year.map((year) => {
+            {classS.map((classS) => {
               return (
-                <tr key={year.year_stu}>
-                  <td>{year.year_stu}</td>
+                <tr>
+                  <td>{classS.year_class}/{classS.class}</td>
                   <td>
-                    <Button href={"/EducationStudentClass/" + year.year_stu}>
-                      <FontAwesomeIcon icon={faEdit} />เลือกห้องเรียน
+                  <Button href={"./../EducationStudentData/" + classS.class}>
+                      <FontAwesomeIcon icon={faEdit} />ดูรายชื่อนักเรียน
                    </Button>
                   </td>
                 </tr>
-              )
-            })}
+                 )
+                })}
           </tbody>
         </Table>
       </div>
@@ -73,4 +75,4 @@ const ViewEducationStudentAll = (props) => {
   );
 }
   
-  export default ViewEducationStudentAll;
+  export default ViewEducationStudentClass;

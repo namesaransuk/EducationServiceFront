@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import {
   Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Card, CardText, CardBody, CardLink,
   CardTitle, CardSubtitle, Jumbotron, Table, Alert} from 'reactstrap';
+  import Swal from 'sweetalert2';
 
-const ViewEditDegree = (id) => {
+const ViewEditDegree = ({id}) => {
   const initDegree = {
     name_degree: "",
     initials_degree: "",
@@ -14,7 +15,7 @@ const ViewEditDegree = (id) => {
   const [submited, setSumited] = useState(false);
   
   useEffect(() =>{
-      axios.get("http://localhost:8080/degree/" + id)
+      axios.get("http://localhost:8080/degree/getDegree/" + id)
       .then((response) =>{
           setDegree(response.data);
       });
@@ -33,9 +34,10 @@ const ViewEditDegree = (id) => {
         name_degree: degree.name_degree,
         initials_degree: degree.initials_degree,
     }
-    axios.post("http://localhost:8080/degree/" + id , data)
+    axios.put("http://localhost:8080/degree/" + id , data)
       .then((response) => {
         console.log(response.data);
+        setDegree({ ...degree, data });
         setSumited(true);
       })
       .catch((error) => {
@@ -46,19 +48,24 @@ const ViewEditDegree = (id) => {
   return (
 
     <div class="container">
-      <Form>
-      {submited ? (<Alert color="success"><br /><br /><br /><br />
-          <center>เพิ่มข้อมูลสำเร็จ!!<br /><br /><br /><br /><br />
-            <Button color="btn btn-success" href="/degreeall">OK</Button></center>
-        </Alert>
-        ) : (
-          <Form>
-            <center><h3> แก้ไขหลักสูตร </h3></center>
-            <Row>
-            <br/>
-            <Row>
-              <Label for="degree">ชื่อหลักสูตร</Label>
-              <Input
+    <Form>
+
+{submited ? (
+   Swal.fire(
+
+    'เเก้ไขข้อมูลวุฒิเรียบร้อย',
+    ' ',
+     'success',
+ )
+ (window.location.assign("/degreeall"))
+                ) : (
+<Form>
+
+          <center><h2>เเก้ไขคณะ</h2></center>
+  
+          <Jumbotron>
+            <Label for="name_faculty">ชื่อคณะ</Label>
+            <Input
                 type="text"
                 name="name_degree"
                 id="name_degree"
@@ -66,11 +73,8 @@ const ViewEditDegree = (id) => {
                 onChange={handleInputChange}
                 placeholder={degree.name_degree}
               />
-            </Row>
-            </Row>
-            <br/>
-            <Row>
-              <Label for="degree">ชื่อย่อหลักสูตร</Label>
+              <FormGroup>
+ <Label for="degree">ชื่อย่อหลักสูตร</Label>
               <Input
                 type="text"
                 name="initials_degree"
@@ -79,13 +83,15 @@ const ViewEditDegree = (id) => {
                 onChange={handleInputChange}
                 placeholder={degree.initials_degree}
               />
-            </Row>
+</FormGroup>
+          </Jumbotron>
+          <div>
             <Button className="btn btn-success" onClick={saveDegree}>บันทึก</Button>
-          </Form>
-
+          </div>
+        </Form>
         )}
-
       </Form>
+      
 
     </div>
 

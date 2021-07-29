@@ -12,6 +12,9 @@ const ViewDashBoardAdmin = (props) => {
      <Row>
         <Col><Button href="./insertstudent">AddStudent</Button></Col>
       </Row>
+      <Row>
+        <Col><Button href="./Adminall">ข้อมูลผู้ดูเเล</Button></Col>
+      </Row>
 </div>    
 
 

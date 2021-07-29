@@ -13,13 +13,14 @@ const ViewDashboardTeacher = (props) => {
         <Col ><Button href="./fucultyall">คณะ</Button></Col>
         <Col ><Button href="./courseall">สาขา</Button></Col>
         <Col ><Button href="./groupcourseall">กลุ่มสาขา</Button></Col>
+        <Col ><Button href="./degreeall">วุฒิ</Button></Col>
+
       </Row>
 </div>    
 <br />
 <div class="container">
      <Row>
      <Col><Button href="./educationall">ข้อมูลการศึกษาต่อ</Button></Col>
-        <Col><Button href="./educationconditionall">ข้อมูลเงื่อนไข</Button></Col>
         
       </Row>
 </div>    

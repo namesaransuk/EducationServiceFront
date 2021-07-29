@@ -2,13 +2,14 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import {Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Card, CardText, CardBody, CardLink,
   CardTitle, CardSubtitle, Jumbotron, Table, Alert} from 'reactstrap';
+  import Swal from 'sweetalert2';
 
 const ViewInsertGroupCourse = () => {
   const initGroupMajor = {
     name_major: "",
   };
 
-  const [groupmajor, setGroupMajor] = (initGroupMajor);
+  const [groupmajor, setGroupMajor] = useState(initGroupMajor);
   const [submited, setSumited] = useState(false)
 
   const handleInputChange = (event) => {
@@ -37,12 +38,18 @@ const ViewInsertGroupCourse = () => {
 
     <div class="container">
       <Form>
-        {submited ? (<Alert color="success"><br /><br /><br /><br />
-          <center>เพิ่มข้อมูลสำเร็จ!!<br /><br /><br /><br /><br />
-            <Button color="btn btn-success" href="/educationall">OK</Button></center>
-        </Alert>
-        ) : (
-          <Form>
+
+{submited ? (
+   Swal.fire(
+
+    'เพิ่มข้อมูลกลุ่มสาขาเรียบร้อย',
+    ' ',
+     'success',
+ )
+ (window.location.assign("/groupcourseall"))
+                ) : (
+<Form>
+
             <center><h3>เพิ่มกลุ่มสาขา</h3></center>
             <br/>
             <Label for="major">ชื่อกลุ่มสาขา</Label>

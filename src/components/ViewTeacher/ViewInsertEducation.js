@@ -3,6 +3,7 @@ import axios from 'axios'
 import {
   Container, Row, Col, Button, Form, FormGroup, Label, Input, Alert
 } from 'reactstrap';
+import Swal from 'sweetalert2';
 
 
 const ViewInsertEducation = () => {
@@ -18,8 +19,6 @@ const ViewInsertEducation = () => {
     doculment_edu: "",
     note_edu: "",
     url_doculment: "",
-
-
   };
 
 
@@ -27,6 +26,7 @@ const ViewInsertEducation = () => {
   const [submited, setSumited] = useState(false)
   const [university, setUniversity] = useState([])
   const [round, setRound] = useState([])
+  const [educate, setEducate] = useState([])
 
 
   const handleInputChange = (event) => {
@@ -67,9 +67,20 @@ const ViewInsertEducation = () => {
   };
 
   const updateUniversity = () => {
-    axios.get("http://localhost:8080/University/index").then((response) => {
+    axios.get("http://localhost:8080/university").then((response) => {
       console.log(response);
       setUniversity(response.data.university);
+      console.log("Updating .....");
+    });
+  };
+  useEffect(() => {
+    updateUniversity();
+  }, []);
+
+  const updateEducate = () => {
+    axios.get("hhttp://localhost:8080/education/getEducation").then((response) => {
+      console.log(response);
+      setEducate(response.data.university);
       console.log("Updating .....");
     });
   };
@@ -91,23 +102,28 @@ const ViewInsertEducation = () => {
   return (
 
     <Container>
-      <Form>
+    <Form>
 
-        {submited ? (<Alert color="success"><br /><br /><br /><br />
-          <center>เพิ่มข้อมูลสำเร็จ!!<br /><br /><br /><br /><br />
-            <Button color="btn btn-success" href="/educationall">OK</Button></center>
-        </Alert>
-        ) : (
-          <Form >
+{submited ? (
+   Swal.fire(
+
+    'เพิ่มข้อมูลสำเร็จ',
+    ' ',
+     'success',
+ )
+ (window.location.assign("/educationall"))
+                ) : (
+<Form>
             <center><h3> เพิ่มการรับสมัครการเข้าศึกษาต่อ </h3></center>
-
+            <hr></hr>
+            <br></br>
             <Row>
-
-              <Col xs="6">
+              <Col xs="2">
                 <FormGroup>
                   <Label for="year_edu">ปีที่เปิดรับสมัคร</Label>
                   <Input type="select" name="year_edu" id="year_edu" value={education.year_edu || ""}
                     onChange={handleInputChange}>
+                    <option></option>
                     <option value="2021" >2021</option>
                     <option value="2022" >2022</option>
                     <option value="2023">2023</option>
@@ -116,7 +132,7 @@ const ViewInsertEducation = () => {
                   </Input>
                 </FormGroup></Col>
 
-              <Col xs="6">
+              <Col xs="3">
                 <FormGroup>
                   <Label for="id_round">รอบ</Label>
                   <Input type="select" name="id_round" id="id_round" placeholder="เลือกรอบที่ต้องการ" value={education.id_round || ""}
@@ -128,14 +144,14 @@ const ViewInsertEducation = () => {
                       )
                     })}
                   </Input>
-
-                </FormGroup></Col>
+                </FormGroup>
+              </Col>
             </Row>
-
             <Row>
-              <Col xs="6">
+              <Col xs="7">
                 <FormGroup>
                   <Label for="id_university">มหาวิทยาลัย</Label>
+
                   <Input type="select" name="id_university" id="id_university" placeholder="เลือกมหาวิทยาลัยที่ต้องการ"
                     onChange={handleInputChange} value={education.id_university || ""}>
                     <option></option>
@@ -146,8 +162,11 @@ const ViewInsertEducation = () => {
                       )
                     })}
                   </Input>
-                </FormGroup></Col>
-              <Col xs="6">
+                </FormGroup>
+              </Col>
+
+
+              <Col xs="3">
                 <FormGroup>
                   <Label for="tcas">Tcas</Label>
                   <Input type="select" name="tcas" id="tcas" onChange={handleInputChange} value={education.tcas || ""} >
@@ -155,52 +174,51 @@ const ViewInsertEducation = () => {
                     <option>เข้าร่วม</option>
                     <option>ไม่เข้าร่วม</option>
                   </Input>
-                </FormGroup></Col>
+                </FormGroup>
+              </Col>
             </Row>
             <Row>
-              <Col xs="6">
+              <Col xs="3">
                 <FormGroup>
                   <Label for="open_ date">วันเปิดรับสมัคร</Label>
                   <Input type="date" name="open_date" id="open_date" onChange={handleInputChange} value={education.open_date || ""} >
                   </Input>
-                </FormGroup></Col>
-              <Col xs="6">
+                </FormGroup>
+              </Col>
+              <Col xs="3">
                 <FormGroup>
                   <Label for="close_ date">วันปิดรับสมัคร</Label>
                   <Input type="date" name="close_date" id="close_date" onChange={handleInputChange} value={education.close_date || ""}>
                   </Input>
                 </FormGroup></Col>
-            </Row>
-            <Row>
-              <Col xs="12" rows="9" >
+              <Col xs="3" >
                 <FormGroup>
-                  <Label for="list_day">วันรายงานตัว</Label>
+                  <Label for="list_day">ประกาศรายชื่อผู้มีสิทธ์สอบสัมภาษณ์</Label>
                   <Input type="date" name="list_day" id="list_day" onChange={handleInputChange} value={education.list_day || ""}>
                   </Input>
                 </FormGroup></Col>
               <Col xs="6"></Col>
             </Row>
-            <FormGroup>
+            <FormGroup >
               <Label for="general">คุณสมบัติ</Label>
-              <Input type="textarea" name="general" id="general" onChange={handleInputChange} value={education.general || ""} />
+              <Input style={{ height: 150 }} type="textarea" name="general" id="general" onChange={handleInputChange} value={education.general || ""} />
             </FormGroup>
             <FormGroup>
-              <Label for="doculment_edu">เงื่อนไขเอกสาร</Label>
-              <Input type="textarea" name="doculment_edu" id="doculment_edu" onChange={handleInputChange} value={education.doculment_edu || ""} />
+              <Label for="doculment_edu">เอกสารที่ใช้</Label>
+              <Input style={{ height: 150 }} type="textarea" name="doculment_edu" id="doculment_edu" onChange={handleInputChange} value={education.doculment_edu || ""} />
 
             </FormGroup>
             <FormGroup>
               <Label for="note_edu">เงื่อนไขอื่นๆ</Label>
               <Input type="textarea" name="note_edu" id="note_edu" onChange={handleInputChange} value={education.note_edu || ""} />
             </FormGroup>
-            <Row>
-              <Col xs="6">
-                <FormGroup>
-                  <Label for="url_doculment">URL</Label>
-                  <Input type="text" name="url_doculment" id="url_doculment" onChange={handleInputChange} placeholder="กรุณาใส่ URL" value={education.url_doculment || ""} />
-                </FormGroup>
-              </Col>
-            </Row>
+
+            <Col xs="7">
+              <FormGroup>
+                <Label for="url_doculment">URL</Label>
+                <Input type="text" name="url_doculment" id="url_doculment" onChange={handleInputChange} placeholder="กรุณาใส่ URL" value={education.url_doculment || ""} />
+              </FormGroup>
+            </Col>
 
             <Button className="btn btn-success" onClick={saveEducation}>ยืนยัน</Button>
           </Form>

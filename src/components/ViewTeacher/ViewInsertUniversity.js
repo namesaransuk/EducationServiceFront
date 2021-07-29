@@ -4,6 +4,7 @@ import axios from 'axios';
 // import { storage } from "../../firebase/index";
 // import { useFormik } from "formik";
 import { Container, Row, Button, Form, Label, Input, Jumbotron, Alert, Progress } from 'reactstrap';
+import Swal from 'sweetalert2';
 
 const ViewInsertUniversity = () => {
   const initUniversity = {
@@ -15,7 +16,7 @@ const ViewInsertUniversity = () => {
 
 
   const [university, setUniversity] = useState(initUniversity);
-  const [submitted, setSubmitted] = useState(false);
+  const [submited, setSubmitted] = useState(false);
 
   const handleInputChange = (event) => {
     let { name, value } = event.target;
@@ -44,13 +45,19 @@ const ViewInsertUniversity = () => {
 
   return (
     <Container>
-      <Form >
-        {submitted ? (<Alert color="success"><br /><br /><br /><br />
-          <center>เพิ่มข้อมูลสำเร็จ!!<br /><br /><br /><br /><br />
-            <Button color="btn btn-success" href="/universityAll">OK</Button></center>
-        </Alert>
-        ) : (
-          <Form>
+     <Form>
+
+{submited ? (
+   Swal.fire(
+
+    'เพิ่มข้อมูลมหาลัยเรียบร้อย',
+    ' ',
+     'success',
+ )
+ (window.location.assign("/universityall"))
+                ) : (
+<Form>
+
             <center><h3>เพิ่มมหาวิทยาลัย</h3></center>
             <Row>
               <Label for="logo_uni">โลโก้มหาลัย</Label>

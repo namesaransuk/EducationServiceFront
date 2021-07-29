@@ -42,7 +42,7 @@ const ViewGroupCourse = (props) => {
         <Row>
           <Col></Col>
           <Col></Col>
-          <Col><NavLink href="./inserteducation">เพิ่มกลุ่มสาขา</NavLink>
+          <Col><NavLink href="./insertgroupcourse">เพิ่มกลุ่มสาขา</NavLink>
           </Col>
         </Row>
         <Table>
@@ -59,7 +59,7 @@ const ViewGroupCourse = (props) => {
                 <tr key={major.id_major}>
                   <td>{major.id_major}</td>
                   <td>{major.name_major}</td>
-                  <td>  <Button color="info" href={"/editeducation/" + major.id_major}>
+                  <td>  <Button color="info" href={"/editgroupcourse/" + major.id_major}>
                     <FontAwesomeIcon icon={faEdit} />แก้ไขข้อมูล
                         </Button>{" "}</td>
                 </tr>

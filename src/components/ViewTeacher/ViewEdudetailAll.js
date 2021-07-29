@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' //fornt
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import {
   Row, Col, Button, FormGroup, Label, Input,
   NavLink, Table
@@ -55,7 +55,7 @@ const ViewEducationAll = ({ id }) => {
         <Row>
           <Col></Col>
           <Col></Col>
-          <Col><NavLink href="/educationdetail">เพิ่มรายละเอียดข้อมูลการเข้าศึกษาต่อ</NavLink>
+          <Col><NavLink href={"/educationdetail/" + education.id_education}>เพิ่มรายละเอียดข้อมูลการเข้าศึกษาต่อ</NavLink>
           </Col>
         </Row>
         <Table>
@@ -64,7 +64,7 @@ const ViewEducationAll = ({ id }) => {
               <th>คณะ</th>
               <th>สาขา</th>
               <th>จำนวน</th>
-              <th>สายการเรียน</th>
+              <th>แผนการเรียน</th>
               <th>เกรดที่กำหนด</th>
               <th>เเก้ไข</th>
 
@@ -78,7 +78,7 @@ const ViewEducationAll = ({ id }) => {
                   <td>{edudetail.name_faculty}</td>
                   <td>{edudetail.name_course}</td>
                   <td>{edudetail.number_of_edu}</td>
-                  <td>{edudetail.curriculum_edu}</td>
+                  <td>{edudetail.name_curriculum}</td>
                   <td>{edudetail.GPA}</td>
 
                   <td>

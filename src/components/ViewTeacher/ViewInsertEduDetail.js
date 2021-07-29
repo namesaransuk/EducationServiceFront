@@ -3,42 +3,42 @@ import axios from 'axios'
 import {
     Container, Row, Col, Button, Form, FormGroup, Label, Input, Alert
 } from 'reactstrap';
+import Swal from 'sweetalert2';
 
 
 
-const ViewInsertEduDetail = () => {
+const ViewInsertEduDetail = ({ id }) => {
     const initEdudetail = {
         id_edu_detail: "",
         number_of_edu: "",
         GPA: "",
-        curriculum_edu: "",
+        id_curriculum: "",
         note_condi: "",
         id_course: "",
         id_faculty: "",
         id_education: "",
+        id_major: "",
 
     };
+
     const [edudetail, setEdudetail] = useState(initEdudetail);
     const [submited, setSumited] = useState(false)
-    const [course, setCourse] = useState([])
     const [faculty, setFaculty] = useState([])
-    const [university, setUniversity] = useState([])
-    const [education, setEducation] = useState([])
+    const [course, setCourse] = useState([])
+    const [curriculum, setCurriculum] = useState([])
+    const [major, setMajor] = useState([])
 
-    
-    const updateeducation = () => {
-        axios.get("http://localhost:8080/University/index").then((response) => {
-            console.log(response);
-            setEducation(response.data.university);
-            console.log("Updating .....");
-        });
-    };
     useEffect(() => {
-        updateeducation();
-    }, []);
+        axios.get("http://localhost:8080/Education/" + id)
+            .then((response) => {
+                setEdudetail(response.data);
+            });
+    }, [id]);
 
+
+    //Faculty
     const updateFaculty = () => {
-        axios.get("http://localhost:8080/faculty/index").then((response) => {
+        axios.get("http://localhost:8080/faculty").then((response) => {
             console.log(response);
             setFaculty(response.data.faculty);
             console.log("Updating .....");
@@ -48,9 +48,9 @@ const ViewInsertEduDetail = () => {
         updateFaculty();
     }, []);
 
-
+    //Course
     const updateCourse = () => {
-        axios.get("http://localhost:8080/course").then((response) => {
+        axios.get("http://localhost:8080/Course").then((response) => {
             console.log(response);
             setCourse(response.data.course);
             console.log("Updating .....");
@@ -58,6 +58,30 @@ const ViewInsertEduDetail = () => {
     };
     useEffect(() => {
         updateCourse();
+    }, []);
+
+    //Curriculum
+    const updateCurriculum = () => {
+        axios.get("http://localhost:8080/Curriculum").then((respond) => {
+            console.log(respond);
+            setCurriculum(respond.data.curriculum);
+            console.log("Update...")
+        });
+    };
+    useEffect(() => {
+        updateCurriculum();
+    }, []);
+
+    //Major
+    const updateMajor = () => {
+        axios.get("http://localhost:8080/groupmajor").then((respond) => {
+            console.log(respond);
+            setMajor(respond.data.major);
+            console.log("Update...")
+        });
+    };
+    useEffect(() => {
+        updateMajor();
     }, []);
 
 
@@ -69,26 +93,16 @@ const ViewInsertEduDetail = () => {
         setEdudetail({ ...edudetail, [name]: value });
     };
 
-    const updateUniversity = () => {
-        axios.get("http://localhost:8080/University").then((response) => {
-            console.log(response);
-            setUniversity(response.data.university);
-            console.log("Updating .....");
-        });
-    };
-    useEffect(() => {
-        updateUniversity();
-    }, []);
-
-    const saveEdudetail = (fileURL) => {
+    const saveEdudetail = () => {
         var data = {
             number_of_edu: edudetail.number_of_edu,
             GPA: edudetail.GPA,
-            curriculum_edu: edudetail.curriculum_edu,
+            id_curriculum: edudetail.id_curriculum,
             note_condi: edudetail.note_condi,
             id_course: edudetail.id_course,
             id_faculty: edudetail.id_faculty,
             id_education: edudetail.id_education,
+            id_major: edudetail.id_major,
         }
         axios.post("http://localhost:8080/eduDetail/createEduDetail", data)
             .then((response) => {
@@ -105,17 +119,20 @@ const ViewInsertEduDetail = () => {
     };
 
 
-
     return (
         <Container>
             <Form>
 
-                {submited ? (<Alert color="success"><br /><br /><br /><br />
-                    <center>เพิ่มรายล่ะเอียดข้อมูลการศึกษาต่อสำเร็จ!<br /><br /><br /><br /><br />
-                        <Button color="btn btn-success" href="/educationall">OK</Button></center>
-                </Alert>
+{submited ? (
+   Swal.fire(
+
+    'เพิ่มรายล่ะเอียดข้อมูลการศึกษาต่อสำเร็จ',
+    ' ',
+     'success',
+ )
+ (window.location.assign("/edudetailall/" + edudetail.id_education))
                 ) : (
-                    <Form >
+<Form>
                         <center><h3> รายละเอียดข้อมูลการเข้าศึกษาต่อ </h3></center>
 
                         <Row>
@@ -124,6 +141,7 @@ const ViewInsertEduDetail = () => {
                                     <Label for="id_faculty">คณะที่เปิดรับ</Label>
                                     <Input type="select" name="id_faculty" id="id_faculty"
                                         onChange={handleInputChange} value={edudetail.id_faculty || ""} >
+                                        <option></option>
                                         {faculty.map((faculty) => {
                                             return (
                                                 <option key={faculty.id_faculty} value={faculty.id_faculty}>
@@ -138,10 +156,12 @@ const ViewInsertEduDetail = () => {
                                     <Input type="select" name="id_course" id="id_course"
                                         value={edudetail.id_course || ""}
                                         onChange={handleInputChange}>
+                                        <option></option>
                                         {course.map((course) => {
                                             return (
                                                 <option key={course.id_course} value={course.id_course}>
-                                                    {course.name_course}</option>
+                                                    {course.name_course}
+                                                </option>
                                             )
                                         })}
                                     </Input>
@@ -149,8 +169,15 @@ const ViewInsertEduDetail = () => {
                             <Col xs="6">
                                 <FormGroup>
                                     <Label for="">กลุ่มสาขาวิชา</Label>
-                                    <Input type="text" name="" id=""
+                                    <Input type="select" name="id_major" id="id_major" value={edudetail.id_major}
                                         onChange={handleInputChange}>
+                                        <option></option>
+                                            {major.map((major) => {
+                                                return (
+                                                    <option key={major.id_major} value={major.id_major}>
+                                                        {major.name_major}</option>
+                                                )
+                                            })}
                                     </Input>
                                 </FormGroup></Col>
                             <Col xs="6">
@@ -169,17 +196,25 @@ const ViewInsertEduDetail = () => {
                                 </FormGroup></Col>
                             <Col xs="6">
                                 <FormGroup>
-                                    <Label for="curriculum_edu">แผนการเรียน</Label>
-                                    <Input type="text" name="curriculum_edu" id="curriculum_edu" value={edudetail.curriculum_edu || ""}
+                                    <Label for="id_curriculum">แผนการเรียน</Label>
+                                    <Input type="select" name="id_curriculum" id="id_curriculum" value={edudetail.id_curriculum || ""}
                                         onChange={handleInputChange}>
+                                        <option></option>
+                                        <option>ไม่กำหนด</option>
+                                        {curriculum.map((curri) => {
+                                            return (
+                                                <option key={curri.id_curriculum} value={curri.id_curriculum}>
+                                                    {curri.name_curriculum}</option>
+                                            )
+                                        })}
                                     </Input>
-                                </FormGroup></Col>
+                                </FormGroup>
+                            </Col>
                             <Col xs="6">
                                 <FormGroup>
-                                    <Label for="id_education">Education</Label>
-                                    <Input type="select" name="id_education" id="id_education"
+                                    <Label for="id_education"></Label>
+                                    <Input type="hidden" name="id_education" id="id_education"
                                         onChange={handleInputChange} value={edudetail.id_education || ""}>
-                                     
                                     </Input>
 
                                 </FormGroup></Col>

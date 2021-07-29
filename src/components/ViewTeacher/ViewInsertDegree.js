@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import {
   Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Card, CardText, CardBody, CardLink,
   CardTitle, CardSubtitle, Jumbotron, Table, Alert} from 'reactstrap';
+import Swal from 'sweetalert2';
 
 const ViewInsertDegree = () => {
   const initDegree = {
@@ -39,13 +40,18 @@ const ViewInsertDegree = () => {
   return (
 
     <div class="container">
-      <Form>
-      {submited ? (<Alert color="success"><br /><br /><br /><br />
-          <center>เพิ่มข้อมูลสำเร็จ!!<br /><br /><br /><br /><br />
-            <Button color="btn btn-success" href="/degreeall">OK</Button></center>
-        </Alert>
-        ) : (
-          <Form>
+    <Form>
+
+{submited ? (
+   Swal.fire(
+
+    'เพิ่มข้อมูลวุฒิเรียบร้อย',
+    ' ',
+     'success',
+ )
+ (window.location.assign("/degreeall"))
+                ) : (
+<Form>
             <center><h3> เพิ่มหลักสูตร </h3></center>
             <Row>
             <br/>

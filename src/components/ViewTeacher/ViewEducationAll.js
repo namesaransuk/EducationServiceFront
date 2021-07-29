@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' //fornt
-import { faEdit, faPen, faSearch, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faPen } from "@fortawesome/free-solid-svg-icons";
 import {
   Row, Col, Button, FormGroup, Label, Input,
   NavLink, Table
@@ -12,28 +12,41 @@ const ViewEducationAll = () => {
   const [education, setEducation] = useState([])
 
   useEffect(() => {
-    axios.get("http://localhost:8080/Education/index")
+    axios.get("http://localhost:8080/Education/getEducation")
       .then((response) => {
-        setEducation(response.data.education);
+        setEducation(response.data);
       });
 
   }, []);
 
+  {/*const searchEducation = () =>{
+    const[error, setError]= useState(null);
+    const[isLoaded,setIsloaded] = useState(false);
+    const[edu,setEdu]=useState([])
+
+    useEffect(()=>{
+      fetch("http://localhost:8080/Education")
+      .then(res =>res.json())
+    })
+  }*/}
+  
+
   return (
     <div>
-      <div class="container">
+      <div className="container">
         <br />
         <Row>
           <Col xs="6">
             <FormGroup>
               <Label for="year_edu">ค้นหา</Label>
-              <Input type="text" name="year_edu" id="year_edu"  >
-                <FontAwesomeIcon icon={faSearch} /></Input>
+              <Input type="text" value="" >
+
+              </Input>
             </FormGroup></Col>
         </Row>
       </div>
       <br />
-      <div class="container">
+      <div className="container">
         <Row>
           <Col></Col>
           <Col></Col>
@@ -64,7 +77,7 @@ const ViewEducationAll = () => {
                   <td>  <Button color="info" href={"/editeducation/" + education.id_education}>
                     <FontAwesomeIcon icon={faEdit} />แก้ไขข้อมูล
                         </Button>{" "}</td>
-                  <td>  <Button outline color="info" href={"/edudatailall/" + education.id_education}>
+                  <td>  <Button outline color="info" href={"/edudetailall/" + education.id_education}>
                     <FontAwesomeIcon icon={faPen} />เพิ่มรายละเอียดข้อมูลการศึกษาต่อ
                         </Button>{" "}</td>
                 </tr>
@@ -73,10 +86,6 @@ const ViewEducationAll = () => {
           </tbody>
         </Table>
       </div>
-
-
-
-
     </div>
   );
 }
