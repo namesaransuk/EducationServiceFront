@@ -1,21 +1,5 @@
 import React, { Fragment, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {
-    Container,
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    NavbarText,
-    Button
-} from 'reactstrap';
 import Swal from 'sweetalert2';
 import { Disclosure, Menu, Transition, Popover } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
@@ -96,7 +80,7 @@ const Header = () => {
                                                         <span className="sr-only">Workflow</span>
                                                         <img
                                                             className="h-16 w-auto"
-                                                            src="https://lh3.googleusercontent.com/proxy/sFH-HbHtnXnn1mfvVRkAC66F3HWv7iUVcEWFlCs0OVP3Iykod4zYHPuWueE0DgW_s9bj-SQwZi3lrGuo7sVR9nEERCaz7s1W7FGn8UV78ELqT1S2XOL5qAM"
+                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
                                                         />
                                                     </a>
                                                     <div className="-mr-2 flex items-center md:hidden">
@@ -141,7 +125,7 @@ const Header = () => {
                                                     <div>
                                                         <img
                                                             className="h-12 w-auto"
-                                                            src="https://lh3.googleusercontent.com/proxy/sFH-HbHtnXnn1mfvVRkAC66F3HWv7iUVcEWFlCs0OVP3Iykod4zYHPuWueE0DgW_s9bj-SQwZi3lrGuo7sVR9nEERCaz7s1W7FGn8UV78ELqT1S2XOL5qAM"
+                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
                                                             alt=""
                                                         />
                                                     </div>
@@ -200,7 +184,7 @@ const Header = () => {
                                                         <span className="sr-only">Workflow</span>
                                                         <img
                                                             className="h-16 w-auto"
-                                                            src="https://lh3.googleusercontent.com/proxy/sFH-HbHtnXnn1mfvVRkAC66F3HWv7iUVcEWFlCs0OVP3Iykod4zYHPuWueE0DgW_s9bj-SQwZi3lrGuo7sVR9nEERCaz7s1W7FGn8UV78ELqT1S2XOL5qAM"
+                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
                                                         />
                                                     </a>
                                                     <div className="-mr-2 flex items-center md:hidden">
@@ -301,7 +285,7 @@ const Header = () => {
                                                     <div>
                                                         <img
                                                             className="h-12 w-auto"
-                                                            src="https://lh3.googleusercontent.com/proxy/sFH-HbHtnXnn1mfvVRkAC66F3HWv7iUVcEWFlCs0OVP3Iykod4zYHPuWueE0DgW_s9bj-SQwZi3lrGuo7sVR9nEERCaz7s1W7FGn8UV78ELqT1S2XOL5qAM"
+                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
                                                             alt=""
                                                         />
                                                     </div>
@@ -392,7 +376,7 @@ const Header = () => {
                                                         <span className="sr-only">Workflow</span>
                                                         <img
                                                             className="h-16 w-auto"
-                                                            src="https://lh3.googleusercontent.com/proxy/sFH-HbHtnXnn1mfvVRkAC66F3HWv7iUVcEWFlCs0OVP3Iykod4zYHPuWueE0DgW_s9bj-SQwZi3lrGuo7sVR9nEERCaz7s1W7FGn8UV78ELqT1S2XOL5qAM"
+                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
                                                         />
                                                     </a>
                                                     <div className="-mr-2 flex items-center md:hidden">
@@ -493,7 +477,7 @@ const Header = () => {
                                                     <div>
                                                         <img
                                                             className="h-12 w-auto"
-                                                            src="https://lh3.googleusercontent.com/proxy/sFH-HbHtnXnn1mfvVRkAC66F3HWv7iUVcEWFlCs0OVP3Iykod4zYHPuWueE0DgW_s9bj-SQwZi3lrGuo7sVR9nEERCaz7s1W7FGn8UV78ELqT1S2XOL5qAM"
+                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
                                                             alt=""
                                                         />
                                                     </div>
@@ -584,7 +568,7 @@ const Header = () => {
                                                         <span className="sr-only">Workflow</span>
                                                         <img
                                                             className="h-16 w-auto"
-                                                            src="https://lh3.googleusercontent.com/proxy/sFH-HbHtnXnn1mfvVRkAC66F3HWv7iUVcEWFlCs0OVP3Iykod4zYHPuWueE0DgW_s9bj-SQwZi3lrGuo7sVR9nEERCaz7s1W7FGn8UV78ELqT1S2XOL5qAM"
+                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
                                                         />
                                                     </a>
                                                     <div className="-mr-2 flex items-center md:hidden">
@@ -685,7 +669,7 @@ const Header = () => {
                                                     <div>
                                                         <img
                                                             className="h-12 w-auto"
-                                                            src="https://lh3.googleusercontent.com/proxy/sFH-HbHtnXnn1mfvVRkAC66F3HWv7iUVcEWFlCs0OVP3Iykod4zYHPuWueE0DgW_s9bj-SQwZi3lrGuo7sVR9nEERCaz7s1W7FGn8UV78ELqT1S2XOL5qAM"
+                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
                                                             alt=""
                                                         />
                                                     </div>

@@ -70,7 +70,7 @@ function Index() {
         </div>
         <SilderIndex />
       </div>
-      <div class="wow fadeInUpBig bg-fixed w-full h-64 md:h-96 bg-center overflow-y-1" style={{ backgroundImage: `url("https://www.npru.ac.th/2019/img/gallery/npru-57.jpg")`, filter: 'blur(2px)' }}></div>
+      <div class="wow fadeInUpBig bg-fixed w-full h-80 md:h-screen bg-center overflow-y-1" style={{ backgroundImage: `url("https://www.npru.ac.th/2019/img/gallery/npru-57.jpg")`, filter: 'blur(2px)' }}></div>
       <div class="container-fluid mt-5">
         <center><h2> ประชาสัมพันธ์ </h2></center>
 

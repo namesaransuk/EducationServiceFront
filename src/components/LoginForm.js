@@ -111,7 +111,7 @@ const LoginForm = () => {
                     <div>
                         <img
                             className="mx-auto h-32 w-auto"
-                            src="https://lh3.googleusercontent.com/proxy/sFH-HbHtnXnn1mfvVRkAC66F3HWv7iUVcEWFlCs0OVP3Iykod4zYHPuWueE0DgW_s9bj-SQwZi3lrGuo7sVR9nEERCaz7s1W7FGn8UV78ELqT1S2XOL5qAM"
+                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
                             alt="Workflow"
                         />
                         <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900">เข้าสู่ระบบ</h2>
