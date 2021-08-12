@@ -8,69 +8,84 @@ import {
 } from 'reactstrap';
 
 const ViewEducationStudentAll = (props) => {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
-    const toggle = () => setDropdownOpen(prevState => !prevState);
-    const [year, setYear] = useState([]);
-    //ไปดึง api ของอันเก่ามาใช้จาก url
-    useEffect(() => {
-      axios.get("http://localhost:8080/Teacher/getYear").then((response) => {
-        console.log(response);
-        setYear(response.data.year);
-      });
-    }, []);
-    return (
-        <div>
-     <div class="container">
-<br />
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle = () => setDropdownOpen(prevState => !prevState);
+  const [year, setYear] = useState([]);
+  //ไปดึง api ของอันเก่ามาใช้จาก url
+  useEffect(() => {
+    axios.get("http://localhost:8080/Teacher/getYear").then((response) => {
+      console.log(response);
+      setYear(response.data.year);
+    });
+  }, []);
+  return (
+    <div className="pt-32">
+      <div class="container">
+        <br />
         <Row>
-<Col xs="12"> 
-  <FormGroup>
-    <br />  <br />  <br />  <br />
-       <center> <Label for="exampleSelect">ดูข้อมูลนักเรียน</Label></center>
-      </FormGroup>
-      
-</Col>
+          <Col xs="12">
+            <FormGroup>
+              <br />  <br />  <br />  <br />
+              <center> <Label for="exampleSelect">ดูข้อมูลนักเรียน</Label></center>
+            </FormGroup>
+
+          </Col>
 
         </Row>
-</div>    
-<br />
-<div class="container">
-        <Row>
-          <Col></Col>
-          <Col></Col>
-          <Col></Col>
-        
-        <br/>
-        </Row>
-        <Table>
-          <thead>
-            <tr>
-              <th>ปีการศีกษา</th>
-              <th>เลือกห้องเรียน</th>
-            </tr>
-          </thead>
-          <tbody>
-            {year.map((year) => {
-              return (
-                <tr key={year.year_stu}>
-                  <td>{year.year_stu}</td>
-                  <td>
-                    <Button href={"/EducationStudentClass/" + year.year_stu}>
-                      <FontAwesomeIcon icon={faEdit} />เลือกห้องเรียน
-                   </Button>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </Table>
       </div>
+      <br />
 
-
-
-
+      <div className="flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+            <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+              <table className="table-striped min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-500">
+                  <tr>
+                    <th
+                      scope="col"
+                      className="px-12 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                    >
+                      ปีการศึกษา
+                    </th>
+                    <th
+                      scope="col"
+                      className="break-all px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                    >
+                      เลือกห้องเรียน
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-white divide-y divide-gray-200">
+                  {year.map((year) => {
+                    return (
+                      <tr key={year.year_stu}>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center">
+                            {/* <div className="flex-shrink-0 h-10 w-10">
+                              <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
+                            </div> */}
+                            <div className="ml-4">
+                              <div className="text-sm text-gray-900">{year.year_stu}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
+                          <a type="button" href={"/EducationStudentClass/" + year.year_stu} className="px-4 py-2.5 rounded text-white bg-indigo-600 hover:text-indigo-900">
+                            เลือกห้องเรียน
+                          </a>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
-  
-  export default ViewEducationStudentAll;
+
+export default ViewEducationStudentAll;

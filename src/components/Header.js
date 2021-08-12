@@ -169,7 +169,7 @@ const Header = () => {
             <div className="fixed left-0 right-0 z-50 top-0">
                 {/* เต็มหน้าจอ */}
                 <div className="mx-auto">
-                    <div className="pb-2 sm:pt-4 md:pt-4 bg-yellow-600">
+                    <div className="pb-2 sm:pt-4 md:pt-4 bg-gradient-to-r from-green-400 to-blue-500">
                         <Popover>
                             {({ open }) => (
                                 <>
@@ -188,7 +188,7 @@ const Header = () => {
                                                         />
                                                     </a>
                                                     <div className="-mr-2 flex items-center md:hidden">
-                                                        <Popover.Button className="bg-yellow-600 rounded-md p-2 inline-flex items-center justify-center text-white hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
+                                                        <Popover.Button className="bg-blue-500 rounded-md p-2 inline-flex items-center justify-center text-white hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
                                                             <span className="sr-only">Open main menu</span>
                                                             <MenuIcon className="h-6 w-6" aria-hidden="true" />
                                                         </Popover.Button>
@@ -208,7 +208,7 @@ const Header = () => {
                                                     {({ open }) => (
                                                         <>
                                                             <div>
-                                                                <Menu.Button className="bg-yellow-600 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                                                <Menu.Button className="bg-blue-500 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                     <span className="sr-only">Open user menu</span>
                                                                     <a href="#!" className="font-medium text-white hover:text-gray hover:no-underline mr-2">{session.fname_staff}{" "}{session.lname_staff}</a>
                                                                     <img
