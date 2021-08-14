@@ -13,9 +13,9 @@ const ViewEducationStudentAll = (props) => {
   const [year, setYear] = useState([]);
   //ไปดึง api ของอันเก่ามาใช้จาก url
   useEffect(() => {
-    axios.get("http://localhost:8080/Teacher/getYear").then((response) => {
+    axios.get("http://localhost:8080/Teacher/getClass").then((response) => {
       console.log(response);
-      setYear(response.data.year);
+      setYear(response.data.class);
     });
   }, []);
   return (
@@ -46,33 +46,33 @@ const ViewEducationStudentAll = (props) => {
                       scope="col"
                       className="px-12 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                     >
-                      ปีการศึกษา
+                      ห้องเรียน
                     </th>
                     <th
                       scope="col"
                       className="break-all px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
                     >
-                      เลือกห้องเรียน
+                      ดูข้อมูลรายชื่อนักเรียน
                     </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {year.map((year) => {
                     return (
-                      <tr key={year.year_stu}>
+                      <tr key={year.class}>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             {/* <div className="flex-shrink-0 h-10 w-10">
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
                             <div className="ml-4">
-                              <div className="text-sm text-gray-900">{year.year_stu}</div>
+                              <div className="text-sm text-gray-900">{year.year_class} / {year.class}</div>
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
-                          <a type="button" href={"/EducationStudentClass/" + year.year_stu} className="px-4 py-2.5 rounded text-white bg-indigo-600 hover:text-indigo-900">
-                            เลือกห้องเรียน
+                          <a type="button" href={"/EducationStudentData/" + year.class} className="px-4 py-2.5 rounded text-white bg-indigo-600 hover:text-indigo-900">
+                          ดูข้อมูลรายชื่อนักเรียน
                           </a>
                         </td>
                       </tr>

@@ -9,7 +9,6 @@ import {
 
 const ViewUniversity = () => {
 
-  const [university, setUniversity] = useState([]);
 
   const people = [
     {
@@ -23,18 +22,34 @@ const ViewUniversity = () => {
     },
     // More people...
   ]
-  const selectUniversity = () => {
-    axios.get("http://localhost:8080/university")
-      .then((response) => {
-        console.log(response);
-        setUniversity(response.data.university);
-        console.log("select University.....");
-      });
-  };
+  const [university, setUniversity] = useState([]);
+  const [filteredData, setFilteredData] = useState(university);
+
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+    console.log(value);
+    result = university.filter((data) => {
+    return  data.name_uni.search(value) != -1;
+
+    });
+    setFilteredData(result);
+    }
+    
+   
 
   useEffect(() => {
-    selectUniversity();
-  }, []);
+    axios('http://localhost:8080/university/searchUniversity?keyword=')
+    .then(response => {
+    console.log(response.data)
+    setUniversity(response.data);
+    setFilteredData(response.data);
+    })
+    .catch(error => {
+    console.log('Error getting fake data: ' + error);
+    })
+    }, []);
+
 
   return (
     <div className="pt-32">
@@ -45,12 +60,7 @@ const ViewUniversity = () => {
             <FormGroup>
               <br />
               <Label for="id_university">ค้นหาชื่อมหาวิทยาลัย</Label>
-              <Input type="select" name="id_university" id="id_university" >
-                {university.map((university) => {
-                  return (
-                    <option key={university.id_university}>{university.name_uni}</option>
-                  );
-                })}
+              <Input type="text" name="id_university" id="id_university" placeholder="กรุณาใส่ชื่อมหาลัยที่จะค้นหา" onChange={(event) =>handleSearch(event)} >
                 <FontAwesomeIcon icon={faSearch} />
               </Input>
             </FormGroup>
@@ -98,27 +108,27 @@ const ViewUniversity = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {university.map((university) => (
-                    <tr key={university.id_university}>
+                  {filteredData.map((value) => (
+                    <tr key={value.id_university}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {/* <div className="flex-shrink-0 h-10 w-10">
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
                           <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">{university.logo_uni}</div>
-                            <div className="text-sm text-gray-500">{university.name_uni}</div>
+                            <div className="text-sm font-medium text-gray-900"><img width="80" src={value.logo_uni} /></div>
+                            <div className="text-sm text-gray-500">{value.name_uni}</div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-wrap">
-                        <div className="text-sm text-gray-900">{university.detail_uni}</div>
+                        <div className="text-sm text-gray-900">{value.detail_uni}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <a className="text-sm text-gray-500" target="_blank" href={university.url_uni}>{university.url_uni}</a>
+                        <a className="text-sm text-gray-500" target="_blank" href={value.url_uni}>{value.url_uni}</a>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href={"./editUniversity/" + university.id_university} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
+                        <a href={"./editUniversity/" + value.id_university} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                           Edit
                         </a>
                       </td>
@@ -126,8 +136,10 @@ const ViewUniversity = () => {
                   ))}
                 </tbody>
               </table>
+              
             </div>
-          </div>
+          </div>               <center> {filteredData.length === 0 && <span>ไม่พบข้อมูลที่ค้นหา</span>} </center>
+
         </div>
       </div>
     </div >

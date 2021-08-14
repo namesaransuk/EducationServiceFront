@@ -12,19 +12,33 @@ const ViewCourseAll = (props) => {
   const toggle = () => setDropdownOpen(prevState => !prevState);
 
   const [course, setCourse] = useState([]);
+  const [filteredData, setFilteredData] = useState(course);
 
-  const selectCourse = () => {
-    axios.get("http://localhost:8080/course")
-      .then((response) => {
-        console.log(response);
-        setCourse(response.data.course);
-        console.log("select Course.....");
-      });
-  };
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+    console.log(value);
+    result = course.filter((data) => {
+    return  data.name_course.search(value) != -1;
+
+    });
+    setFilteredData(result);
+    }
+    
+   
 
   useEffect(() => {
-    selectCourse();
-  });
+    axios('http://localhost:8080/course/searchCourse?keyword=')
+    .then(response => {
+    console.log(response.data)
+    setCourse(response.data);
+    setFilteredData(response.data);
+    })
+    .catch(error => {
+    console.log('Error getting fake data: ' + error);
+    })
+    }, []);
+
 
   return (
     <div className="pt-32">
@@ -32,16 +46,11 @@ const ViewCourseAll = (props) => {
         <br />
         <Row>
           <Col xs="6">
-            <FormGroup>
+    
               <Label for="id_course">ค้นหาชื่อสาขา</Label>
-              <Input type="select" name="id_course" id="id_course">
-                {course.map((course) => {
-                  return (
-                    <option key={course.id_course}>{course.name_course}</option>
-                  );
-                })}
+              <Input type="text" name="id_course" id="id_course" placeholder="กรุณาใส่ชื่อสาขาที่จะค้นหา" onChange={(event) =>handleSearch(event)}>
               </Input>
-            </FormGroup>
+       
           </Col>
         </Row>
 
@@ -49,11 +58,12 @@ const ViewCourseAll = (props) => {
       <br />
 
       <Row className="px-12 pt-5">
+        
         <Col>
           <h3 className="block text-left">รายชื่อสาขา</h3>
         </Col>
         <Col>
-          <a className="block text-right" href="./insertdegree">เพิ่มสาขา</a>
+          <a className="block text-right" href="./insertcourse">เพิ่มสาขา</a>
         </Col>
       </Row>
       <div className="flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -61,6 +71,7 @@ const ViewCourseAll = (props) => {
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
               <table className="table-striped min-w-full divide-y divide-gray-200">
+                
                 <thead className="bg-gray-500">
                   <tr>
                     <th
@@ -81,34 +92,35 @@ const ViewCourseAll = (props) => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {course.map((course) => {
+                  {filteredData.map((value) => {
                     return (
-                      <tr key={course.id_course}>
+                      <tr key={value.id_course}>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             {/* <div className="flex-shrink-0 h-10 w-10">
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
                             <div className="ml-4">
-                              <div className="text-sm text-gray-500">{course.id_course}</div>
+                              <div className="text-sm text-gray-500">{value.id_course}</div>
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <div className="text-sm text-gray-500">{course.name_course}</div>
+                          <div className="text-sm text-gray-500">{value.name_course}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <a href={"./editCourse/" + course.id_course} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
+                          <a href={"./editCourse/" + value.id_course} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                             Edit
                           </a>
                         </td>
                       </tr>
                     )
                   })}
-                </tbody>
+                </tbody>  
               </table>
             </div>
-          </div>
+          </div>      <center> {filteredData.length === 0 && <span>ไม่พบข้อมูลที่ค้นหา</span>} </center>
+
         </div>
       </div>
     </div>

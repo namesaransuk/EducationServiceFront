@@ -11,24 +11,41 @@ import {
 const ViewEducationAll = () => {
   const [education, setEducation] = useState([])
 
+  const [filteredData, setFilteredData] = useState(education);
+
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+    console.log(value);
+    result = education.filter((data) => {
+      if(education === ""){
+        return data
+          }else if(data.name_uni.search(value) != -1){
+          return data
+          }else if(data.name_round.search(value) != -1){
+            return data
+          }else if(data.year_edu.search(value) != -1){
+              return data
+              }
+
+    });
+    setFilteredData(result);
+    }
+    
+   
+
   useEffect(() => {
-    axios.get("http://localhost:8080/Education/getEducation")
-      .then((response) => {
-        setEducation(response.data);
-      });
-
-  }, []);
-
-  {/*const searchEducation = () =>{
-    const[error, setError]= useState(null);
-    const[isLoaded,setIsloaded] = useState(false);
-    const[edu,setEdu]=useState([])
-
-    useEffect(()=>{
-      fetch("http://localhost:8080/Education")
-      .then(res =>res.json())
+    axios('http://localhost:8080/education/searchEducation?keyword=')
+    .then(response => {
+    console.log(response.data)
+    setEducation(response.data);
+    setFilteredData(response.data);
     })
-  }*/}
+    .catch(error => {
+    console.log('Error getting fake data: ' + error);
+    })
+    }, []);
+  
 
 
   return (
@@ -39,7 +56,7 @@ const ViewEducationAll = () => {
           <Col xs="6">
             <FormGroup>
               <Label for="year_edu">ค้นหา</Label>
-              <Input type="text" value="" >
+              <Input type="text" name="name_uni" id="name_uni"placeholder="กรุณาใส่ข้อมูลที่จะค้นหา" onChange={(event) =>handleSearch(event)} >
 
               </Input>
             </FormGroup></Col>
@@ -93,33 +110,33 @@ const ViewEducationAll = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {education.map((education) => {
+                  {filteredData.map((value) => {
                     return (
-                    <tr key={education.id_education}>
+                    <tr key={value.id_education}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {/* <div className="flex-shrink-0 h-10 w-10">
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
                           <div className="ml-4">
-                            <div className="text-sm text-gray-900">{education.year_edu}</div>
+                            <div className="text-sm text-gray-900">{value.year_edu}</div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-wrap">
-                        <div className="text-sm text-gray-900">{education.name_round}</div>
+                        <div className="text-sm text-gray-900">{value.name_round}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-500">{education.name_uni}</div>
+                        <div className="text-sm text-gray-500">{value.name_uni}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-wrap">
-                        <div className="text-sm text-gray-900">{education.open_date}</div>
+                        <div className="text-sm text-gray-900">{value.open_date}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-wrap">
-                        <div className="text-sm text-gray-900">{education.close_date}</div>
+                        <div className="text-sm text-gray-900">{value.close_date}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a type="button" href={"/editeducation/" + education.id_education} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
+                        <a type="button" href={"/editeducation/" + value.id_education} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                           <b>แก้ไขข้อมูล</b>
                         </a>
                       </td>
@@ -134,7 +151,8 @@ const ViewEducationAll = () => {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div>        <center> {filteredData.length === 0 && <span>ไม่พบข้อมูลที่ค้นหา</span>} </center>
+
         </div>
       </div>
     </div>

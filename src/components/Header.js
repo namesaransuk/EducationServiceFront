@@ -7,14 +7,20 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
 const Header = () => {
     const navigation = [
-        { name: 'ข้อมูลการศึกษาต่อ', href: '/educationstudentallstudent', current: true },
-        { name: 'ข้อมูลมหาวิทยาลัย', href: '/educationstudent', current: false },
-        
-    
+        { name: 'ข้อมูลการรับเข้าเรียนต่อ', href: '/educationstudentallstudent', current: true },
+        { name: 'ข้อมูลมหาลัย', href: '/educationstudent', current: false },
+    ]
+    const navigationTeacher = [
+        { name: 'ข้อมูลหลัก', href: '/dashboardTeacher', current: true },
+        { name: 'ข้อมูลการรับเข้าเรียนต่อ', href: '/educationall', current: false },
+        { name: 'ข้อมูลนักเรียน', href: '/educationstudentall', current: false },
     ]
     const profile = [
         { name: 'ข้อมูลส่วนตัว', href: '/profile/' },
         { name: 'ข้อมูลการศึกษาต่อ', href: '/detaileducationstudent/' }
+    ]
+    const profileTeacher = [
+        { name: 'ข้อมูลส่วนตัวครู', href: '/ProfileTeacher/' },
     ]
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
@@ -196,7 +202,7 @@ const Header = () => {
                                                 </div>
                                             </div>
                                             <div className="hidden md:block md:ml-auto md:pr-4 md:space-x-8">
-                                                {navigation.map((item) => (
+                                                {navigationTeacher.map((item) => (
                                                     <a key={item.name} href={item.href} className="font-medium text-white hover:text-gray hover:no-underline">
                                                         {item.name}
                                                     </a>
@@ -232,7 +238,7 @@ const Header = () => {
                                                                     static
                                                                     className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                                                                 >
-                                                                    {profile.map((item) => (
+                                                                    {profileTeacher.map((item) => (
                                                                         <Menu.Item key={item.name}>
                                                                             {({ active }) => (
                                                                                 <a
