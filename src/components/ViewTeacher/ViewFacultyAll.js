@@ -7,21 +7,35 @@ import {
   CardTitle, CardSubtitle, NavLink, Table
 } from 'reactstrap';
 
-const ViewFacultyAll = () => {
-  const [faculty, setFaculty] = useState([]);
-
-  const selectFaclty = () => {
-    axios.get("http://localhost:8080/faculty")
-      .then((response) => {
-        console.log(response);
-        setFaculty(response.data.faculty);
-        console.log("select Faclty.......");
+  const ViewFacultyAll = () => {
+    const [faculty, setFaculty] = useState([]);
+    const [filteredData, setFilteredData] = useState(faculty);
+  
+    const handleSearch = (event) => {
+      let value = event.target.value.toLowerCase();
+      let result = [];
+      console.log(value);
+      result = faculty.filter((data) => {
+      return  data.name_faculty.search(value) != -1;
+  
       });
-  };
+      setFilteredData(result);
+      }
+      
+     
+  
+    useEffect(() => {
+      axios('http://localhost:8080/Faculty/searchFaculty?keyword=')
+      .then(response => {
+      console.log(response.data)
+      setFaculty(response.data);
+      setFilteredData(response.data);
+      })
+      .catch(error => {
+      console.log('Error getting fake data: ' + error);
+      })
+      }, []);
 
-  useEffect(() => {
-    selectFaclty();
-  }, []);
 
   return (
     <div className="pt-32">
@@ -31,12 +45,7 @@ const ViewFacultyAll = () => {
           <Col xs="6">
             <FormGroup>
               <Label for="id_faculty">ชื่อคณะ</Label>
-              <Input type="select" name="id_faculty" id="id_faculty">
-                {faculty.map((faculty) => {
-                  return (
-                    <option key={faculty.id_faculty}>{faculty.name_faculty}</option>
-                  );
-                })}
+              <Input type="text" name="id_faculty" id="id_faculty" placeholder="กรุณาใส่ชื่อคณะที่จะค้นหา" onChange={(event) =>handleSearch(event)}>
               </Input>
             </FormGroup>
           </Col>
@@ -72,21 +81,21 @@ const ViewFacultyAll = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {faculty.map((faculty) => {
+                  {filteredData.map((value) => {
                     return (
-                    <tr key={faculty.id_faculty}>
+                    <tr key={value.id_faculty}>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           {/* <div className="flex-shrink-0 h-10 w-10">
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
                           <div className="ml-4">
-                            <div className="text-sm text-gray-500">{faculty.name_faculty}</div>
+                            <div className="text-sm text-gray-500">{value.name_faculty}</div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href={"./editFaculty/" + faculty.id_faculty} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
+                        <a href={"./editFaculty/" + value.id_faculty} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                           Edit
                         </a>
                       </td>
