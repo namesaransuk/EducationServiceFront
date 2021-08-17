@@ -15,12 +15,18 @@ const Header = () => {
         { name: 'ข้อมูลการรับเข้าเรียนต่อ', href: '/educationall', current: false },
         { name: 'ข้อมูลนักเรียน', href: '/educationstudentall', current: false },
     ]
+    const navigationAdmin = [
+        { name: 'ข้อมูลหลัก', href: '/dashboardTeacher', current: true },
+    ]
     const profile = [
         { name: 'ข้อมูลส่วนตัว', href: '/profile/' },
         { name: 'ข้อมูลการศึกษาต่อ', href: '/detaileducationstudent/' }
     ]
     const profileTeacher = [
         { name: 'ข้อมูลส่วนตัวครู', href: '/ProfileTeacher/' },
+    ]
+    const profileAdmin = [
+        { name: 'ข้อมูลส่วนตัวเเอดมิน', href: '/ProfileTeacher/' },
     ]
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
@@ -34,6 +40,8 @@ const Header = () => {
         lname_staff: localStorage.getItem('lname_staff'),
         fname_admin: localStorage.getItem('fname_admin'),
         lname_admin: localStorage.getItem('lname_admin'),
+        name_title: localStorage.getItem('name_title'),
+        name_position: localStorage.getItem('name_position'),
     }
     // const sessionstaff = {
     //     id_staff: localStorage.getItem('id_staff'),
@@ -54,6 +62,9 @@ const Header = () => {
         localStorage.removeItem('lname_staff');
         localStorage.removeItem('fname_admin');
         localStorage.removeItem('lname_admin');
+        localStorage.removeItem('name_position');
+
+
         Swal.fire(
 
             'ออกจากระบบเสร็จสิ้น',
@@ -394,7 +405,7 @@ const Header = () => {
                                                 </div>
                                             </div>
                                             <div className="hidden md:block md:ml-auto md:pr-4 md:space-x-8">
-                                                {navigation.map((item) => (
+                                                {navigationAdmin.map((item) => (
                                                     <a key={item.name} href={item.href} className="font-medium text-white hover:text-gray hover:no-underline">
                                                         {item.name}
                                                     </a>
@@ -408,7 +419,7 @@ const Header = () => {
                                                             <div>
                                                                 <Menu.Button className="bg-yellow-600 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                     <span className="sr-only">Open user menu</span>
-                                                                    <a href="#!" className="font-medium text-white hover:text-gray hover:no-underline mr-2">{session.fname_admin}{" "}{session.fname_admin}</a>
+                                                                    <a href="#!" className="font-medium text-white hover:text-gray hover:no-underline mr-2">{session.fname_admin}{" "}{session.lname_admin}</a>
                                                                     <img
                                                                         className="h-8 w-8 rounded-full"
                                                                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -430,7 +441,7 @@ const Header = () => {
                                                                     static
                                                                     className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                                                                 >
-                                                                    {profile.map((item) => (
+                                                                    {profileAdmin.map((item) => (
                                                                         <Menu.Item key={item.name}>
                                                                             {({ active }) => (
                                                                                 <a

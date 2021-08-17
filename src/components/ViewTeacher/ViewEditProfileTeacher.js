@@ -115,7 +115,7 @@ import Swal from 'sweetalert2';
           id="id_title"
           value={teacher.id_title || ""}
           onChange={handleInputChange}
-        >
+          required>
           {title.map((title) => {
             return (
               <option 
@@ -134,7 +134,7 @@ import Swal from 'sweetalert2';
             <Label for="fname_stu">ชื่อ</Label>
             <Input type="text"
                                     name="fname_staff"
-                                    id="productcategory"
+                                    id="fname_staff"
                                     value={teacher.fname_staff || ""}
                                     onChange={handleInputChange}
                                     placeholder="ระบุชื่อ" required/>
@@ -144,11 +144,11 @@ import Swal from 'sweetalert2';
           <FormGroup>
             <Label for="lname_stu">นามสกุล</Label>
             <Input type="text"
-                                    name="lname_stu"
-                                    id="productprice"
+                                    name="lname_staff"
+                                    id="lname_staff"
                                     value={teacher.lname_staff || ""}
                                     onChange={handleInputChange}
-                                    placeholder="ระบุนามสกุล" />
+                                    placeholder="ระบุนามสกุล" required/>
           </FormGroup>
         </Col>
       </Row>
@@ -161,7 +161,7 @@ import Swal from 'sweetalert2';
                                     id="phone_staff"
                                     value={teacher.phone_staff || ""}
                                     onChange={handleInputChange}
-                                    placeholder="ระบุเบอร์โทรศัพท์" />
+                                    placeholder="ระบุเบอร์โทรศัพท์" required/>
           </FormGroup>
         </Col>
         <Col >
@@ -178,7 +178,7 @@ import Swal from 'sweetalert2';
           id="id_position"
           value={teacher.id_position || ""}
           onChange={handleInputChange}
-        disabled>
+        disabled required>
           {position.map((position) => {
             return (
               <option 
@@ -217,7 +217,7 @@ import Swal from 'sweetalert2';
         <Col></Col>
         <Col></Col>
         <Col></Col>
-        <Col><NavLink href="/home">กลับหน้าหลัก</NavLink></Col>
+        <Col><NavLink href="/dashboardteacher">กลับหน้าหลัก</NavLink></Col>
         <Col><NavLink href={"/profileTeacher/" + teacher.id_staff}>กลับไปข้อมูลส่วนตัว</NavLink>
 </Col>
 

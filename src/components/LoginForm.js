@@ -16,8 +16,11 @@ const LoginForm = () => {
         // id_staff: localStorage.getItem('id_staff'),
         fname_staff: localStorage.getItem('fname_staff'),
         lname_staff: localStorage.getItem('lname_staff'),
-        fname_staff: localStorage.getItem('fname_admin'),
-        lname_staff: localStorage.getItem('lname_admin'),
+        fname_admin: localStorage.getItem('fname_admin'),
+        lname_admin: localStorage.getItem('lname_admin'),
+        name_position: localStorage.getItem('name_position'),
+
+
     }
     // const sessionstaff = {
     //     fname_staff: localStorage.getItem('fname_staff'),
@@ -56,13 +59,11 @@ const LoginForm = () => {
                     )
                     window.location.assign("/")
                 }
-                else if (res.data.message == "Teacher") {
+                else if (res.data.message == "ครู") {
                     localStorage.setItem('id', res.data.id);
-                    // localStorage.setItem('fname', res.data.fname);
-                    // localStorage.setItem('lname', res.data.lname);
-                    // localStorage.setItem('id_staff', res.data.id_staff);
                     localStorage.setItem('fname_staff', res.data.fname_staff);
                     localStorage.setItem('lname_staff', res.data.lname_staff);
+                    localStorage.setItem('name_position', res.data.name_position);
 
                     Swal.fire(
 
@@ -73,13 +74,11 @@ const LoginForm = () => {
                     )
                     window.location.assign("/DashboardTeacher")
                 } 
-                else if (res.data.message == "Admin") {
+                else if (res.data.message == "แอดมิน") {
                     localStorage.setItem('id', res.data.id);
-                    // localStorage.setItem('fname', res.data.fname);
-                    // localStorage.setItem('lname', res.data.lname);
-                    // localStorage.setItem('id_staff', res.data.id_staff);
-                    localStorage.setItem('fname_admin', res.data.fname_admin);
-                    localStorage.setItem('lname_admin', res.data.lname_admin);
+                    localStorage.setItem('fname_admin', res.data.fname_staff);
+                    localStorage.setItem('lname_admin', res.data.lname_staff);
+                    localStorage.setItem('name_position', res.data.name_position);
 
                     Swal.fire(
 
