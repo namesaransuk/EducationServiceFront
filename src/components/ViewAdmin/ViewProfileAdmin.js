@@ -2,14 +2,14 @@ import axios from "axios";
 import React, { useState, useEffect } from "react"
 import { Row, Col, Form, FormGroup, Label, NavLink } from 'reactstrap';
 
-const ViewProfileTeacher = ({ id }) => {
+const ViewProfileAdmin = ({ id }) => {
 
-  const [teacher, setTeacher] = useState([]);
+  const [admin, setAdmin] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:8080/Teacher/getStaff/" + id)
       .then((response) => {
-        setTeacher(response.data);
+        setAdmin(response.data);
       });
   }, [id]);//เมื่อidมีการเปลี่ยนเเปรง ก็จะรีหน้าทำการเปลี่ยนที่เราเปลี่ยน
 
@@ -28,7 +28,7 @@ const ViewProfileTeacher = ({ id }) => {
                       รหัสประจำตัว
                       </label>
                     <p className="mt-2 text-sm text-gray-500">
-                      {teacher.id_staff}
+                      {admin.id_staff}
                     </p>
                   </div>
 
@@ -37,7 +37,7 @@ const ViewProfileTeacher = ({ id }) => {
                       ชื่อ-นามสกุล
                       </label>
                     <p className="mt-2 text-sm text-gray-500">
-                      {teacher.name_title} {teacher.fname_staff} {teacher.lname_staff}
+                      {admin.name_title} {admin.fname_staff} {admin.lname_staff}
                     </p>
                   </div>
 
@@ -46,7 +46,7 @@ const ViewProfileTeacher = ({ id }) => {
                       เบอร์โทรศัพท์
                       </label>
                     <p className="mt-2 text-sm text-gray-500">
-                      {teacher.phone_staff}
+                      {admin.phone_staff}
                     </p>
                   </div>
 
@@ -55,7 +55,7 @@ const ViewProfileTeacher = ({ id }) => {
                       ตำเเหน่ง
                       </label>
                     <p className="mt-2 text-sm text-gray-500">
-                      {teacher.name_position}
+                      {admin.name_position}
                     </p>
                   </div>
 
@@ -63,14 +63,14 @@ const ViewProfileTeacher = ({ id }) => {
                 <div className="mx-auto text-center">
                   <a
                     type="button"
-                    href="/dashboardteacher"
+                    href="/dashboardadmin"
                     className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     กลับหน้าหลัก
                 </a>
                   <a
                     type="button"
-                    href={"/EditProfileTeacher/" + teacher.id_staff}
+                    href={"/EditProfileAdmin/" + admin.id_staff}
                     className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     เเก้ไขข้อมูลส่วนตัว
@@ -87,4 +87,4 @@ const ViewProfileTeacher = ({ id }) => {
   );
 }
 
-export default ViewProfileTeacher;
+export default ViewProfileAdmin;

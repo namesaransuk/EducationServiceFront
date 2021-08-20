@@ -3,7 +3,7 @@ import axios from "axios";
 import { Row, Col, Button, Form, FormGroup, Label, Input,NavLink ,Alert } from 'reactstrap';
 import Swal from 'sweetalert2';
 
-    const ViewEditProfile = ({id}) => {
+    const ViewEditProfileAdmin = ({id}) => {
       const initTeacher = {
           id_staff : "",
           id_title: "",
@@ -115,7 +115,7 @@ import Swal from 'sweetalert2';
           id="id_title"
           value={teacher.id_title || ""}
           onChange={handleInputChange}
-          required>
+        >
           {title.map((title) => {
             return (
               <option 
@@ -134,7 +134,7 @@ import Swal from 'sweetalert2';
             <Label for="fname_stu">ชื่อ</Label>
             <Input type="text"
                                     name="fname_staff"
-                                    id="fname_staff"
+                                    id="productcategory"
                                     value={teacher.fname_staff || ""}
                                     onChange={handleInputChange}
                                     placeholder="ระบุชื่อ" required/>
@@ -144,11 +144,11 @@ import Swal from 'sweetalert2';
           <FormGroup>
             <Label for="lname_stu">นามสกุล</Label>
             <Input type="text"
-                                    name="lname_staff"
-                                    id="lname_staff"
+                                    name="lname_stu"
+                                    id="productprice"
                                     value={teacher.lname_staff || ""}
                                     onChange={handleInputChange}
-                                    placeholder="ระบุนามสกุล" required/>
+                                    placeholder="ระบุนามสกุล" />
           </FormGroup>
         </Col>
       </Row>
@@ -161,7 +161,7 @@ import Swal from 'sweetalert2';
                                     id="phone_staff"
                                     value={teacher.phone_staff || ""}
                                     onChange={handleInputChange}
-                                    placeholder="ระบุเบอร์โทรศัพท์" required/>
+                                    placeholder="ระบุเบอร์โทรศัพท์" />
           </FormGroup>
         </Col>
         <Col >
@@ -178,7 +178,7 @@ import Swal from 'sweetalert2';
           id="id_position"
           value={teacher.id_position || ""}
           onChange={handleInputChange}
-        disabled required>
+        disabled>
           {position.map((position) => {
             return (
               <option 
@@ -217,8 +217,8 @@ import Swal from 'sweetalert2';
         <Col></Col>
         <Col></Col>
         <Col></Col>
-        <Col><NavLink href="/dashboardteacher">กลับหน้าหลัก</NavLink></Col>
-        <Col><NavLink href={"/profileTeacher/" + teacher.id_staff}>กลับไปข้อมูลส่วนตัว</NavLink>
+        <Col><NavLink href="/dashboardadmin">กลับหน้าหลัก</NavLink></Col>
+        <Col><NavLink href={"/profileAdmin/" + teacher.id_staff}>กลับไปข้อมูลส่วนตัว</NavLink>
 </Col>
 
       </Row>
@@ -238,4 +238,4 @@ import Swal from 'sweetalert2';
 );
   }
   
-  export default ViewEditProfile;
+  export default ViewEditProfileAdmin;

@@ -140,7 +140,7 @@ import EducationStudentAll from "./pages/Teacher/EducationStudentAll";
 import DashBoardAdmin from "./pages/Admin/DashBoardAdmin";
 import DetailStudentEducation from "./pages/Teacher/DetailStudentEducation";
 import InsertStudent from "./pages/Admin/InsertStudent";
-import Educationdetail from "./pages/Teacher/InsertEdudetail";
+import InsertEdudetail from "./pages/Teacher/InsertEdudetail";
 import Edudetailall from "./pages/Teacher/EdudetailAll";
 import EditEdudetail from "./pages/Teacher/EditEdudetail";
 import DegreeAll from "./pages/Teacher/DegreeAll";
@@ -155,6 +155,8 @@ import InsertStaff from "./pages/Admin/InsertStaff";
 import EditImageUniversity from "./pages/Teacher/EditImageUniversity";
 import ProfileTeacher from "./pages/Teacher/ProfileTeacher";
 import EditProfileTeacher from "./pages/Teacher/EditProfileTeacher";
+import ProfileAdmin from "./pages/Admin/ProfileAdmin";
+import EditProfileAdmin from "./pages/Admin/EditProfileAdmin";
 
 import Hometeacher from "./pages/Hometeacher";
 
@@ -184,7 +186,7 @@ const App = () => {
         <Route path="/educationstudentallstudent" component={EducationStudentAllStudent} />
         <Route path="/dashboardteacher" component={DashboardTeacher} />
         <Route path="/insertuniversity" component={InsertUniversity} />
-        <Route path="/fucultyall" component={FacultyAll} />
+        <Route path="/facultyall" component={FacultyAll} />
         <Route path="/insertfaculty" component={InsertFaculty} />
         <Route path="/courseall" component={CourseAll} />
         <Route path="/insertcourse" component={InsertCourse} />
@@ -196,9 +198,10 @@ const App = () => {
         <Route path="/detailstudenteducation" component={DetailStudentEducation} />
         <Route path="/insertstudent" component={InsertStudent} />
         <Route path="/dashboardadmin" component={DashBoardAdmin} />
-        <Route path="/educationdetail/:id" component={Educationdetail} />
+        <Route path="/InsertEdudetail/:id" component={InsertEdudetail} />
         <Route path="/edudetailall/:id" component={Edudetailall} />
         <Route path="/editedudetail/:id" component={EditEdudetail} />
+        <Route path="/InsertEdudetail/:id" component={InsertEdudetail} />
         <Route path="/degreeall" component={DegreeAll} />
         <Route path="/insertdegree" component={InsertDegree} />
         <Route path="/Editdegree/:id" component={EditDegree} />
@@ -210,6 +213,9 @@ const App = () => {
 
         <Route path="/ProfileTeacher/:id" component={ProfileTeacher} />
         <Route path="/EditProfileTeacher/:id" component={EditProfileTeacher} />
+
+        <Route path="/ProfileAdmin/:id" component={ProfileAdmin} />
+        <Route path="/EditProfileAdmin/:id" component={EditProfileAdmin} />
 
         <Route path="/Adminall" component={Adminall} />
         <Route path="/InsertStaff" component={InsertStaff} />

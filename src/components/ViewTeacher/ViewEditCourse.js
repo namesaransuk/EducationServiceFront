@@ -56,38 +56,57 @@ const ViewEditCourse = ({id}) => {
       setCourse({ ...course, [name]: value });
     };
 
-    const saveCourse = () => {
+    const saveCourse = (e) => {
+      e.preventDefault()
+  
       var data = {
           name_course: course.name_course,
           id_major: course.id_major,
           id_degree: course.id_degree,
         }
-      axios.put("http://localhost:8080/Course/" + id, data)
-      .then((response) => {
-          console.log(response.data);
-          setCourse({ ...course, data });
-          setSumited(true);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };
+      if (data['name_course'] === "" || data['id_major'] === "" || data['id_degree'] === "") {
+          Swal.fire(
   
+              'ผิดพลาด',
+              'กรุณารอกรอกข้อมูลให้ครบ',
+              'error'
+          )
+  
+      } else {
+          axios.put("http://localhost:8080/Course/" + id, data)
+          .then((res) => {
+                  console.log(res.data.message);
+                  if (res.data.message == "success") {
+                      ////ต่อตรงนี้
+                      Swal.fire(
+  
+                          'อัพเดตข้อมูลสาขาเรียบร้อย',
+                          '',
+                          'success'
+                      )
+                          .then(() => window.location.assign("/courseall"))
+  
+                  } else {
+  
+                      Swal.fire(
+                          'เพิ่มข้อมูลสาขาผิดพลาด',
+                          'ชื่อสาขานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                          'error'
+                      )
+  
+                  }
+  
+              })
+              .catch((error) => {
+                  console.log("error");
+              });//ใช้ ดัก Error
+  
+      };
+  }
     return (
   
       <div class="container">
-      <Form>
-
-{submited ? (
-   Swal.fire(
-
-    'เเก้ไขข้อมูลสาขาเรียบร้อย',
-    ' ',
-     'success',
- )
- (window.location.assign("/courseall"))
-
-                ) : (
+    
 <Form>
             <center><h2>เเก้ไขสาขา</h2></center>
     
@@ -100,7 +119,7 @@ const ViewEditCourse = ({id}) => {
               value={course.name_course}
               onChange={handleInputChange}
               placeholder={course.name_course}
-              />
+              required/>
               <FormGroup>
  <Label for="id_major">หลักสูตร</Label>
  <Input 
@@ -109,7 +128,7 @@ const ViewEditCourse = ({id}) => {
    id="id_degree"
    value={course.id_degree || ""}
    onChange={handleInputChange}
- >
+ required>
    {degree.map((degree) => {
      return (
        <option 
@@ -130,7 +149,7 @@ const ViewEditCourse = ({id}) => {
    id="id_major"
    value={course.id_major}
    onChange={handleInputChange}
- >
+   required>
    {major.map((major) =>{
      return (
      <option 
@@ -148,9 +167,7 @@ const ViewEditCourse = ({id}) => {
               <Button className="btn btn-success" onClick={saveCourse}>บันทึก</Button>
             </div>
           </Form>
-          )}
-        </Form>
-        
+     
   
       </div>
   

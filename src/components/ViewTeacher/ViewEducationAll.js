@@ -63,7 +63,14 @@ const ViewEducationAll = () => {
         </Row>
       </div>
       <br />
-
+      <Row className="px-12 pt-5">
+        <Col>
+          <h3 className="block text-left">รายชื่อการรับเข้าศึกษาต่อ</h3>
+        </Col>
+        <Col>
+          <a className="block text-right" href="./InsertEducation">เพิ่มข้อมูล</a>
+        </Col>
+      </Row>
       <div className="flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -141,7 +148,7 @@ const ViewEducationAll = () => {
                         </a>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
-                        <a type="button" href={"/edudetailall/" + education.id_education} className="text-white bg-blue-600 hover:bg-blue-900 rounded-md px-4 py-2.5 hover:no-underline">
+                        <a type="button" href={"/edudetailall/" + value.id_education} className="text-white bg-blue-600 hover:bg-blue-900 rounded-md px-4 py-2.5 hover:no-underline">
                           <b>เพิ่มรายละเอียด</b>
                         </a>
                       </td>

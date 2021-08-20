@@ -12,13 +12,41 @@ const ViewEducationAll = ({ id }) => {
   const [edudetail, setEdudetail] = useState([])
   const [education, setEducation] = useState([])
 
-  useEffect(() => {
-    axios.get("http://localhost:8080/eduDetail/ByIdeducation/" + id)
-      .then((response) => {
-        setEdudetail(response.data);
-      });
+  const [filteredData, setFilteredData] = useState(edudetail);
 
-  }, [id]);
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+    console.log(value);
+    result = edudetail.filter((data) => {
+      if(edudetail === ""){
+        return data
+          }else if(data.name_course.search(value) != -1){
+          return data
+          }else if(data.name_faculty.search(value) != -1){
+            return data
+            }else if(data.GPA.search(value) != -1){
+              return data
+              }else if(data.number_of_edu.search(value) != -1){
+                return data
+                }else if(data.name_curriculum.search(value) != -1){
+                  return data
+                  }
+            
+    });
+    setFilteredData(result);
+    }
+    
+   
+
+    useEffect(() => {
+      axios.get("http://localhost:8080/EduDetail/getEduDetailByIdeducation/" + id)
+        .then((response) => {
+          setEdudetail(response.data);
+          setFilteredData(response.data);
+        });
+  
+    }, [id]);
 
   useEffect(() => {
     axios.get("http://localhost:8080/Education/" + id)
@@ -33,7 +61,7 @@ const ViewEducationAll = ({ id }) => {
   return (
     <div>
       <div class="container">
-        <br />
+        <br /><br /><br /><br />
         <Row>
           <Col xs="12">
             <FormGroup>
@@ -42,9 +70,10 @@ const ViewEducationAll = ({ id }) => {
             </FormGroup>
           </Col>
           <Col xs="6">
-            <FormGroup>
-              <Label for="year_edu">ค้นหา</Label>
-              <Input type="text" name="year_edu" id="year_edu" value="" >
+          <FormGroup>
+     
+              <Label for="id_university">ค้นหาข้อมูล</Label>
+              <Input type="text" name="name_course" id="name_course"placeholder="กรุณาใส่ข้อมูลที่จะค้นหา" onChange={(event) =>handleSearch(event)} >    
               </Input>
             </FormGroup>
           </Col>
@@ -55,7 +84,7 @@ const ViewEducationAll = ({ id }) => {
         <Row>
           <Col></Col>
           <Col></Col>
-          <Col><NavLink href={"/educationdetail/" + education.id_education}>เพิ่มรายละเอียดข้อมูลการเข้าศึกษาต่อ</NavLink>
+          <Col><NavLink href={"/InsertEdudetail/" + education.id_education}>เพิ่มรายละเอียดข้อมูลการเข้าศึกษาต่อ</NavLink>
           </Col>
         </Row>
         <Table>
@@ -71,25 +100,25 @@ const ViewEducationAll = ({ id }) => {
             </tr>
           </thead>
           <tbody>
-            {edudetail.map((edudetail) => {
+            {filteredData.map((value) => {
               return (
-                <tr key={edudetail.id_edu_detail}>
+                <tr key={value.id_edu_detail}>
 
-                  <td>{edudetail.name_faculty}</td>
-                  <td>{edudetail.name_course}</td>
-                  <td>{edudetail.number_of_edu}</td>
-                  <td>{edudetail.name_curriculum}</td>
-                  <td>{edudetail.GPA}</td>
+                  <td>{value.name_faculty}</td>
+                  <td>{value.name_course}</td>
+                  <td>{value.number_of_edu}</td>
+                  <td>{value.name_curriculum}</td>
+                  <td>{value.GPA}</td>
 
                   <td>
-                    <Button color="info" href={"/editedudetail/" + edudetail.id_edu_detail}>
+                    <Button color="info" href={"/editedudetail/" + value.id_edu_detail}>
                       <FontAwesomeIcon icon={faEdit} />  Edit
                         </Button>{" "}</td>
                 </tr>
               )
             })}
           </tbody>
-        </Table>
+        </Table><center> {filteredData.length === 0 && <span>ไม่พบข้อมูลที่ค้นหา</span>} </center>
       </div>
 
 

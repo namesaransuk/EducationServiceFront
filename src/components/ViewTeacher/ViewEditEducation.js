@@ -43,8 +43,8 @@ const ViewEditEducation = ({ id }) => {
     setEducation({ ...education, [name]: value });
   };
 
-
-  const saveEducation = () => {
+    const saveEducation = (e) => {
+      e.preventDefault()
     var data = {
       year_edu: education.year_edu,
       id_round: education.id_round,
@@ -59,19 +59,48 @@ const ViewEditEducation = ({ id }) => {
       url_doculment: education.url_doculment,
 
     }
-    axios.put("http://localhost:8080/Education/updateEducation/" + education.id_education, data)
-      .then((response) => {
-        console.log(response.data);
-        setEducation({ ...education, data });
-        setSumited(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  const newEducation = () => {
-    setSumited(false);
-  };
+    if (data['year_edu'] === "" || data['id_round'] === "" || data['id_university'] === ""
+    || data['tcas'] === "" || data['open_date'] === "" || data['close_date'] === ""
+    || data['list_day'] === "" || data['general'] === "" || data['doculment_edu'] === ""
+    || data['note_edu'] === "" || data['url_doculment'] === "") {
+          Swal.fire(
+  
+              'ผิดพลาด',
+              'กรุณารอกรอกข้อมูลให้ครบ',
+              'error'
+          )
+  
+      } else {
+        axios.put("http://localhost:8080/Education/updateEducation/" + education.id_education, data)
+        .then((res) => {
+                  console.log(res.data.message);
+                  if (res.data.message == "success") {
+                      ////ต่อตรงนี้
+                      Swal.fire(
+  
+                          'อัพเดตข้อมูลเรียบร้อย',
+                          '',
+                          'success'
+                      )
+                          .then(() => window.location.assign("/educationall"))
+  
+                  } else {
+  
+                      Swal.fire(
+                          'เพิ่มข้อมูลผิดพลาด',
+                          'ชื่อนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                          'error'
+                      )
+  
+                  }
+  
+              })
+              .catch((error) => {
+                  console.log("error");
+              });//ใช้ ดัก Error
+  
+      };
+  }
   const updateUniversity = () => {
     axios.get("http://localhost:8080/university").then((response) => {
       console.log(response);
@@ -92,20 +121,9 @@ const ViewEditEducation = ({ id }) => {
   useEffect(() => {
     updateRound();
   }, []);
-
   return (
     <Container>
-     <Form>
-
-{submited ? (
-   Swal.fire(
-
-    'อัพเดตเสร็จสิ้น',
-    ' ',
-     'success',
- )
- (window.location.assign("/educationall"))
-                ) : (
+    
 <Form>
 
             <center><h3> แก้ไขการรับสมัครการเข้าศึกษาต่อ </h3></center>
@@ -212,8 +230,7 @@ const ViewEditEducation = ({ id }) => {
 
             <Button className="btn btn-success" onClick={saveEducation}>ยืนยัน</Button>
           </Form>
-        )}
-      </Form>
+   
     </Container >
   );
 }

@@ -18,7 +18,14 @@ const ViewEditProfile = ({ id }) => {
   };
   const [student, setStudent] = useState(initStudent);
   const [submited, setSumited] = useState(false)
-
+  const [title, setTitle] = useState([]);
+      useEffect(() => {
+        axios.get("http://localhost:8080/title/getTitle")
+        .then((response)=>{
+          setTitle(response.data.title);
+        });
+    }, [id]);//เมื่อidมีการเปลี่ยนเเปรง ก็จะรีหน้าทำการเปลี่ยนที่เราเปลี่ย
+    
   useEffect(() => {
     axios.get("http://localhost:8080/students/" + id)
       .then((response) => {
@@ -96,15 +103,27 @@ const ViewEditProfile = ({ id }) => {
                   </FormGroup>
                 </Col>
                 <Col>
-                  <FormGroup>
-                    <Label for="id_stu">คำนำหน้า</Label>
-                    <Input type="text"
-                      name="id_title"
-                      id="productName"
-                      value={student.name_title || ""}
-                      onChange={handleInputChange}
-                      placeholder="" disabled />
-                  </FormGroup>
+                <FormGroup>
+            <Label for="id_stu">คำนำหน้า</Label>
+            <Input 
+          type="select" 
+          name="id_title" 
+          id="id_title"
+          value={student.id_title || ""}
+          onChange={handleInputChange}
+        >
+          {title.map((title) => {
+            return (
+              <option 
+                key={title.id_title} 
+                value={title.id_title}
+              >
+                {title.name_title}
+              </option>
+            );
+          })}
+        </Input>
+          </FormGroup>
                 </Col>
                 <Col >
                   <FormGroup>
@@ -152,12 +171,12 @@ const ViewEditProfile = ({ id }) => {
                   </FormGroup>
                 </Col>
                 <Col >
-                  <FormGroup>
-                    <Label for="year_stu">ปีการศึกษา</Label>
-                    <Input type="select" type="number" min="1900" max="2099" step="1" name="year_stu" value={student.year_stu || ""} id="year_stu" onChange={handleInputChange} placeholder="ระบุชื่อ" >
-                      <option value="" selected>{student.year_stu}</option>
-
-                    </Input></FormGroup>
+                <FormGroup>
+            <Label for="year_stu">ปีการศึกษา</Label>
+            <Input type="select" type="number" min="2500" max="2600" step="1" name="year_stu" value={student.year_stu || ""} id="year_stu" onChange={handleInputChange} placeholder="ระบุชื่อ" >
+            <option value="" selected>{student.year_stu}</option>
+    
+          </Input></FormGroup>
                 </Col>
               </Row>
               <Row form>

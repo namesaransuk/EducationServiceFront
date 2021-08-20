@@ -29,36 +29,54 @@ const ViewEditDegree = ({id}) => {
     setDegree({ ...degree, [name]: value });
   };
 
-  const saveDegree = () => {
+  const saveDegree = (e) => {
+    e.preventDefault()
     var data = {
-        name_degree: degree.name_degree,
-        initials_degree: degree.initials_degree,
-    }
-    axios.put("http://localhost:8080/degree/" + id , data)
-      .then((response) => {
-        console.log(response.data);
-        setDegree({ ...degree, data });
-        setSumited(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+      name_degree: degree.name_degree,
+      initials_degree: degree.initials_degree,
+  }
+    if (data['name_degree'] === "" ){
+        Swal.fire(
 
+            'ผิดพลาด',
+            'กรุณารอกรอกข้อมูลให้ครบ',
+            'error'
+        )
+    } else {
+      axios.put("http://localhost:8080/degree/" + id , data)
+      .then((res) => {
+                console.log(res.data.message);
+                if (res.data.message == "success") {
+                    ////ต่อตรงนี้
+                    Swal.fire(
+
+                        'อัพเดตข้อมูลวุฒิการศึกษาเรียบร้อย',
+                        '',
+                        'success'
+                    )
+                        .then(() => window.location.assign("/degreeall"))
+
+                } else {
+
+                    Swal.fire(
+                        'อัพเดตข้อมูลวุฒิการศึกษาผิดพลาด',
+                        'ชื่อวุฒิการศึกษานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                        'error'
+                    )
+
+                }
+
+            })
+            .catch((error) => {
+                console.log("error");
+            });//ใช้ ดัก Error
+
+    };
+}
   return (
 
     <div class="container">
-    <Form>
-
-{submited ? (
-   Swal.fire(
-
-    'เเก้ไขข้อมูลวุฒิเรียบร้อย',
-    ' ',
-     'success',
- )
- (window.location.assign("/degreeall"))
-                ) : (
+  
 <Form>
 
           <center><h2>เเก้ไขคณะ</h2></center>
@@ -72,7 +90,7 @@ const ViewEditDegree = ({id}) => {
                 value={degree.name_degree}
                 onChange={handleInputChange}
                 placeholder={degree.name_degree}
-              />
+              required/>
               <FormGroup>
  <Label for="degree">ชื่อย่อหลักสูตร</Label>
               <Input
@@ -82,16 +100,14 @@ const ViewEditDegree = ({id}) => {
                 value={degree.initials_degree}
                 onChange={handleInputChange}
                 placeholder={degree.initials_degree}
-              />
+              required/>
 </FormGroup>
           </Jumbotron>
           <div>
             <Button className="btn btn-success" onClick={saveDegree}>บันทึก</Button>
           </div>
         </Form>
-        )}
-      </Form>
-      
+     
 
     </div>
 

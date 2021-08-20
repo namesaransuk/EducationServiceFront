@@ -34,25 +34,13 @@ const ViewUpdateDetailEducationStudent = ({ id }) => {
         setEducation(response.data);
       });
   }, [id]);
-  const [curriculum, setCurriculum] = useState([]);
-  //ไปดึง api ของอันเก่ามาใช้จาก url
-  const updateCurriculum = () => {
-    axios.get("http://localhost:8080/Curriculum/getCurriculum").then((response) => {
-      console.log(response);
-      setCurriculum(response.data.curriculum);
-    });
-  };
-  useEffect(() => {
-    updateCurriculum();
-  }, []);
-
 
   const [university, setUniversity] = useState([initStudent]);
   //ไปดึง api ของอันเก่ามาใช้จาก url
   const updateUniversity = () => {
-    axios.get("http://localhost:8080/University/getUniversityAll").then((response) => {
+    axios.get("http://localhost:8080/EducationData/getAllEducationUniversity").then((response) => {
       console.log(response);
-      setUniversity(response.data);
+      setUniversity(response.data.university);
     });
   };
   useEffect(() => {
@@ -62,7 +50,7 @@ const ViewUpdateDetailEducationStudent = ({ id }) => {
   const [faculty, setFaculty] = useState([]);
   //ไปดึง api ของอันเก่ามาใช้จาก url
   const updateFaculty = () => {
-    axios.get("http://localhost:8080/Faculty/getFaculty").then((response) => {
+    axios.get("http://localhost:8080/EducationData/getAllEducationFaculty").then((response) => {
       console.log(response);
       setFaculty(response.data.faculty);
     });
@@ -74,7 +62,7 @@ const ViewUpdateDetailEducationStudent = ({ id }) => {
   const [course, setCourse] = useState([]);
   //ไปดึง api ของอันเก่ามาใช้จาก url
   const updateCourse = () => {
-    axios.get("http://localhost:8080/Course/getCourse").then((response) => {
+    axios.get("http://localhost:8080/EducationData/getAllEducationCourse").then((response) => {
       console.log(response);
       setCourse(response.data.course);
     });
@@ -85,9 +73,9 @@ const ViewUpdateDetailEducationStudent = ({ id }) => {
 
   //ไปดึง api ของอันเก่ามาใช้จาก url
   const updateEducationdata = () => {
-    axios.get("http://localhost:8080/EducationData/getAllEducationData").then((response) => {
+    axios.get("http://localhost:8080/EducationData/getAllEducationDataStudent").then((response) => {
       console.log(response);
-      setEducationdata(response.data);
+      setEducationdata(response.data.educationdata);
     });
   };
 
@@ -124,9 +112,9 @@ const ViewUpdateDetailEducationStudent = ({ id }) => {
   const [groupmajor, setGroupMajor] = useState([]);
   //ไปดึง api ของอันเก่ามาใช้จาก url
   const updateGroupMajor = () => {
-    axios.get("http://localhost:8080/GroupMajor/getGroupMajor").then((response) => {
+    axios.get("http://localhost:8080/EducationData/getAllEducationMajor").then((response) => {
       console.log(response);
-      setGroupMajor(response.data.groupmajor);
+      setGroupMajor(response.data.major);
     });
   };
   useEffect(() => {

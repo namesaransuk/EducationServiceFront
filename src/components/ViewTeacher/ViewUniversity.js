@@ -116,7 +116,7 @@ const ViewUniversity = () => {
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
                           <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900"><img width="80" src={value.logo_uni} /></div>
+                            <div className="text-sm font-medium text-gray-900"><img width="80" src={value.logo_uni|| 'https://via.placeholder.com/150'} /></div>
                             <div className="text-sm text-gray-500">{value.name_uni}</div>
                           </div>
                         </div>

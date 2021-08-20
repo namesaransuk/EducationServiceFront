@@ -105,7 +105,7 @@ import {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div><center> {filteredData.length === 0 && <span>ไม่พบข้อมูลที่ค้นหา</span>} </center>
         </div>
       </div>
     </div>
