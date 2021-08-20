@@ -20,36 +20,53 @@ const ViewInsertGroupCourse = () => {
     setGroupMajor({ ...groupmajor, [name]: value });
   };
 
-  const saveGroupMajor = () => {
+  const saveGroupMajor = (e) => {
+    e.preventDefault()
     var data = {
       name_major: groupmajor.name_major
-    }
-    axios.post("http://localhost:8080/groupmajor", data)
-      .then((response) => {
-        console.log(response.data);
-        setSumited(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+      }
+    if (data['name_major'] === " ") {
+        Swal.fire(
+            'ผิดพลาด',
+            'กรุณารอกรอกข้อมูลให้ครบ',
+            'error'
+        )
 
-  return (
+    } else {
+      axios.post("http://localhost:8080/groupmajor", data)
+      .then((res) => {
+                console.log(res.data.message);
+                if (res.data.message == "success") {
+                    ////ต่อตรงนี้
+                    Swal.fire(
 
-    <div class="container">
-      <Form>
+                        'เพิ่มข้อมูลสาขาเรียบร้อย',
+                        '',
+                        'success'
+                    )
+                        .then(() => window.location.assign("/groupcourseall"))
 
-{submited ? (
-   Swal.fire(
+                } else {
 
-    'เพิ่มข้อมูลกลุ่มสาขาเรียบร้อย',
-    ' ',
-     'success',
- )
- (window.location.assign("/groupcourseall"))
-                ) : (
-<Form>
+                    Swal.fire(
+                        'เพิ่มข้อมูลสาขาผิดพลาด',
+                        'ชื่อสาขานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                        'error'
+                    )
 
+                }
+
+            })
+            .catch((error) => {
+                console.log("error");
+            });//ใช้ ดัก Error
+
+    };
+}
+
+return (
+<div class="container">
+<Form onSubmit={saveGroupMajor}>
             <center><h3>เพิ่มกลุ่มสาขา</h3></center>
             <br/>
             <Label for="major">ชื่อกลุ่มสาขา</Label>
@@ -58,19 +75,12 @@ const ViewInsertGroupCourse = () => {
             name="name_major" 
             id="name_major" 
             onChange={handleInputChange}
-            placeholder="กรุณาใส่ชื่อกลุ่มสาขา" />
+            placeholder="กรุณาใส่ชื่อกลุ่มสาขา" required/>
 
             <div>
-              <Button className="btn btn-success" onClick={saveGroupMajor}>บันทึก</Button>
+              <Button className="btn btn-success">บันทึก</Button>
             </div>
-          </Form>
-        )}
-      </Form>
-
-    </div>
-
-  );
-};
-
+          </Form></div>
+    )}
 
 export default ViewInsertGroupCourse;

@@ -1,10 +1,10 @@
 import React from "react"
 import ViewInsertEduDetail from "../../components/ViewTeacher/ViewInsertEduDetail";
  
-const InsertEdudetail = () => {
+const InsertEdudetail = (props) => {
     return(
 <>
-    <ViewInsertEduDetail />
+    <ViewInsertEduDetail id={props.match.params.id}/>
 </>
     );
 };

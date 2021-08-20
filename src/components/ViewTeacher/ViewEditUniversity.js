@@ -95,40 +95,50 @@ const ViewEditUniversity = ({ id }) => {
             url_uni: university.url_uni,
             detail_uni: university.detail_uni,
         };
-    axios.put("http://localhost:8080/university/" + id , data)
-    .then((response) => {
-      console.log(response.data);
-      setUniversity({ ...university, data });
-      setSubmitted(true);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
-
-
-    const newProduct = () => {
-        formik.resetForm();
-        setProgress(0);
-        setSubmitted(false);
-    };
+        if (data['name_uni'] === "" || data['url_uni'] === "" || data['detail_uni'] === ""|| data['logo_uni'] === "") {
+            Swal.fire(
+    
+                'ผิดพลาด',
+                'กรุณารอกรอกข้อมูลให้ครบ',
+                'error'
+            )
+    
+        } else {
+            axios.put("http://localhost:8080/university/" + id , data)
+            .then((res) => {
+                    console.log(res.data.message);
+                    if (res.data.message == "success") {
+                        ////ต่อตรงนี้
+                        Swal.fire(
+    
+                            'อัพเดตข้อมูลมหาลัยเรียบร้อย',
+                            '',
+                            'success'
+                        )
+                            .then(() => window.location.assign("/universityall"))
+    
+                    } else {
+    
+                        Swal.fire(
+                            'เพิ่มข้อมูลมหาลัยผิดพลาด',
+                            'ชื่อมหาลัยนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                            'error'
+                        )
+    
+                    }
+    
+                })
+                .catch((error) => {
+                    console.log("error");
+                });//ใช้ ดัก Error
+    
+        };
+    }
     return (
       
         <Container>
-           
-               
-{submitted ? (
-   Swal.fire(
-
-    'อัพเดตข้อมูลมหาลัยเรียบร้อย',
-    ' ',
-     'success',
- )
- (window.location.assign("/universityall"))
-                ) : (
-                  
                         <Form onSubmit={formik.handleSubmit}><br /><br /><br /><br />
-                         <center> <img width="10%" alt="ยังไม่ได้อัพเดตตราประจำมหาลัย" src={university.logo_uni} />
+                         <center> <img width="10%" alt="ยังไม่ได้อัพเดตตราประจำมหาลัย" src={university.logo_uni || 'https://via.placeholder.com/300'}   />
                             <input type="hidden" name="file" value={university.logo_uni} />
                             <FormGroup>
                                 <Input type="hidden"
@@ -199,7 +209,6 @@ const ViewEditUniversity = ({ id }) => {
                             </FormGroup> */}
                             <Button type="submit" className="btn btn-success" >ตกลง</Button>
                         </Form>
-                    )}
 
         </Container>
     )

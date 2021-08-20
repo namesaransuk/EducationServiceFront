@@ -30,37 +30,58 @@ const ViewEditGroupCourse = ({ id }) => {
     setGroupCourse({ ...GroupCourse, [name]: value });
   };
 
-  const saveGroupCourse = () => {
+  const saveGroupCourse = (e) => {
+    e.preventDefault()
+
     var data = {
       name_major: GroupCourse.name_major,
-    }
-    axios.put("http://localhost:8080/groupmajor/" + id, data)
-      .then((response) => {
-        console.log(response.data);
-        setGroupCourse({ ...GroupCourse, data });
-        setSumited(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  
+      }
+    if (data['name_major'] === "") {
+        Swal.fire(
 
+            'ผิดพลาด',
+            'กรุณารอกรอกข้อมูลให้ครบ',
+            'error'
+        )
+
+    } else {
+      axios.put("http://localhost:8080/groupmajor/" + id, data)
+      .then((res) => {
+                console.log(res.data.message);
+                if (res.data.message == "success") {
+                    ////ต่อตรงนี้
+                    Swal.fire(
+
+                        'อัพเดตข้อมูลกลุ่มสาขาเรียบร้อย',
+                        '',
+                        'success'
+                    )
+                        .then(() => window.location.assign("/groupcourseall"))
+
+                } else {
+
+                    Swal.fire(
+                        'เพิ่มข้อมูลกลุ่มสาขาผิดพลาด',
+                        'ชื่อกลุ่มสาขานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                        'error'
+                    )
+
+                }
+
+            })
+            .catch((error) => {
+                console.log("error");
+            });//ใช้ ดัก Error
+
+    };
+}
   return (
 
     <div class="container">
-      <Form>
-
-{submited ? (
-   Swal.fire(
-
-    'เเก้ไขข้อมูลกลุ่มสาขาเรียบร้อย',
-    ' ',
-     'success',
- )
- (window.location.assign("/groupcourseall"))
-                ) : (
-<Form>
-          <center><h2>เเก้ไขกลุ่มสาขา</h2></center>
+    
+    <Form onSubmit={saveGroupCourse}>
+                <center><h2>เเก้ไขกลุ่มสาขา</h2></center>
   
           <Jumbotron>
             <Label for="name_faculty">ชื่อกลุ่มสาขา</Label>
@@ -71,14 +92,12 @@ const ViewEditGroupCourse = ({ id }) => {
             value={GroupCourse.name_major}
             onChange={handleInputChange}
             placeholder={GroupCourse.name_major}
-            />
+           required />
           </Jumbotron>
           <div>
-            <Button className="btn btn-success" onClick={saveGroupCourse}>บันทึก</Button>
+            <Button className="btn btn-success" >บันทึก</Button>
           </div>
         </Form>
-        )}
-      </Form>
       
 
     </div>

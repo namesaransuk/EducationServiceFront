@@ -24,16 +24,18 @@ const ViewInsertEduDetail = ({ id }) => {
     const [edudetail, setEdudetail] = useState(initEdudetail);
     const [submited, setSumited] = useState(false)
     const [faculty, setFaculty] = useState([])
+    const [Education, setEducation] = useState([])
     const [course, setCourse] = useState([])
     const [curriculum, setCurriculum] = useState([])
     const [major, setMajor] = useState([])
 
-    useEffect(() => {
-        axios.get("http://localhost:8080/Education/" + id)
-            .then((response) => {
-                setEdudetail(response.data);
-            });
-    }, [id]);
+   //Faculty
+   useEffect(() => {
+    axios.get("http://localhost:8080/Education/getEducatioById/" + id)
+        .then((response) => {
+            setEdudetail(response.data);
+        });
+}, [id]);
 
 
     //Faculty
@@ -93,7 +95,8 @@ const ViewInsertEduDetail = ({ id }) => {
         setEdudetail({ ...edudetail, [name]: value });
     };
 
-    const saveEdudetail = () => {
+        const saveEdudetail = (e) => {
+            e.preventDefault()
         var data = {
             number_of_edu: edudetail.number_of_edu,
             GPA: edudetail.GPA,
@@ -104,35 +107,51 @@ const ViewInsertEduDetail = ({ id }) => {
             id_education: edudetail.id_education,
             id_major: edudetail.id_major,
         }
-        axios.post("http://localhost:8080/eduDetail/createEduDetail", data)
-            .then((response) => {
-                console.log(response.data);
-                setSumited(true);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-    const newEdudetail = () => {
-        setEdudetail(initEdudetail);
-        setSumited(false);
-    };
-
+        if (data['number_of_edu'] === ""|| data['GPA'] === ""|| data['id_curriculum'] === ""
+        || data['note_condi'] === ""|| data['id_course'] === ""|| data['id_faculty'] === ""
+        || data['id_education'] === ""|| data['id_major'] === "") {
+            Swal.fire(
+      
+                'ผิดพลาด',
+                'กรุณารอกรอกข้อมูลให้ครบ',
+                'error'
+            )
+        } else {
+            axios.post("http://localhost:8080/eduDetail/createEduDetail", data)
+            .then((res) => {
+                    console.log(res.data.message);
+                    if (res.data.message == "success") {
+                        ////ต่อตรงนี้
+                        Swal.fire(
+      
+                            'เพิ่มข้อมูลเรียบร้อย',
+                            '',
+                            'success'
+                        )
+                            .then(() => window.location.assign("/edudetailall/" + edudetail.id_education))
+      
+                    } else {
+      
+                        Swal.fire(
+                            'เพิ่มข้อมูลคณะผิดพลาด',
+                            'ชื่อสาขานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                            'error'
+                        )
+      
+                    }
+      
+                })
+                .catch((error) => {
+                    console.log("error");
+                });//ใช้ ดัก Error
+      
+        };
+      }
 
     return (
         <Container>
-            <Form>
-
-{submited ? (
-   Swal.fire(
-
-    'เพิ่มรายล่ะเอียดข้อมูลการศึกษาต่อสำเร็จ',
-    ' ',
-     'success',
- )
- (window.location.assign("/edudetailall/" + edudetail.id_education))
-                ) : (
-<Form>
+   
+   <Form onSubmit={saveEdudetail}>
                         <center><h3> รายละเอียดข้อมูลการเข้าศึกษาต่อ </h3></center>
 
                         <Row>
@@ -140,7 +159,7 @@ const ViewInsertEduDetail = ({ id }) => {
                                 <FormGroup>
                                     <Label for="id_faculty">คณะที่เปิดรับ</Label>
                                     <Input type="select" name="id_faculty" id="id_faculty"
-                                        onChange={handleInputChange} value={edudetail.id_faculty || ""} >
+                                        onChange={handleInputChange} value={edudetail.id_faculty || ""} required>
                                         <option></option>
                                         {faculty.map((faculty) => {
                                             return (
@@ -155,7 +174,7 @@ const ViewInsertEduDetail = ({ id }) => {
                                     <Label for="id_course">สาขาที่เปิดรับ</Label>
                                     <Input type="select" name="id_course" id="id_course"
                                         value={edudetail.id_course || ""}
-                                        onChange={handleInputChange}>
+                                        onChange={handleInputChange}required>
                                         <option></option>
                                         {course.map((course) => {
                                             return (
@@ -170,7 +189,7 @@ const ViewInsertEduDetail = ({ id }) => {
                                 <FormGroup>
                                     <Label for="">กลุ่มสาขาวิชา</Label>
                                     <Input type="select" name="id_major" id="id_major" value={edudetail.id_major}
-                                        onChange={handleInputChange}>
+                                        onChange={handleInputChange}required>
                                         <option></option>
                                             {major.map((major) => {
                                                 return (
@@ -184,23 +203,22 @@ const ViewInsertEduDetail = ({ id }) => {
                                 <FormGroup>
                                     <Label for="number_of_edu">จำนวนที่เปิดรับสมัคร</Label>
                                     <Input type="text" name="number_of_edu" id="number_of_edu" value={edudetail.number_of_edu || ""}
-                                        onChange={handleInputChange}>
+                                        onChange={handleInputChange}required>
                                     </Input>
                                 </FormGroup></Col>
                             <Col xs="6">
                                 <FormGroup>
                                     <Label for="GPA">เกรดขั้นต่ำ</Label>
                                     <Input type="text" name="GPA" id="GPA" value={edudetail.GPA || ""}
-                                        onChange={handleInputChange}>
+                                        onChange={handleInputChange}required>
                                     </Input>
                                 </FormGroup></Col>
                             <Col xs="6">
                                 <FormGroup>
                                     <Label for="id_curriculum">แผนการเรียน</Label>
                                     <Input type="select" name="id_curriculum" id="id_curriculum" value={edudetail.id_curriculum || ""}
-                                        onChange={handleInputChange}>
+                                        onChange={handleInputChange}required>
                                         <option></option>
-                                        <option>ไม่กำหนด</option>
                                         {curriculum.map((curri) => {
                                             return (
                                                 <option key={curri.id_curriculum} value={curri.id_curriculum}>
@@ -214,7 +232,7 @@ const ViewInsertEduDetail = ({ id }) => {
                                 <FormGroup>
                                     <Label for="id_education"></Label>
                                     <Input type="hidden" name="id_education" id="id_education"
-                                        onChange={handleInputChange} value={edudetail.id_education || ""}>
+                                        onChange={handleInputChange} value={edudetail.id_education || ""}required>
                                     </Input>
 
                                 </FormGroup></Col>
@@ -222,14 +240,13 @@ const ViewInsertEduDetail = ({ id }) => {
                                 <FormGroup>
                                     <Label for="note_condi">เงื่อนไขการรับสมัคร</Label>
                                     <Input type="textarea" name="note_condi" id="note_condi" value={edudetail.note_condi || ""}
-                                        onChange={handleInputChange}>
+                                        onChange={handleInputChange}required>
                                     </Input>
                                 </FormGroup></Col>
                         </Row>
-                        <Button className="btn btn-success" onClick={saveEdudetail}>ยืนยัน</Button>
+                        <Button className="btn btn-success" >ยืนยัน</Button>
                     </Form>
-                )}
-            </Form>
+            
         </Container >
     );
 }

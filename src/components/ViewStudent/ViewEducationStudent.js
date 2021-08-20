@@ -9,10 +9,23 @@ const ViewEducationStudent = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen(prevState => !prevState);
   const [university, setUniversity] = useState([]);
-  //ไปดึง api ของอันเก่ามาใช้จาก url
+  const [filteredData, setFilteredData] = useState(university);
+
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+    console.log(value);
+    result = university.filter((data) => {
+    return  data.name_uni.search(value) != -1;
+
+    });
+    setFilteredData(result);
+    }
+  
   useEffect(() => {
     axios.get("http://localhost:8080/University/getUniversityAll").then((response) => {
       console.log(response);
+      setFilteredData(response.data);
       setUniversity(response.data);
     });
   }, []);
@@ -26,11 +39,11 @@ const ViewEducationStudent = (props) => {
           <Col xs="6">
             <FormGroup>
               <Label for="id_university">ชื่อมหาวิทยาลัย</Label>
-              <Input type="select" name="id_university" id="id_university">
-                <option value="">ใส่คำค้นหา</option>
+              <Input type="select" name="name_uni" id="name_uni" placeholder="กรุณาใส่ชื่อมหาลัยที่จะค้นหา" onChange={(event) =>handleSearch(event)}>
+                <option value="">เลือกมหาลัยที่ค้นหา</option>
                 {university.map((university) => {
                   return (
-                    <option value={university.id_university}>{university.name_uni}</option>
+                    <option value={university.name_uni}>{university.name_uni}</option>
                   );
                 })}
               </Input>
@@ -50,21 +63,21 @@ const ViewEducationStudent = (props) => {
       <br />
       <div class="container">
 
-        {university.map((university) => {
+        {filteredData.map((value) => {
           return (
             <Row>
               <Col>
                 <Card>
                   <CardBody>
-                    <CardTitle tag="h5">{university.name_uni}</CardTitle>
+                  <center><CardTitle tag="h5">{value.name_uni}</CardTitle>   </center>
                   </CardBody>
                   <CardBody>
-                    <img width="20%" src={university.logo_uni} alt="ไว้ใส่ โลโก้มหาลัย" />
+                   <center> <img width="10%" src={value.logo_uni} alt="ยังไม่ได้อัพเดตตราประจำหมหาลัย" /> </center>
                   </CardBody>
                   <CardBody>
-                    <CardTitle >{university.detail_uni}</CardTitle>
+                    <CardTitle >{value.detail_uni}</CardTitle>
                   </CardBody>
-                  <Button href={university.url_uni}>ดูรายละเอียด</Button>
+                  <Button href={value.url_uni}>ดูรายละเอียด</Button>
                 </Card><br /><br />
               </Col>
             </Row>

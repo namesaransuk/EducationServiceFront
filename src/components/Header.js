@@ -16,7 +16,7 @@ const Header = () => {
         { name: 'ข้อมูลนักเรียน', href: '/educationstudentall', current: false },
     ]
     const navigationAdmin = [
-        { name: 'ข้อมูลหลัก', href: '/dashboardTeacher', current: true },
+        { name: 'ข้อมูลหลัก', href: '/dashboardAdmin', current: true },
     ]
     const profile = [
         { name: 'ข้อมูลส่วนตัว', href: '/profile/' },
@@ -26,7 +26,7 @@ const Header = () => {
         { name: 'ข้อมูลส่วนตัวครู', href: '/ProfileTeacher/' },
     ]
     const profileAdmin = [
-        { name: 'ข้อมูลส่วนตัวเเอดมิน', href: '/ProfileTeacher/' },
+        { name: 'ข้อมูลส่วนตัวเเอดมิน', href: '/ProfileAdmin/' },
     ]
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
@@ -228,11 +228,7 @@ const Header = () => {
                                                                 <Menu.Button className="bg-blue-500 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                     <span className="sr-only">Open user menu</span>
                                                                     <a href="#!" className="font-medium text-white hover:text-gray hover:no-underline mr-2">{session.fname_staff}{" "}{session.lname_staff}</a>
-                                                                    <img
-                                                                        className="h-8 w-8 rounded-full"
-                                                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                                        alt=""
-                                                                    />
+                                                                
                                                                 </Menu.Button>
                                                             </div>
                                                             <Transition
@@ -327,11 +323,7 @@ const Header = () => {
                                                     <div className="pt-4 pb-3 border-t border-gray-300">
                                                         <div className="h-20 rounded-xl bg-gray-700 flex items-center px-5">
                                                             <div className="flex-shrink-0">
-                                                                <img
-                                                                    className="h-10 w-10 rounded-full"
-                                                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                                    alt=""
-                                                                />
+                                                         
                                                             </div>
                                                             <div className="ml-3">
                                                                 <div className="text-base text-white font-medium leading-none">{session.fname}{' '}{session.lname}</div>
@@ -420,11 +412,7 @@ const Header = () => {
                                                                 <Menu.Button className="bg-yellow-600 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                     <span className="sr-only">Open user menu</span>
                                                                     <a href="#!" className="font-medium text-white hover:text-gray hover:no-underline mr-2">{session.fname_admin}{" "}{session.lname_admin}</a>
-                                                                    <img
-                                                                        className="h-8 w-8 rounded-full"
-                                                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                                        alt=""
-                                                                    />
+                                                                 
                                                                 </Menu.Button>
                                                             </div>
                                                             <Transition
@@ -519,11 +507,7 @@ const Header = () => {
                                                     <div className="pt-4 pb-3 border-t border-gray-300">
                                                         <div className="h-20 rounded-xl bg-gray-700 flex items-center px-5">
                                                             <div className="flex-shrink-0">
-                                                                <img
-                                                                    className="h-10 w-10 rounded-full"
-                                                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                                    alt=""
-                                                                />
+                                                              
                                                             </div>
                                                             <div className="ml-3">
                                                                 <div className="text-base text-white font-medium leading-none">{session.fname}{' '}{session.lname}</div>
@@ -612,11 +596,7 @@ const Header = () => {
                                                                 <Menu.Button className="bg-yellow-600 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                     <span className="sr-only">Open user menu</span>
                                                                     <a href="#!" className="font-medium text-white hover:text-gray hover:no-underline mr-2">{session.fname}{" "}{session.lname}</a>
-                                                                    <img
-                                                                        className="h-8 w-8 rounded-full"
-                                                                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                                        alt=""
-                                                                    />
+                                                                
                                                                 </Menu.Button>
                                                             </div>
                                                             <Transition
@@ -711,11 +691,7 @@ const Header = () => {
                                                     <div className="pt-4 pb-3 border-t border-gray-300">
                                                         <div className="h-20 rounded-xl bg-gray-700 flex items-center px-5">
                                                             <div className="flex-shrink-0">
-                                                                <img
-                                                                    className="h-10 w-10 rounded-full"
-                                                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                                                    alt=""
-                                                                />
+                                                             
                                                             </div>
                                                             <div className="ml-3">
                                                                 <div className="text-base text-white font-medium leading-none">{session.fname}{' '}{session.lname}</div>

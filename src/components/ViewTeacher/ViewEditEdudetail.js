@@ -88,8 +88,8 @@ const ViewEditEdudetail = ({ id }) => {
         setEdudetail({ ...edudetail, [name]: value });
     };
 
-
-    const saveEdudetail = () => {
+    const saveEdudetail = (e) => {
+        e.preventDefault()
         var data = {
             number_of_edu: edudetail.number_of_edu,
             GPA: edudetail.GPA,
@@ -100,32 +100,49 @@ const ViewEditEdudetail = ({ id }) => {
             id_education: edudetail.id_education,
             id_major: edudetail.id_major,
         }
-        axios.put("http://localhost:8080/updateEduDetail/" + edudetail.id_edu_detail, data)
-            .then((response) => {
-                console.log(response.data);
-                setEdudetail({ ...edudetail, data });
-                setSumited(true);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-    const newEducation = () => {
-        setSumited(false);
-    };
+        if (data['number_of_edu'] === ""|| data['GPA'] === ""|| data['id_curriculum'] === ""
+        || data['note_condi'] === ""|| data['id_course'] === ""|| data['id_faculty'] === ""
+        || data['id_education'] === ""|| data['id_major'] === "") {
+            Swal.fire(
+      
+                'ผิดพลาด',
+                'กรุณารอกรอกข้อมูลให้ครบ',
+                'error'
+            )
+        } else {
+            axios.put("http://localhost:8080/updateEduDetail/" + edudetail.id_edu_detail, data)
+            .then((res) => {
+                    console.log(res.data.message);
+                    if (res.data.message == "success") {
+                        ////ต่อตรงนี้
+                        Swal.fire(
+    
+                            'อัพเดตข้อมูลเรียบร้อย',
+                            '',
+                            'success'
+                        )
+                            .then(() => window.location.assign("/edudetailall/" + edudetail.id_education))
+    
+                    } else {
+    
+                        Swal.fire(
+                            'อัพเดตข้อมูลผิดพลาด',
+                            'ชื่อสาขานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                            'error'
+                        )
+    
+                    }
+    
+                })
+                .catch((error) => {
+                    console.log("error");
+                });//ใช้ ดัก Error
+    
+        };
+    }
     return (
         <Container>
-            <Form>
 
-{submited ? (
-   Swal.fire(
-
-    'เพิ่มรายล่ะเอียดข้อมูลการศึกษาต่อสำเร็จ',
-    ' ',
-     'success',
- )
- (window.location.assign("/edudetailall/" + edudetail.id_education))
-                ) : (
 <Form>
                         <center><h3> รายละเอียดข้อมูลการเข้าศึกษาต่อ </h3></center>
 
@@ -222,8 +239,7 @@ const ViewEditEdudetail = ({ id }) => {
                         </Row>
                         <Button className="btn btn-success" onClick={saveEdudetail}>ยืนยัน</Button>
                     </Form>
-                )}
-            </Form>
+           
         </Container >
     );
 }

@@ -22,36 +22,56 @@ const ViewInsertDegree = () => {
     setDegree({ ...degree, [name]: value });
   };
 
-  const saveDegree = () => {
+  const saveDegree = (e) => {
+    e.preventDefault()
     var data = {
-        name_degree: degree.name_degree,
-        initials_degree: degree.initials_degree,
-    }
-    axios.post("http://localhost:8080/degree" , data)
-      .then((response) => {
-        console.log(response.data);
-        setSumited(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      name_degree: degree.name_degree,
+      initials_degree: degree.initials_degree,
+  }
+    if (data['name_degree'] === "" || data['initials_degree'] === "") {
+        Swal.fire(
+            'ผิดพลาด',
+            'กรุณารอกรอกข้อมูลให้ครบ',
+            'error'
+        )
+
+    } else {
+      axios.post("http://localhost:8080/degree" , data)
+      .then((res) => {
+                console.log(res.data.message);
+                if (res.data.message == "success") {
+                    ////ต่อตรงนี้
+                    Swal.fire(
+
+                        'เพิ่มข้อมูลวุฒิการศึกษาเรียบร้อย',
+                        '',
+                        'success'
+                    )
+                        .then(() => window.location.assign("/degreeall"))
+
+                } else {
+
+                    Swal.fire(
+                        'เพิ่มข้อมูลวุฒิการศึกษาผิดพลาด',
+                        'ชื่อวุฒิการศึกษานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                        'error'
+                    )
+
+                }
+
+            })
+            .catch((error) => {
+                console.log("error");
+            });//ใช้ ดัก Error
+
+    };
   };
 
   return (
 
     <div class="container">
-    <Form>
-
-{submited ? (
-   Swal.fire(
-
-    'เพิ่มข้อมูลวุฒิเรียบร้อย',
-    ' ',
-     'success',
- )
- (window.location.assign("/degreeall"))
-                ) : (
-<Form>
+ 
+ <Form onSubmit={saveDegree}>
             <center><h3> เพิ่มหลักสูตร </h3></center>
             <Row>
             <br/>
@@ -64,7 +84,7 @@ const ViewInsertDegree = () => {
                 value={degree.name_degree || ""}
                 onChange={handleInputChange}
                 placeholder="ระบุชื่อหลักสูตร"
-              />
+              required/>
             </Row>
             </Row>
             <br/>
@@ -77,15 +97,12 @@ const ViewInsertDegree = () => {
                 value={degree.initials_degree || ""}
                 onChange={handleInputChange}
                 placeholder="ตัวอย่าง นศ.บ"
-              />
+              required/>
             </Row>
-            <Button className="btn btn-success" onClick={saveDegree}>บันทึก</Button>
+            <Button className="btn btn-success" >บันทึก</Button>
           </Form>
 
-        )}
-
-      </Form>
-
+    
     </div>
 
   );

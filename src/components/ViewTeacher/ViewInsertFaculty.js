@@ -21,39 +21,54 @@ const ViewInsertFaculty = () => {
     setFaculty({ ...faculty, [name]: value });
   };
 
-  const saveFaculty = () => {
+  const saveFaculty = (e) => {
+    e.preventDefault()
     var data = {
       name_faculty: faculty.name_faculty
     }
-    axios.post("http://localhost:8080/faculty" , data)
-      .then((response) => {
-        console.log(response.data);
-        setSumited(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (data['name_faculty'] === "") {
+      Swal.fire(
+
+          'ผิดพลาด',
+          'กรุณารอกรอกข้อมูลให้ครบ',
+          'error'
+      )
+  } else {
+    axios.post("http://localhost:8080/faculty/createFaculty" , data)
+      .then((res) => {
+              console.log(res.data.message);
+              if (res.data.message == "success") {
+                  ////ต่อตรงนี้
+                  Swal.fire(
+
+                      'เพิ่มข้อมูลคณะเรียบร้อย',
+                      '',
+                      'success'
+                  )
+                      .then(() => window.location.assign("/facultyall"))
+
+              } else {
+
+                  Swal.fire(
+                      'เพิ่มข้อมูลคณะผิดพลาด',
+                      'ชื่อคณะนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                      'error'
+                  )
+
+              }
+
+          })
+          .catch((error) => {
+              console.log("error");
+          });//ใช้ ดัก Error
+
   };
+}
 
-  return (
-
-    <div class="container">
-     <Form>
-
-{submited ? (
-   Swal.fire(
-
-    'เพิ่มข้อมูลคณะเรียบร้อย',
-    ' ',
-     'success',
- )
- (window.location.assign("/fucultyall"))
-                ) : (
-<Form>
-            <center><h3> เพิ่มคณะ </h3></center>
-            <Row>
-            <br/>
-            <Row>
+return (
+  <div class="container"><br /><br /><br /><br />
+  <Form onSubmit={saveFaculty}>
+  <Row>
               <Label for="faculty">ชื่อคณะ</Label>
               <Input
                 type="text"
@@ -62,20 +77,14 @@ const ViewInsertFaculty = () => {
                 value={faculty.name_faculty || ""}
                 onChange={handleInputChange}
                 placeholder="ระบุชื่อคณะ"
-              />
+              required/>
             </Row>
-            </Row>
-            <Button className="btn btn-success" onClick={saveFaculty}>บันทึก</Button>
-          </Form>
-
-        )}
-
-      </Form>
-
-    </div>
-
-  );
-};
+  
+  <Button className="btn btn-success" >บันทึก</Button>
+  
+ 
+          </Form></div>
+          )}
 
 
 export default ViewInsertFaculty;

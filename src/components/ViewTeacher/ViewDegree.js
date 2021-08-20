@@ -9,39 +9,45 @@ import {
 
 const ViewDegreeAll = (props) => {
   const [degree, setDegree] = useState([]);
+  const [filteredData, setFilteredData] = useState(degree);
 
-  const selectDegree = () => {
-    axios.get("http://localhost:8080/degree")
-      .then((response) => {
-        console.log(response);
-        setDegree(response.data.degree);
-        console.log("select Degree.....");
-      });
-  };
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+    console.log(value);
+    result = degree.filter((data) => {
+    return  data.name_degree.search(value) != -1;
+
+    });
+    setFilteredData(result);
+    }
 
   useEffect(() => {
-    selectDegree();
-  });
+    axios('http://localhost:8080/degree/searchDegree?keyword=')
+    .then(response => {
+    console.log(response.data)
+    setDegree(response.data);
+    setFilteredData(response.data);
+    })
+    .catch(error => {
+    console.log('Error getting fake data: ' + error);
+    })
+    }, []);
 
   return (
-    <div>
+    <div className="pt-32">
       <div class="container">
         <br />
         <Row>
           <Col xs="6">
-            <FormGroup>
+    
               <Label for="degree">ค้นหาชื่อหลักสูตร</Label>
-              <Input type="select" name="degree" id="degree">
-                {degree.map((degree) => {
-                  return (
-                    <option key={degree.id_degree}>{degree.name_degree}</option>
-                  );
-                })}
+              <Input type="text" name="degree" id="degree" placeholder="กรุณาใส่ชื่อหลักสูตรที่จะค้นหา" onChange={(event) =>handleSearch(event)}>
               </Input>
-            </FormGroup>
+       
           </Col>
         </Row>
-        <br />
+
       </div>
       <br />
 
@@ -78,24 +84,24 @@ const ViewDegreeAll = (props) => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {degree.map((degree) => {
+                  {filteredData.map((value) => {
                     return (
-                      <tr key={degree.id_degree}>
+                      <tr key={value.id_degree}>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             {/* <div className="flex-shrink-0 h-10 w-10">
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
                             <div className="ml-4">
-                              <div className="text-sm text-gray-500">{degree.name_degree}</div>
+                              <div className="text-sm text-gray-500">{value.name_degree}</div>
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <div className="text-sm text-gray-500">{degree.initials_degree}</div>
+                          <div className="text-sm text-gray-500">{value.initials_degree}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <a href={"./editDegree/" + degree.id_degree} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
+                          <a href={"./editDegree/" + value.id_degree} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                             Edit
                           </a>
                         </td>
@@ -105,7 +111,8 @@ const ViewDegreeAll = (props) => {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div>        <center> {filteredData.length === 0 && <span>ไม่พบข้อมูลที่ค้นหา</span>} </center>
+
         </div>
       </div>
     </div>

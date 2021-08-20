@@ -104,36 +104,48 @@ const ViewInsertUniversity = () => {
             detail_uni: formik.values.detail_uni,
             logo_uni: imagesURL,
         };
-    axios.post("http://localhost:8080/university" , data)
-            .then((response) => {
-                console.log(response.data);
-                setSubmitted(true); //เมื่อคลิกให้เป็น true เพื่อเซ็ตค่าต่างๆ
-            })
-            .catch((error) => {  //แจ้งเตือน ดีบัค
-                console.log(error);
-            });
-    };
-
-
-    const newProduct = () => {
-        formik.resetForm();
-        setProgress(0);
-        setSubmitted(false);
-    };
+        if (data['name_uni'] === "" || data['url_uni'] === "" || data['detail_uni'] === ""|| data['logo_uni'] === "") {
+            Swal.fire(
+    
+                'ผิดพลาด',
+                'กรุณารอกรอกข้อมูลให้ครบ',
+                'error'
+            )
+        } else {
+            axios.post("http://localhost:8080/university" , data)
+            .then((res) => {
+                    console.log(res.data.message);
+                    if (res.data.message == "success") {
+                        ////ต่อตรงนี้
+                        Swal.fire(
+    
+                            'เพิ่มข้อมูลมหาลัยเรียบร้อย',
+                            '',
+                            'success'
+                        )
+                            .then(() => window.location.assign("/universityall"))
+    
+                    } else {
+    
+                        Swal.fire(
+                            'เพิ่มข้อมูลมหาลัยผิดพลาด',
+                            'ชื่อมหาลัยนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                            'error'
+                        )
+    
+                    }
+    
+                })
+                .catch((error) => {
+                    console.log("error");
+                });//ใช้ ดัก Error
+    
+        };
+    }
     return (
       
         <Container>
-           
-               
-{submitted ? (
-   Swal.fire(
-
-    'เพิ่มข้อมูลมหาลัยเรียบร้อย',
-    ' ',
-     'success',
- )
- (window.location.assign("/universityall"))
-                ) : (
+   
                   
                         <Form onSubmit={formik.handleSubmit}>
                             <FormGroup><br /><br /><br /><br />
@@ -145,7 +157,7 @@ const ViewInsertUniversity = () => {
                                     value={formik.values.name_uni}
                                     onChange={formik.handleChange}//เมื่อมีการพิมพ์ข้อความ
                                     placeholder="ระบุชื่อมหาลัย"
-                                />
+                                    required/>
                                 {formik.errors.name && formik.touched.name_uni(
                                     <p>{formik.errors.name_uni}</p>
                                 )}
@@ -159,7 +171,7 @@ const ViewInsertUniversity = () => {
                                     value={formik.values.url_uni}
                                     onChange={formik.handleChange}
                                     placeholder="ระบุ URL"
-                                />
+                                    required/>
 
                                 {formik.errors.name && formik.touched.url_uni(
                                     <p>{formik.errors.url_uni}</p> //เช็ค error
@@ -174,7 +186,7 @@ const ViewInsertUniversity = () => {
                                     value={formik.values.detail_uni}
                                     onChange={formik.handleChange}
                                     placeholder="ระบุรายละเอียด"
-                                />
+                                    required/>
                                 {formik.errors.name && formik.touched.detail_uni(
                                     <p>{formik.errors.detail_uni}</p>
                                 )}
@@ -192,7 +204,7 @@ const ViewInsertUniversity = () => {
                             </FormGroup>
                             <Button type="submit" className="btn btn-success" >ตกลง</Button>
                         </Form>
-                    )}
+                    
 
         </Container>
     )

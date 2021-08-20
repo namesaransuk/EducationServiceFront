@@ -10,19 +10,33 @@ import { faEdit, faPen, faSearch, faTrash } from "@fortawesome/free-solid-svg-ic
 
 const ViewGroupCourse = (props) => {
 
-
   const [major, setMajor] = useState([]);
+  const [filteredData, setFilteredData] = useState(major);
 
-  const selectmajor = () => {
-    axios.get("http://localhost:8080/groupmajor").then((response) => {
-      console.log(response);
-      setMajor(response.data.major);
-      console.log("Updating products.....");
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+    console.log(value);
+    result = major.filter((data) => {
+    return  data.name_major.search(value) != -1;
+
     });
-  };
+    setFilteredData(result);
+    }
+    
+   
+
   useEffect(() => {
-    selectmajor();
-  }, []);
+    axios('http://localhost:8080/groupmajor/searchgroupmajor?keyword=')
+    .then(response => {
+    console.log(response.data)
+    setMajor(response.data);
+    setFilteredData(response.data);
+    })
+    .catch(error => {
+    console.log('Error getting fake data: ' + error);
+    })
+    }, []);
 
   return (
     <div className="pt-32">
@@ -32,7 +46,7 @@ const ViewGroupCourse = (props) => {
           <Col xs="6">
             <FormGroup>
               <Label for="year_edu">ค้นหา</Label>
-              <Input type="text" name="year_edu" id="year_edu"  >
+              <Input type="text" name="name_major" id="name_major" placeholder="กรุณาใส่ชื่อกลุ่มสาขาที่จะค้นหา" onChange={(event) =>handleSearch(event)}>
                 <FontAwesomeIcon icon={faSearch} /></Input>
             </FormGroup></Col>
         </Row>
@@ -72,24 +86,24 @@ const ViewGroupCourse = (props) => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {major.map((major) => {
+                  {filteredData.map((value) => {
                     return (
-                      <tr key={major.id_major}>
+                      <tr key={value.id_major}>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             {/* <div className="flex-shrink-0 h-10 w-10">
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
                             <div className="ml-4">
-                              <div className="text-sm text-gray-500">{major.id_major}</div>
+                              <div className="text-sm text-gray-500">{value.id_major}</div>
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <div className="text-sm text-gray-500">{major.name_major}</div>
+                          <div className="text-sm text-gray-500">{value.name_major}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <a href={"/editgroupcourse/" + major.id_major} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
+                          <a href={"/editgroupcourse/" + value.id_major} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                             Edit
                           </a>
                         </td>
@@ -99,7 +113,8 @@ const ViewGroupCourse = (props) => {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div><center> {filteredData.length === 0 && <span>ไม่พบข้อมูลที่ค้นหา</span>} </center>
+
         </div>
       </div>
     </div>
