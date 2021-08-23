@@ -49,48 +49,65 @@ import Swal from 'sweetalert2';
       };
   
   
-      const saveTeacher = () => {
-          var data = {
-              id_title: teacher.id_title,
-              fname_staff: teacher.fname_staff,
-              lname_staff: teacher.lname_staff,
-              phone_staff: teacher.phone_staff,
-              id_position: teacher.id_position,
-              password_staff: teacher.password_staff,
-  
-          }
-          axios.put("http://localhost:8080/Teacher/updateTeacher/"+teacher.id_staff, data)
-              .then((response) => {
-                  console.log(response.data);
-                  setTeacher({...teacher,data});//ก็อป เเละ เขียน ทับ ตัวใหม่สุด
-                  setSumited(true);
-              })
-              .catch((error) => {
-                  console.log(error);
-              });
-      };
-      const newStudent = () => {
-          setSumited(false);
-      };
+      const saveTeacher = (e) => {
+        e.preventDefault()
+    
+            var data = {
+                id_title: teacher.id_title,
+                fname_staff: teacher.fname_staff,
+                lname_staff: teacher.lname_staff,
+                phone_staff: teacher.phone_staff,
+                id_position: teacher.id_position,
+                password_staff: teacher.password_staff,
+    
+            }
+
+        if (data['id_title'] == "" || data['fname_staff'] == "" || data['lname_staff'] == ""
+        || data['phone_staff'] == ""|| data['id_position'] == ""|| data['password_staff'] == ""
+      ) {
+            Swal.fire(
+
+                'ผิดพลาด',
+                'กรุณารอกรอกข้อมูลให้ครบ',
+                'error'
+            )
+
+        } else {
+            axios.put("http://localhost:8080/Teacher/updateTeacher/"+teacher.id_staff, data)
+            .then((res) => {
+                    console.log(res.data.message);
+                    if (res.data.message == "success") {
+                        ////ต่อตรงนี้
+                        Swal.fire(
+
+                            'เเก้ไขข้อมูลส่วนตัวเรียบร้อย',
+                            '',
+                            'success'
+                        )
+                            .then(() => window.location.assign("/profileTeacher/"+ teacher.id_staff))
+
+                    } else {
+
+                        Swal.fire(
+                            'เเก้ข้อมูลส่วนตัวผิดพลาด',
+                            'ชื่อนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                            'error'
+                        )
+
+                    }
+
+                })
+                .catch((error) => {
+                    console.log("error");
+                });//ใช้ ดัก Error
+
+        };
+    }
     return (
         <div>
           <br />
 <div class="container">
-<Form>
 
-
-{submited ? (
-   Swal.fire(
-
-    'เเก้ไขข้อมูลส่วนตัวสำเร็จ',
-    ' ',
-     'success',
-     (window.location.assign("/profileTeacher/"+ teacher.id_staff)
- )
- )
- (window.location.assign("/profileTeacher/"+ teacher.id_staff)
- )
-                ) : (
 <Form>
 
     <center><h3> เเก้ไขข้อมูลส่วนตัว </h3></center>
@@ -103,7 +120,7 @@ import Swal from 'sweetalert2';
             id="productName"
             value={teacher.id_staff || ""}
             onChange={handleInputChange}
-            placeholder="ระบุรหัสประจำตัว" />
+            placeholder="ระบุรหัสประจำตัว" disabled/>
           </FormGroup>
         </Col>
         <Col>
@@ -225,9 +242,7 @@ import Swal from 'sweetalert2';
 
 
 </Form>
-)}
 
-    </Form>
 
 </div>    
 

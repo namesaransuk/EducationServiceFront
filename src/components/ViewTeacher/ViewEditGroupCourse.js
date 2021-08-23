@@ -92,7 +92,7 @@ const ViewEditGroupCourse = ({ id }) => {
             value={GroupCourse.name_major}
             onChange={handleInputChange}
             placeholder={GroupCourse.name_major}
-           required />
+            />
           </Jumbotron>
           <div>
             <Button className="btn btn-success" >บันทึก</Button>

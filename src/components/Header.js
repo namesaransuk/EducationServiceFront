@@ -42,6 +42,8 @@ const Header = () => {
         lname_admin: localStorage.getItem('lname_admin'),
         name_title: localStorage.getItem('name_title'),
         name_position: localStorage.getItem('name_position'),
+        
+        
     }
     // const sessionstaff = {
     //     id_staff: localStorage.getItem('id_staff'),

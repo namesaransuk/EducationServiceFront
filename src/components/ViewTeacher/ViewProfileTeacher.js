@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react"
-import { Row, Col, Form, FormGroup, Label, NavLink } from 'reactstrap';
+import { Row, Col, Form, FormGroup, Label, NavLink ,Navbar,Container,} from 'reactstrap';
 
 const ViewProfileTeacher = ({ id }) => {
 
@@ -16,6 +16,7 @@ const ViewProfileTeacher = ({ id }) => {
 
   return (
     <div>
+  
       <div class="container-fluid mt-32">
           <center><h3> ข้อมูลการส่วนตัว </h3></center>
 

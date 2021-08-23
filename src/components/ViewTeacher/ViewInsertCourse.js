@@ -15,7 +15,7 @@ const ViewInsertCourse = () => {
         id_degree: "",
       }
 
-    const [Course, setCourse] = useState([initCourse]);
+    const [Course, setCourse] = useState(initCourse);
     const [major, setMajor] = useState([]);
     const [degree, setDegree] = useState([]);
 
@@ -56,7 +56,8 @@ const ViewInsertCourse = () => {
             id_major: Course.id_major,
             id_degree: Course.id_degree,
           }
-        if (data['name_course'] === "" || data['id_major'] === "" || data['id_degree'] === "") {
+
+        if (data['name_course'] == "" || data['id_major'] == "" || data['id_degree'] == "") {
             Swal.fire(
 
                 'ผิดพลาด',
@@ -110,7 +111,7 @@ const ViewInsertCourse = () => {
                 value={Course.name_course || ""}
                 onChange={handleInputChange}
                 placeholder="ระบุชื่อสาขา"
-                required/>
+                />
       </h1>
       <FormGroup>
         <Label for="id_major">หลักสูตร</Label>
@@ -120,7 +121,7 @@ const ViewInsertCourse = () => {
           id="id_degree"
           value={Course.id_degree || ""}
           onChange={handleInputChange}
-          required >
+          >
              <option value="">กรุณาเลือก</option>
           {degree.map((degree) => {
             return (
@@ -142,7 +143,7 @@ const ViewInsertCourse = () => {
           id="id_major"
           value={Course.id_major}
           onChange={handleInputChange}
-          required>
+          >
           <option value="">กรุณาเลือก</option>
           {major.map((major) =>{
             return (

@@ -43,32 +43,61 @@ const ViewEditProfile = ({ id }) => {
   };
 
 
-  const saveStudent = () => {
-    var data = {
-      id_title: student.id_title,
-      fname_stu: student.fname_stu,
-      lname_stu: student.lname_stu,
-      GPA_stu: student.GPA_stu,
-      year_class: student.year_class,
-      class: student.class,
-      year_stu: student.year_stu,
-      id_curriculum: student.id_curriculum,
-      password_stu: student.password_stu,
+  const saveStudent = (e) => {
+    e.preventDefault()
 
-    }
-    axios.put("http://localhost:8080/students/" + student.id_stu, data)
-      .then((response) => {
-        console.log(response.data);
-        setStudent({ ...student, data });//ก็อป เเละ เขียน ทับ ตัวใหม่สุด
-        setSumited(true);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-  const newStudent = () => {
-    setSumited(false);
-  };
+    var data = {
+        id_title: student.id_title,
+        fname_stu: student.fname_stu,
+        lname_stu: student.lname_stu,
+        GPA_stu: student.GPA_stu,
+        year_class: student.year_class,
+        class: student.class,
+        year_stu: student.year_stu,
+        id_curriculum: student.id_curriculum,
+        password_stu: student.password_stu,
+      }
+    if (data['id_title'] === "" || data['fname_stu'] === "" || data['lname_stu'] === ""
+    || data['GPA_stu'] === ""|| data['year_class'] === ""|| data['class'] === ""
+    || data['year_stu'] === ""|| data['id_curriculum'] === ""|| data['password_stu'] === "") {
+        Swal.fire(
+
+            'ผิดพลาด',
+            'กรุณารอกรอกข้อมูลให้ครบ',
+            'error'
+        )
+
+    } else {
+        axios.put("http://localhost:8080/students/" + student.id_stu, data)
+        .then((res) => {
+                console.log(res.data.message);
+                if (res.data.message == "success") {
+                    
+                    Swal.fire(
+
+                        'เเก้ไขข้อมูลข้อมูลส่วนตัวเรียบร้อย',
+                        'เเก้ไขได้เเต่ชื่อบน NavBar มันติดงงๆออกเข้าใหม่',
+                        'success'
+                    )
+                        .then(() => window.location.assign("/profile/" + student.id_stu))
+
+                } else {
+
+                    Swal.fire(
+                        'เพิ่มข้อมูลผิดพลาด',
+                        'ชื่อนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                        'error'
+                    )
+
+                }
+
+            })
+            .catch((error) => {
+                console.log("error");
+            });//ใช้ ดัก Error
+
+    };
+}
   return (
     <div>
       <div class="container mt-32 mb-5">

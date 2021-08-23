@@ -55,11 +55,8 @@ const ViewInsertUniversity = () => {
 
     ]
     const formik = useFormik({
-        initialValues: initProduct, //
+        initialValues: (initProduct), //
         validationSchema: yup.object().shape({ //เงื่อนไข
-            name_uni: yup.string().required("กรุณากรอกข้อมูล"),
-            url_uni: yup.string().required("กรุณากรอกข้อมูล"),
-            detail_uni: yup.string().required("กรุณากรอกข้อมูล"),
             file: yup
                 .mixed()
                 .test("fileSize", "ไฟล์ใหญ่เกินไป", (file) => {
@@ -157,7 +154,7 @@ const ViewInsertUniversity = () => {
                                     value={formik.values.name_uni}
                                     onChange={formik.handleChange}//เมื่อมีการพิมพ์ข้อความ
                                     placeholder="ระบุชื่อมหาลัย"
-                                    required/>
+                                    />
                                 {formik.errors.name && formik.touched.name_uni(
                                     <p>{formik.errors.name_uni}</p>
                                 )}
@@ -171,7 +168,7 @@ const ViewInsertUniversity = () => {
                                     value={formik.values.url_uni}
                                     onChange={formik.handleChange}
                                     placeholder="ระบุ URL"
-                                    required/>
+                                    />
 
                                 {formik.errors.name && formik.touched.url_uni(
                                     <p>{formik.errors.url_uni}</p> //เช็ค error
@@ -186,7 +183,7 @@ const ViewInsertUniversity = () => {
                                     value={formik.values.detail_uni}
                                     onChange={formik.handleChange}
                                     placeholder="ระบุรายละเอียด"
-                                    required/>
+                                    />
                                 {formik.errors.name && formik.touched.detail_uni(
                                     <p>{formik.errors.detail_uni}</p>
                                 )}

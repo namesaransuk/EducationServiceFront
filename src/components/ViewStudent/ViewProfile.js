@@ -12,7 +12,7 @@ const ViewProfile = ({ id }) => {
         setStudent(response.data);
       });
   }, [id]);//เมื่อidมีการเปลี่ยนเเปรง ก็จะรีหน้าทำการเปลี่ยนที่เราเปลี่ยน
-
+ 
 
   return (
     <div>

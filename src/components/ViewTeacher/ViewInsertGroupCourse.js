@@ -1,46 +1,51 @@
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import React, { useState } from 'react';
-import {Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Card, CardText, CardBody, CardLink,
-  CardTitle, CardSubtitle, Jumbotron, Table, Alert} from 'reactstrap';
-  import Swal from 'sweetalert2';
+import {
+  Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Card, CardText, CardBody, CardLink,
+  CardTitle, CardSubtitle, Jumbotron, Table, Alert
+} from 'reactstrap';
+import Swal from 'sweetalert2';
 
 const ViewInsertGroupCourse = () => {
   const initGroupMajor = {
     name_major: "",
   };
 
-  const [groupmajor, setGroupMajor] = useState(initGroupMajor);
-  const [submited, setSumited] = useState(false)
-
+  const [GroupCourse, setGroupCourse] = useState(initGroupMajor);
+  const [submited, setSumited] = useState(false);
+  
   const handleInputChange = (event) => {
     let { name, value } = event.target;
-    // if (name === "tags") {
-    //     value = value.split(",");
+    //if (name === "tags") {
+    //  value = value.split(",");
     // }
-    setGroupMajor({ ...groupmajor, [name]: value });
+    setGroupCourse({ ...GroupCourse, [name]: value });
   };
 
-  const saveGroupMajor = (e) => {
+  const saveGroupCourse = (e) => {
     e.preventDefault()
+
     var data = {
-      name_major: groupmajor.name_major
+      name_major: GroupCourse.name_major,
+  
       }
-    if (data['name_major'] === " ") {
+    if (data['name_major'] === "") {
         Swal.fire(
+
             'ผิดพลาด',
             'กรุณารอกรอกข้อมูลให้ครบ',
             'error'
         )
 
     } else {
-      axios.post("http://localhost:8080/groupmajor", data)
-      .then((res) => {
+        axios.post("http://localhost:8080/groupmajor", data)
+        .then((res) => {
                 console.log(res.data.message);
                 if (res.data.message == "success") {
                     ////ต่อตรงนี้
                     Swal.fire(
 
-                        'เพิ่มข้อมูลสาขาเรียบร้อย',
+                        'อัพเดตข้อมูลกลุ่มสาขาเรียบร้อย',
                         '',
                         'success'
                     )
@@ -49,8 +54,8 @@ const ViewInsertGroupCourse = () => {
                 } else {
 
                     Swal.fire(
-                        'เพิ่มข้อมูลสาขาผิดพลาด',
-                        'ชื่อสาขานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                        'เพิ่มข้อมูลกลุ่มสาขาผิดพลาด',
+                        'ชื่อกลุ่มสาขานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
                         'error'
                     )
 
@@ -63,24 +68,34 @@ const ViewInsertGroupCourse = () => {
 
     };
 }
+  return (
 
-return (
-<div class="container">
-<Form onSubmit={saveGroupMajor}>
-            <center><h3>เพิ่มกลุ่มสาขา</h3></center>
-            <br/>
-            <Label for="major">ชื่อกลุ่มสาขา</Label>
+    <div class="container">
+    
+    <Form onSubmit={saveGroupCourse}>
+                <center><h2>เเก้ไขกลุ่มสาขา</h2></center>
+  
+          <Jumbotron>
+            <Label for="name_faculty">ชื่อกลุ่มสาขา</Label>
             <Input 
             type="text" 
             name="name_major" 
             id="name_major" 
+            value={GroupCourse.name_major}
             onChange={handleInputChange}
-            placeholder="กรุณาใส่ชื่อกลุ่มสาขา" required/>
+            placeholder={GroupCourse.name_major}
+            />
+          </Jumbotron>
+          <div>
+            <Button className="btn btn-success" >บันทึก</Button>
+          </div>
+        </Form>
+      
 
-            <div>
-              <Button className="btn btn-success">บันทึก</Button>
-            </div>
-          </Form></div>
-    )}
+    </div>
+
+  );
+};
+
 
 export default ViewInsertGroupCourse;
