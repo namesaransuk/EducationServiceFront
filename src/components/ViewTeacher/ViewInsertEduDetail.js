@@ -29,11 +29,11 @@ const ViewInsertEduDetail = ({ id }) => {
     const [curriculum, setCurriculum] = useState([])
     const [major, setMajor] = useState([])
 
-   //Faculty
+    const [edu, setEdu] = useState([])
    useEffect(() => {
-    axios.get("http://localhost:8080/Education/getEducatioById/" + id)
+    axios.get("http://localhost:8080/EduDetail/getEduDetailByIdedu/" + id)
         .then((response) => {
-            setEdudetail(response.data);
+            setEdu(response.data.edu);
         });
 }, [id]);
 
@@ -159,7 +159,7 @@ const ViewInsertEduDetail = ({ id }) => {
                                 <FormGroup>
                                     <Label for="id_faculty">คณะที่เปิดรับ</Label>
                                     <Input type="select" name="id_faculty" id="id_faculty"
-                                        onChange={handleInputChange} value={edudetail.id_faculty || ""} required>
+                                        onChange={handleInputChange} value={edudetail.id_faculty || ""} >
                                         <option></option>
                                         {faculty.map((faculty) => {
                                             return (
@@ -174,7 +174,7 @@ const ViewInsertEduDetail = ({ id }) => {
                                     <Label for="id_course">สาขาที่เปิดรับ</Label>
                                     <Input type="select" name="id_course" id="id_course"
                                         value={edudetail.id_course || ""}
-                                        onChange={handleInputChange}required>
+                                        onChange={handleInputChange}>
                                         <option></option>
                                         {course.map((course) => {
                                             return (
@@ -189,7 +189,7 @@ const ViewInsertEduDetail = ({ id }) => {
                                 <FormGroup>
                                     <Label for="">กลุ่มสาขาวิชา</Label>
                                     <Input type="select" name="id_major" id="id_major" value={edudetail.id_major}
-                                        onChange={handleInputChange}required>
+                                        onChange={handleInputChange}>
                                         <option></option>
                                             {major.map((major) => {
                                                 return (
@@ -203,21 +203,21 @@ const ViewInsertEduDetail = ({ id }) => {
                                 <FormGroup>
                                     <Label for="number_of_edu">จำนวนที่เปิดรับสมัคร</Label>
                                     <Input type="text" name="number_of_edu" id="number_of_edu" value={edudetail.number_of_edu || ""}
-                                        onChange={handleInputChange}required>
+                                        onChange={handleInputChange}>
                                     </Input>
                                 </FormGroup></Col>
                             <Col xs="6">
                                 <FormGroup>
                                     <Label for="GPA">เกรดขั้นต่ำ</Label>
                                     <Input type="text" name="GPA" id="GPA" value={edudetail.GPA || ""}
-                                        onChange={handleInputChange}required>
+                                        onChange={handleInputChange}>
                                     </Input>
                                 </FormGroup></Col>
                             <Col xs="6">
                                 <FormGroup>
                                     <Label for="id_curriculum">แผนการเรียน</Label>
                                     <Input type="select" name="id_curriculum" id="id_curriculum" value={edudetail.id_curriculum || ""}
-                                        onChange={handleInputChange}required>
+                                        onChange={handleInputChange}>
                                         <option></option>
                                         {curriculum.map((curri) => {
                                             return (
@@ -231,8 +231,11 @@ const ViewInsertEduDetail = ({ id }) => {
                             <Col xs="6">
                                 <FormGroup>
                                     <Label for="id_education"></Label>
-                                    <Input type="hidden" name="id_education" id="id_education"
-                                        onChange={handleInputChange} value={edudetail.id_education || ""}required>
+                                    <Input type="select" name="id_education" id="id_education"
+                                        onChange={handleInputChange} value={edudetail.id_education || ""}>
+                                    <option>***กรุณาเลือก***</option>
+                                      <option value={edu.id_education}>{edu.id_education}</option>
+                                    
                                     </Input>
 
                                 </FormGroup></Col>
@@ -240,7 +243,7 @@ const ViewInsertEduDetail = ({ id }) => {
                                 <FormGroup>
                                     <Label for="note_condi">เงื่อนไขการรับสมัคร</Label>
                                     <Input type="textarea" name="note_condi" id="note_condi" value={edudetail.note_condi || ""}
-                                        onChange={handleInputChange}required>
+                                        onChange={handleInputChange}>
                                     </Input>
                                 </FormGroup></Col>
                         </Row>
