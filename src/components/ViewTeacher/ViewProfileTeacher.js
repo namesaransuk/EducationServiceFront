@@ -16,8 +16,8 @@ const ViewProfileTeacher = ({ id }) => {
 
   return (
     <div>
-  
-      <div class="container-fluid mt-32">
+
+      <div class="flex flex-col max-w-7xl mx-auto mt-32 px-3">
           <center><h3> ข้อมูลการส่วนตัว </h3></center>
 
           <div className="md:mt-0 md:col-span-2">

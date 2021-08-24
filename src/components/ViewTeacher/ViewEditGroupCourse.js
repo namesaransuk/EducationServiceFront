@@ -14,7 +14,7 @@ const ViewEditGroupCourse = ({ id }) => {
   const [GroupCourse, setGroupCourse] = useState(initGroupMajor);
   const [submited, setSumited] = useState(false);
 
-  
+
   useEffect(() => {
     axios.get("http://localhost:8080/groupmajor/" + id)
       .then((response) => {
@@ -35,71 +35,66 @@ const ViewEditGroupCourse = ({ id }) => {
 
     var data = {
       name_major: GroupCourse.name_major,
-  
-      }
-    if (data['name_major'] === "") {
-        Swal.fire(
 
-            'ผิดพลาด',
-            'กรุณารอกรอกข้อมูลให้ครบ',
-            'error'
-        )
+    }
+    if (data['name_major'] === "") {
+      Swal.fire(
+
+        'ผิดพลาด',
+        'กรุณารอกรอกข้อมูลให้ครบ',
+        'error'
+      )
 
     } else {
       axios.put("http://localhost:8080/groupmajor/" + id, data)
-      .then((res) => {
-                console.log(res.data.message);
-                if (res.data.message == "success") {
-                    ////ต่อตรงนี้
-                    Swal.fire(
+        .then((res) => {
+          console.log(res.data.message);
+          if (res.data.message == "success") {
+            ////ต่อตรงนี้
+            Swal.fire(
 
-                        'อัพเดตข้อมูลกลุ่มสาขาเรียบร้อย',
-                        '',
-                        'success'
-                    )
-                        .then(() => window.location.assign("/groupcourseall"))
+              'อัพเดตข้อมูลกลุ่มสาขาเรียบร้อย',
+              '',
+              'success'
+            )
+              .then(() => window.location.assign("/groupcourseall"))
 
-                } else {
+          } else {
 
-                    Swal.fire(
-                        'เพิ่มข้อมูลกลุ่มสาขาผิดพลาด',
-                        'ชื่อกลุ่มสาขานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
-                        'error'
-                    )
+            Swal.fire(
+              'เพิ่มข้อมูลกลุ่มสาขาผิดพลาด',
+              'ชื่อกลุ่มสาขานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+              'error'
+            )
 
-                }
+          }
 
-            })
-            .catch((error) => {
-                console.log("error");
-            });//ใช้ ดัก Error
+        })
+        .catch((error) => {
+          console.log("error");
+        });//ใช้ ดัก Error
 
     };
-}
+  }
   return (
 
-    <div class="container">
-    
-    <Form onSubmit={saveGroupCourse}>
-                <center><h2>เเก้ไขกลุ่มสาขา</h2></center>
-  
-          <Jumbotron>
-            <Label for="name_faculty">ชื่อกลุ่มสาขา</Label>
-            <Input 
-            type="text" 
-            name="name_major" 
-            id="name_major" 
-            value={GroupCourse.name_major}
-            onChange={handleInputChange}
-            placeholder={GroupCourse.name_major}
-            />
-          </Jumbotron>
-          <div>
-            <Button className="btn btn-success" >บันทึก</Button>
-          </div>
-        </Form>
-      
-
+    <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
+      <h3 className="text-center">เเก้ไขกลุ่มสาขา</h3>
+      <Form onSubmit={saveGroupCourse}>
+        <Label for="name_faculty">ชื่อกลุ่มสาขา</Label>
+        <Input
+          type="text"
+          name="name_major"
+          id="name_major"
+          value={GroupCourse.name_major}
+          onChange={handleInputChange}
+          placeholder={GroupCourse.name_major}
+          required />
+        <br />
+        <div className="text-center">
+          <Button className="btn btn-success w-25" >บันทึก</Button>
+        </div>
+      </Form>
     </div>
 
   );

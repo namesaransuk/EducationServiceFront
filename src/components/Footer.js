@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './footer.css'
 import Swal from 'sweetalert2';
 const Footer = () => {
     const session = {

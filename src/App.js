@@ -109,6 +109,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "tailwindcss/tailwind.css"
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import EducationStudent from "./pages/Student/EducationStudent";
 import Login from "./pages/Login";
@@ -223,6 +224,7 @@ const App = () => {
         <Route path="/Tests" component={Test} />
 
       </Switch>
+      <Footer/>
     </Router>
   );
 };

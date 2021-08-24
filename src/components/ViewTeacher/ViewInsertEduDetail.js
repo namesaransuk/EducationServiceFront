@@ -38,6 +38,7 @@ const ViewInsertEduDetail = ({ id }) => {
 }, [id]);
 
 
+
     //Faculty
     const updateFaculty = () => {
         axios.get("http://localhost:8080/faculty").then((response) => {
@@ -95,8 +96,8 @@ const ViewInsertEduDetail = ({ id }) => {
         setEdudetail({ ...edudetail, [name]: value });
     };
 
-        const saveEdudetail = (e) => {
-            e.preventDefault()
+    const saveEdudetail = (e) => {
+        e.preventDefault()
         var data = {
             number_of_edu: edudetail.number_of_edu,
             GPA: edudetail.GPA,
@@ -107,46 +108,46 @@ const ViewInsertEduDetail = ({ id }) => {
             id_education: edudetail.id_education,
             id_major: edudetail.id_major,
         }
-        if (data['number_of_edu'] === ""|| data['GPA'] === ""|| data['id_curriculum'] === ""
-        || data['note_condi'] === ""|| data['id_course'] === ""|| data['id_faculty'] === ""
-        || data['id_education'] === ""|| data['id_major'] === "") {
+        if (data['number_of_edu'] === "" || data['GPA'] === "" || data['id_curriculum'] === ""
+            || data['note_condi'] === "" || data['id_course'] === "" || data['id_faculty'] === ""
+            || data['id_education'] === "" || data['id_major'] === "") {
             Swal.fire(
-      
+
                 'ผิดพลาด',
                 'กรุณารอกรอกข้อมูลให้ครบ',
                 'error'
             )
         } else {
             axios.post("http://localhost:8080/eduDetail/createEduDetail", data)
-            .then((res) => {
+                .then((res) => {
                     console.log(res.data.message);
                     if (res.data.message == "success") {
                         ////ต่อตรงนี้
                         Swal.fire(
-      
+
                             'เพิ่มข้อมูลเรียบร้อย',
                             '',
                             'success'
                         )
                             .then(() => window.location.assign("/edudetailall/" + edudetail.id_education))
-      
+
                     } else {
-      
+
                         Swal.fire(
                             'เพิ่มข้อมูลคณะผิดพลาด',
                             'ชื่อสาขานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
                             'error'
                         )
-      
+
                     }
-      
+
                 })
                 .catch((error) => {
                     console.log("error");
                 });//ใช้ ดัก Error
-      
+
         };
-      }
+    }
 
     return (
         <Container>
@@ -251,6 +252,7 @@ const ViewInsertEduDetail = ({ id }) => {
                     </Form>
             
         </Container >
+
     );
 }
 

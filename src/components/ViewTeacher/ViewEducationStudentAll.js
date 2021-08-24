@@ -20,18 +20,8 @@ const ViewEducationStudentAll = (props) => {
   }, []);
   return (
     <div className="pt-32">
-      <div class="container">
-        <br />
-        <Row>
-          <Col xs="12">
-            <FormGroup>
-              <br />  <br />  <br />  <br />
-              <center> <Label for="exampleSelect">ดูข้อมูลนักเรียน</Label></center>
-            </FormGroup>
-
-          </Col>
-
-        </Row>
+      <div className="px-4 flex flex-col max-w-3xl mx-auto">
+      <h3 className="text-center">ดูข้อมูลนักเรียน</h3>
       </div>
       <br />
 
@@ -44,13 +34,13 @@ const ViewEducationStudentAll = (props) => {
                   <tr>
                     <th
                       scope="col"
-                      className="px-12 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                      className="px-12 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       ห้องเรียน
                     </th>
                     <th
                       scope="col"
-                      className="break-all px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                      className="break-all px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       ดูข้อมูลรายชื่อนักเรียน
                     </th>
@@ -66,11 +56,11 @@ const ViewEducationStudentAll = (props) => {
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
                             <div className="ml-4">
-                              <div className="text-sm text-gray-900">{year.year_class} / {year.class}</div>
+                              <div className="text-md text-gray-900">{year.year_class} / {year.class}</div>
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
+                        <td className="px-6 py-4 whitespace-nowrap text-left text-md font-medium">
                           <a type="button" href={"/EducationStudentData/" + year.class} className="px-4 py-2.5 rounded text-white bg-indigo-600 hover:text-indigo-900">
                           ดูข้อมูลรายชื่อนักเรียน
                           </a>
