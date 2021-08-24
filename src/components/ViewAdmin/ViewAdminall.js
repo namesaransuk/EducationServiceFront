@@ -6,25 +6,41 @@ import {
   Row, Col, Button, FormGroup, Label, Input,
   NavLink, Table
 } from 'reactstrap';
+import Swal from 'sweetalert2';
 
 import confirm from "reactstrap-confirm";
 
 const ViewAdminall = () => {
   const [Admin, setAdmin] = useState([])
+  const [filteredData, setFilteredData] = useState(Admin);
 
+  const handleSearch = (event) => {
+    let value = event.target.value.toLowerCase();
+    let result = [];
+    console.log(value);
+    result = Admin.filter((data) => {
+    return  data.fname_staff.search(value) != -1;
+
+    });
+    setFilteredData(result);
+    }
+  
   useEffect(() => {
     axios.get("http://localhost:8080/Staff/getAllStaff")
       .then((response) => {
         setAdmin(response.data);
-      });
-
-  }, []);
+        setFilteredData(response.data);
+      })
+      .catch(error => {
+      console.log('Error getting fake data: ' + error);
+      })
+      }, []);
 
   const deleteProduct = async(StaffName,StaffId) => {
     let result = await confirm(
         {
-            title :<>Comfirmation!! </>,
-            message : 'คุณต้องการลบผลิตภัณฑ์ไอดี" '+StaffName+' "ใช่ไหม?',
+            title :<>คำเตือน!! </>,
+            message : 'คุณต้องการลบผู้ดูเเล" '+StaffName+' "ใช่ไหม?',
             confirmText : "ใช่",
             confirmColor : "primary",
             cancelText : "ไม่ใช่",
@@ -42,14 +58,15 @@ const ViewAdminall = () => {
 
 
   return (
-    <div>
+    <div><br /><br /><br /><br /><br /><br />
       <div className="container">
         <br />
         <Row>
-          <Col xs="6">
+          <Col xs="6"><h3 className="block text-left">รายชื่อผู้ดูเเล</h3>
+
             <FormGroup>
               <Label for="year_edu">ค้นหา</Label>
-              <Input type="text" value="" >
+              <Input type="text" name="fname_staff" id="fname_staff" placeholder="กรุณาใส่ชื่อที่จะค้นหา" onChange={(event) =>handleSearch(event)}>
 
               </Input>
             </FormGroup></Col>
@@ -74,13 +91,13 @@ const ViewAdminall = () => {
             </tr>
           </thead>
           <tbody>
-            {Admin.map((Admin) => {
+          {filteredData.map((value) => {
               return (
-                <tr key={Admin.id_staff}>
-                  <td>{Admin.id_staff}</td>
-                  <td>{Admin.name_title} {Admin.fname_staff} {Admin.lname_staff}</td>
-                  <td>{Admin.phone_staff}</td>
-                  <td>{Admin.name_position}</td>
+                <tr key={value.id_staff}>
+                  <td>{value.id_staff}</td>
+                  <td>{value.name_title} {value.fname_staff} {value.lname_staff}</td>
+                  <td>{value.phone_staff}</td>
+                  <td>{value.name_position}</td>
          
                   <td>   <Button color="danger" 
                         onClick={() => deleteProduct(Admin.fname_staff,Admin.id_staff)}>
@@ -90,7 +107,7 @@ const ViewAdminall = () => {
               )
             })}
           </tbody>
-        </Table>
+        </Table> <center> {filteredData.length === 0 && <span>ไม่พบข้อมูลที่ค้นหา</span>} </center>
       </div>
     </div>
   );

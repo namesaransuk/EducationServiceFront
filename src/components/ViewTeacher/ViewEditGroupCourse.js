@@ -95,8 +95,6 @@ const ViewEditGroupCourse = ({ id }) => {
           <Button className="btn btn-success w-25" >บันทึก</Button>
         </div>
       </Form>
-
-
     </div>
 
   );

@@ -27,18 +27,21 @@ const ViewEducationStudentAllStudent = (props) => {
     result = educationdata.filter((data) => {
       if(educationdata === ""){
         return data
-          }else if(data.name_uni.search(value) != -1){
+          }else if(data.name_uni.search(value) >= 0 ){
           return data
-          }else if(data.name_course.search(value) != -1){
+          }else if(data.name_course.search(value) >= 0 ){
             return data
             }
-            else if(data.name_faculty.search(value) != -1){
+            else if(data.name_faculty.search(value) >= 0 ){
               return data
-              }else if(data.name_major.search(value) != -1){
+              }else if(data.name_major.search(value) >= 0 ){
                 return data
-                }else if(data.GPA.search(value) != -1){
+                }else if(data.GPA.search(value) >= 0 ){
                   return data
-                  }
+                  }else if(data.name_round.search(value) >= 0 ){
+                    return data
+                    }
+  
 
     });
     setFilteredData(result);
@@ -61,7 +64,7 @@ const ViewEducationStudentAllStudent = (props) => {
         <br />
         <Row>
           <Col xs="6">
-            {/* <FormGroup>
+            <FormGroup>
               <Label for="id_university">ชื่อมหาวิทยาลัย</Label>
               <Input type="select" name="name_uni" id="name_uni" placeholder="กรุณาใส่ชื่อมหาลัยที่จะค้นหา" onChange={(event) =>handleSearch(event)}>
                 <option value="">ใส่คำค้นหา</option>
@@ -112,7 +115,7 @@ const ViewEducationStudentAllStudent = (props) => {
                   );
                 })}
               </Input>
-            </FormGroup> */}
+            </FormGroup>
           </Col>
           <Col xs="12">
             <FormGroup>

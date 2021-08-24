@@ -18,7 +18,7 @@ const ViewInsertStaff = (props) => {
         password_staff: "",
       };
 
-    const [staff, setStaff] = useState([initStaff]);
+    const [staff, setStaff] = useState(initStaff);
     const [title, setTitle] = useState([]);
     const [position, setPosition] = useState([]);
     const [submited, setSumited] = useState(false);
@@ -50,7 +50,8 @@ const ViewInsertStaff = (props) => {
       let { name, value } = event.target;
       setStaff({ ...staff, [name]: value });
     };
-    const saveStaff = () => {
+    const saveStaff = (e) => {
+        e.preventDefault()
         var data = {
             id_staff: staff.id_staff,
             id_title: staff.id_title,
@@ -60,30 +61,52 @@ const ViewInsertStaff = (props) => {
             id_position: staff.id_position,
             password_staff: staff.password_staff,
         }
-        axios.post("http://localhost:8080/staff/AddTeacher",data)
-        .then((response) => {
-            console.log(response.data);
-            setSumited(true);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      };
- 
+        if (data['id_staff'] == "" || data['id_title'] == "" || data['fname_staff'] == ""
+        || data['fname_staff'] == ""|| data['phone_staff'] == ""|| data['id_position'] == ""
+        || data['password_staff'] == "") {
+            Swal.fire(
+
+                'ผิดพลาด',
+                'กรุณารอกรอกข้อมูลให้ครบ',
+                'error'
+            )
+
+        } else {
+            axios.post("http://localhost:8080/staff/AddTeacher",data)
+            .then((res) => {
+                    console.log(res.data.message);
+                    if (res.data.message == "success") {
+                        ////ต่อตรงนี้
+                        Swal.fire(
+
+                            'เพิ่มข้อมูลผู้ดูเเลเรียบร้อย',
+                            '',
+                            'success'
+                        )
+                            .then(() => window.location.assign("/Adminall"))
+
+                    } else {
+
+                        Swal.fire(
+                            'เพิ่มข้อมูลผู้ดูเเลผิดพลาด',
+                            'ชื่อผู้ดูเเลนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                            'error'
+                        )
+
+                    }
+
+                })
+                .catch((error) => {
+                    console.log("error");
+                });//ใช้ ดัก Error
+
+        };
+    }
+
     return (
 
-        <div class="container">
-      <Form>
-
-{submited ? (
-   Swal.fire(
-
-    'เพิ่มผู้ดูเเลเรียบร้อย',
-    ' ',
-     'success',
- )
- (window.location.assign("/Adminall"))
-                ) : (
+        <div class="container"><br /><br /><br /><br />
+   
 <Form>
         <center><h2>เพิ่มผู้ดูเเล</h2></center>
         <FormGroup>
@@ -203,10 +226,7 @@ const ViewInsertStaff = (props) => {
 
 </div>   
         </Form>
-        )}
-
-        </Form>
-
+       
 </div>      
 
   );

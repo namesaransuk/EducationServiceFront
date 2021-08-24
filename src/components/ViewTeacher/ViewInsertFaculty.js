@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import React, { useState } from 'react';
 import {
   Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Card, CardText, CardBody, CardLink,
   CardTitle, CardSubtitle, Jumbotron, Table, Alert
@@ -11,19 +11,22 @@ const ViewInsertFaculty = () => {
     name_faculty: "",
   };
 
-  const [faculty, setFaculty] = useState([initFaculty]);
+  const [faculty, setFaculty] = useState(initFaculty);
   const [submited, setSumited] = useState(false);
+
+
 
   const handleInputChange = (event) => {
     let { name, value } = event.target;
-    // if (name === "tags") {
-    //     value = value.split(",");
+    //if (name === "tags") {
+    //  value = value.split(",");
     // }
     setFaculty({ ...faculty, [name]: value });
   };
 
   const saveFaculty = (e) => {
     e.preventDefault()
+
     var data = {
       name_faculty: faculty.name_faculty
     }
@@ -50,6 +53,7 @@ const ViewInsertFaculty = () => {
 
           } else {
 
+
             Swal.fire(
               'เพิ่มข้อมูลคณะผิดพลาด',
               'ชื่อคณะนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
@@ -65,6 +69,7 @@ const ViewInsertFaculty = () => {
 
     };
   }
+
 
   return (
     <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">

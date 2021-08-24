@@ -1,5 +1,5 @@
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import React, { useState } from 'react';
 import {
   Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Card, CardText, CardBody, CardLink,
   CardTitle, CardSubtitle, Jumbotron, Table, Alert
@@ -11,20 +11,22 @@ const ViewInsertGroupCourse = () => {
     name_major: "",
   };
 
-  const [groupmajor, setGroupMajor] = useState(initGroupMajor);
-  const [submited, setSumited] = useState(false)
-
+  const [GroupCourse, setGroupCourse] = useState(initGroupMajor);
+  const [submited, setSumited] = useState(false);
+  
   const handleInputChange = (event) => {
     let { name, value } = event.target;
-    // if (name === "tags") {
-    //     value = value.split(",");
+    //if (name === "tags") {
+    //  value = value.split(",");
     // }
-    setGroupMajor({ ...groupmajor, [name]: value });
+    setGroupCourse({ ...GroupCourse, [name]: value });
   };
 
-  const saveGroupMajor = (e) => {
+  const saveGroupCourse = (e) => {
     e.preventDefault()
+
     var data = {
+
       name_major: groupmajor.name_major
     }
     if (data['name_major'] === " ") {
@@ -48,13 +50,16 @@ const ViewInsertGroupCourse = () => {
             )
               .then(() => window.location.assign("/groupcourseall"))
 
+
           } else {
+
 
             Swal.fire(
               'เพิ่มข้อมูลสาขาผิดพลาด',
               'ชื่อสาขานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
               'error'
             )
+
 
           }
 
@@ -64,6 +69,7 @@ const ViewInsertGroupCourse = () => {
         });//ใช้ ดัก Error
 
     };
+
   }
 
   return (

@@ -31,8 +31,10 @@ const ViewDetailEducationStudent = ({ id }) => {
   if (education.id_edu_stu === null) {
     return (
       <div>
-        <center><Button href={"/insertdetaileducationstudent/" + student.id_stu}>เพิ่มข้อมูลการศึกษาต่อ</Button></center>
+      <div class="container mt-32">
+      <center><Button href={"/insertdetaileducationstudent/" + student.id_stu}>เพิ่มข้อมูลการศึกษาต่อ</Button></center>
       </div>
+    </div>
     );
   } else {
     return (
