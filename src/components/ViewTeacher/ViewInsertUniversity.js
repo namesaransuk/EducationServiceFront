@@ -55,11 +55,8 @@ const ViewInsertUniversity = () => {
 
     ]
     const formik = useFormik({
-        initialValues: initProduct, //
+        initialValues: (initProduct), //
         validationSchema: yup.object().shape({ //เงื่อนไข
-            name_uni: yup.string().required("กรุณากรอกข้อมูล"),
-            url_uni: yup.string().required("กรุณากรอกข้อมูล"),
-            detail_uni: yup.string().required("กรุณากรอกข้อมูล"),
             file: yup
                 .mixed()
                 .test("fileSize", "ไฟล์ใหญ่เกินไป", (file) => {
@@ -206,6 +203,7 @@ const ViewInsertUniversity = () => {
                 </div>
             </Form>
         </div>
+
     )
 };
 

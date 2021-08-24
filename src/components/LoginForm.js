@@ -64,7 +64,6 @@ const LoginForm = () => {
                     localStorage.setItem('fname_staff', res.data.fname_staff);
                     localStorage.setItem('lname_staff', res.data.lname_staff);
                     localStorage.setItem('name_position', res.data.name_position);
-
                     Swal.fire(
 
                         'เข้าสู่ระบบเสร็จสิ้น',
@@ -79,7 +78,6 @@ const LoginForm = () => {
                     localStorage.setItem('fname_admin', res.data.fname_staff);
                     localStorage.setItem('lname_admin', res.data.lname_staff);
                     localStorage.setItem('name_position', res.data.name_position);
-
                     Swal.fire(
 
                         'เข้าสู่ระบบเสร็จสิ้น',
