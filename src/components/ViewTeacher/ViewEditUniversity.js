@@ -10,19 +10,19 @@ import { Progress, Button, Form, FormGroup, Label, Input, Container, Row, Alert 
 
 const ViewEditUniversity = ({ id }) => {
     const initUniversity = {
-    name_uni: "",
-    url_uni: "",
-    file: "",
-    detail_uni: "",
+        name_uni: "",
+        url_uni: "",
+        file: "",
+        detail_uni: "",
 
     };
-    
+
     const [progress, setProgress] = useState(0); //เซต progress
     const uploadFileToFirebase = (file) => {
         const useId = "universitylogo"; //ตั้งชื่อไฟล์
         const timestamp = Math.floor(Date.now() / 1000);
         const newName = useId + "_" + timestamp;
-        const uploadTask = storage.ref(`images/${newName}`).put(file); 
+        const uploadTask = storage.ref(`images/${newName}`).put(file);
         uploadTask.on(
             "state_changed",
             (snapshot) => {
@@ -71,10 +71,10 @@ const ViewEditUniversity = ({ id }) => {
 
     useEffect(() => {
         axios.get("http://localhost:8080/university/" + id)
-          .then((response) => {
-            setUniversity(response.data)
-          });
-      }, [id]);
+            .then((response) => {
+                setUniversity(response.data)
+            });
+    }, [id]);
 
     const handlleInputChange = (event) => {
         let { name, value } = event.target;
@@ -86,116 +86,118 @@ const ViewEditUniversity = ({ id }) => {
 
     const saveProduct = (imagesURL) => {
         var data = {
-            name_uni:formik.values.name_uni,
+            name_uni: formik.values.name_uni,
             url_uni: formik.values.url_uni,
             detail_uni: formik.values.detail_uni,
             logo_uni: imagesURL,
-            logo_uni:university.logo_uni,
-            name_uni:university.name_uni,
+            logo_uni: university.logo_uni,
+            name_uni: university.name_uni,
             url_uni: university.url_uni,
             detail_uni: university.detail_uni,
         };
-        if (data['name_uni'] === "" || data['url_uni'] === "" || data['detail_uni'] === ""|| data['logo_uni'] === "") {
+        if (data['name_uni'] === "" || data['url_uni'] === "" || data['detail_uni'] === "" || data['logo_uni'] === "") {
             Swal.fire(
-    
+
                 'ผิดพลาด',
                 'กรุณารอกรอกข้อมูลให้ครบ',
                 'error'
             )
-    
+
         } else {
-            axios.put("http://localhost:8080/university/" + id , data)
-            .then((res) => {
+            axios.put("http://localhost:8080/university/" + id, data)
+                .then((res) => {
                     console.log(res.data.message);
                     if (res.data.message == "success") {
                         ////ต่อตรงนี้
                         Swal.fire(
-    
+
                             'อัพเดตข้อมูลมหาลัยเรียบร้อย',
                             '',
                             'success'
                         )
                             .then(() => window.location.assign("/universityall"))
-    
+
                     } else {
-    
+
                         Swal.fire(
                             'เพิ่มข้อมูลมหาลัยผิดพลาด',
                             'ชื่อมหาลัยนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
                             'error'
                         )
-    
+
                     }
-    
+
                 })
                 .catch((error) => {
                     console.log("error");
                 });//ใช้ ดัก Error
-    
+
         };
     }
     return (
-      
-        <Container>
-                        <Form onSubmit={formik.handleSubmit}><br /><br /><br /><br />
-                         <center> <img width="10%" alt="ยังไม่ได้อัพเดตตราประจำมหาลัย" src={university.logo_uni || 'https://via.placeholder.com/300'}   />
-                            <input type="hidden" name="file" value={university.logo_uni} />
-                            <FormGroup>
-                                <Input type="hidden"
-                                    name="logo_uni"
-                                    value={university.logo_uni}
-                                    onChange={handlleInputChange}/>
-                            </FormGroup>
-                        <FormGroup>
-                        <Button href={"../editImageUniversity/" + university.id_university} >
-                        <FontAwesomeIcon icon={faEdit} />เเก้ไขตราประจำมหาลัย
-                      </Button>
-                      </FormGroup></center>  
-                            <FormGroup>
-                                <Label for="productName">ชื่อมหาลัย</Label>
-                                <Input
-                                    type="text"
-                                    name="name_uni"
-                                    id="productName"
-                                    value={university.name_uni}
-                                    onChange={handlleInputChange}//เมื่อมีการพิมพ์ข้อความ
-                                    placeholder={university.name_uni}
-                                    />
-                                {formik.errors.name && formik.touched.name(
-                                    <p>{formik.errors.name_uni}</p>
-                                )}
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="productCategory">URL</Label>
-                                <Input
-                                    type="text"
-                                    name="url_uni"
-                                    id="productCatgory"
-                                    value={university.url_uni}
-                                    onChange={handlleInputChange}
-                                    placeholder={university.url_uni}
-                                    />
 
-                                {formik.errors.name && formik.touched.url_uni(
-                                    <p>{formik.errors.url_uni}</p> //เช็ค error
-                                )}
-                            </FormGroup>
-                            <FormGroup>
-                                <Label for="productTags">รายละเอียด</Label>
-                                <Input
-                                    type="textarea"
-                                    name="detail_uni"
-                                    id="productTags"
-                                    value={university.detail_uni}
-                                    onChange={handlleInputChange}
-                                    placeholder={university.detail_uni}
-                                />
-                                {formik.errors.name && formik.touched.detail_uni(
-                                    <p>{formik.errors.detail_uni}</p>
-                                )}
-                            </FormGroup>
-                          
-                            {/* <FormGroup>
+        <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
+            <h3 className="text-center">แก้ไขมหาวิทยาลัย</h3>
+            <Form onSubmit={formik.handleSubmit}>
+                <center> <img width="20%" alt="ยังไม่ได้อัพเดตตราประจำมหาลัย" src={university.logo_uni || 'https://via.placeholder.com/300'} />
+                    <input type="hidden" name="file" value={university.logo_uni} />
+                    <FormGroup>
+                        <Input type="hidden"
+                            name="logo_uni"
+                            value={university.logo_uni}
+                            onChange={handlleInputChange} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Button href={"../editImageUniversity/" + university.id_university} >
+                            <FontAwesomeIcon icon={faEdit} />เเก้ไขตราประจำมหาลัย
+                        </Button>
+                    </FormGroup></center>
+                <FormGroup>
+                    <Label for="productName">ชื่อมหาลัย</Label>
+                    <Input
+                        type="text"
+                        name="name_uni"
+                        id="productName"
+                        value={university.name_uni}
+                        onChange={handlleInputChange}//เมื่อมีการพิมพ์ข้อความ
+                        placeholder={university.name_uni}
+                    />
+                    {formik.errors.name && formik.touched.name(
+                        <p>{formik.errors.name_uni}</p>
+                    )}
+                </FormGroup>
+                <FormGroup>
+                    <Label for="productCategory">URL</Label>
+                    <Input
+                        type="text"
+                        name="url_uni"
+                        id="productCatgory"
+                        value={university.url_uni}
+                        onChange={handlleInputChange}
+                        placeholder={university.url_uni}
+                    />
+
+                    {formik.errors.name && formik.touched.url_uni(
+                        <p>{formik.errors.url_uni}</p> //เช็ค error
+                    )}
+                </FormGroup>
+                <FormGroup>
+                    <Label for="productTags">รายละเอียด</Label>
+                    <Input
+                        type="textarea"
+                        name="detail_uni"
+                        style={{ height: 200 }}
+                        id="productTags"
+                        value={university.detail_uni}
+                        onChange={handlleInputChange}
+                        placeholder={university.detail_uni}
+                    />
+                    {formik.errors.name && formik.touched.detail_uni(
+                        <p>{formik.errors.detail_uni}</p>
+                    )}
+                </FormGroup>
+
+                {/* <FormGroup>
                                 <Label for="productImage"> โลโกมหาลัย (รองรับเฉพาะรูปภาพที่มีขนาดไม่เกิน 2 Mb)</Label>
                                 <Input type="file"
                                     name="file"
@@ -207,10 +209,11 @@ const ViewEditUniversity = ({ id }) => {
                                     <p>{formik.errors.file}</p>
                                 )}
                             </FormGroup> */}
-                            <Button type="submit" className="btn btn-success" >ตกลง</Button>
-                        </Form>
-
-        </Container>
+                <div className="text-center">
+                    <Button type="submit" className="w-25 btn btn-success" >ตกลง</Button>
+                </div>
+            </Form>
+        </div>
     )
 };
 

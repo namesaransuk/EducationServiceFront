@@ -37,7 +37,7 @@ const LoginForm = () => {
 
     const saveStudent = async (e) => {
         e.preventDefault();
-        
+
         var data = {
             id_user: user.id_user,
             password_user: user.password_user,
@@ -73,7 +73,7 @@ const LoginForm = () => {
                         window.location.assign("/DashboardTeacher")
                     )
                     window.location.assign("/DashboardTeacher")
-                } 
+                }
                 else if (res.data.message == "แอดมิน") {
                     localStorage.setItem('id', res.data.id);
                     localStorage.setItem('fname_admin', res.data.fname_staff);
@@ -88,7 +88,7 @@ const LoginForm = () => {
                         window.location.assign("/DashBoardAdmin")
                     )
                     window.location.assign("/DashBoardAdmin")
-                }else {
+                } else {
                     Swal.fire(
                         'เข้าสู่ระบบล้มเหลว',
                         'กรุณากรอกรหัสผ่านกับอีเมลใหม่ ',
@@ -104,8 +104,7 @@ const LoginForm = () => {
 
     }
     return (
-        <>
-            <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="sm:pt-32 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-md w-full space-y-8">
                     <div>
                         <img
@@ -124,7 +123,7 @@ const LoginForm = () => {
                             <div>
                                 <label htmlFor="id_user" className="sr-only">
                                     รหัสประจำตัว
-              </label>
+                                </label>
                                 <input
                                     type="text"
                                     id="id_user"
@@ -139,7 +138,7 @@ const LoginForm = () => {
                             <div>
                                 <label htmlFor="password" className="sr-only">
                                     รหัสผ่าน
-              </label>
+                                </label>
                                 <input
                                     type="password"
                                     id="password_user"
@@ -179,15 +178,14 @@ const LoginForm = () => {
                                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                 id="but"
                                 name="but"
-                                // OnClick={saveStudent}
+                            // OnClick={saveStudent}
                             >
                                 เข้าสู่ระบบ
-            </button>
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
-        </>
     )
 }
 

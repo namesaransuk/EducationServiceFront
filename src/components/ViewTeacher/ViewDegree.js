@@ -36,22 +36,21 @@ const ViewDegreeAll = (props) => {
 
   return (
     <div className="pt-32">
-      <div class="container">
-        <br />
-        <Row>
-          <Col xs="6">
+      <div className="flex flex-col max-w-7xl mx-auto">
+      <div className="text-center mx-auto">
+          <Col>
     
               <Label for="degree">ค้นหาชื่อหลักสูตร</Label>
-              <Input type="text" name="degree" id="degree" placeholder="กรุณาใส่ชื่อหลักสูตรที่จะค้นหา" onChange={(event) =>handleSearch(event)}>
+              <Input type="text" className="text-center" name="degree" id="degree" placeholder="กรุณาใส่ชื่อหลักสูตรที่จะค้นหา" onChange={(event) =>handleSearch(event)}>
               </Input>
        
           </Col>
-        </Row>
-
+        </div>
       </div>
       <br />
 
-      <Row className="px-12 pt-5">
+      <div className="flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Row className="pt-5">
         <Col>
           <h3 className="block text-left">รายชื่อหลักสูตร</h3>
         </Col>
@@ -59,7 +58,6 @@ const ViewDegreeAll = (props) => {
           <a className="block text-right" href="./insertdegree">เพิ่มหลักสูตร</a>
         </Col>
       </Row>
-      <div className="flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -68,13 +66,13 @@ const ViewDegreeAll = (props) => {
                   <tr>
                     <th
                       scope="col"
-                      className="px-12 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                      className="px-12 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       ชื่อหลักสูตร
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       ชื่อย่อหลักสูตร
                     </th>
@@ -93,14 +91,14 @@ const ViewDegreeAll = (props) => {
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
                             <div className="ml-4">
-                              <div className="text-sm text-gray-500">{value.name_degree}</div>
+                              <div className="text-md text-gray-500">{value.name_degree}</div>
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <div className="text-sm text-gray-500">{value.initials_degree}</div>
+                        <td className="px-6 py-4 whitespace-nowrap text-md font-medium">
+                          <div className="text-md text-gray-500">{value.initials_degree}</div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                           <a href={"./editDegree/" + value.id_degree} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                             Edit
                           </a>

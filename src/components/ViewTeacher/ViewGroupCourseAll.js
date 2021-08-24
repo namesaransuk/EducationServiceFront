@@ -18,42 +18,42 @@ const ViewGroupCourse = (props) => {
     let result = [];
     console.log(value);
     result = major.filter((data) => {
-    return  data.name_major.search(value) != -1;
+      return data.name_major.search(value) != -1;
 
     });
     setFilteredData(result);
-    }
-    
-   
+  }
+
+
 
   useEffect(() => {
     axios('http://localhost:8080/groupmajor/searchgroupmajor?keyword=')
-    .then(response => {
-    console.log(response.data)
-    setMajor(response.data);
-    setFilteredData(response.data);
-    })
-    .catch(error => {
-    console.log('Error getting fake data: ' + error);
-    })
-    }, []);
+      .then(response => {
+        console.log(response.data)
+        setMajor(response.data);
+        setFilteredData(response.data);
+      })
+      .catch(error => {
+        console.log('Error getting fake data: ' + error);
+      })
+  }, []);
 
   return (
     <div className="pt-32">
-      <div class="container">
-        <br />
-        <Row>
-          <Col xs="6">
+      <div className="flex flex-col max-w-7xl mx-auto">
+        <div className="text-center mx-auto">
+          <Col>
             <FormGroup>
               <Label for="year_edu">ค้นหา</Label>
-              <Input type="text" name="name_major" id="name_major" placeholder="กรุณาใส่ชื่อกลุ่มสาขาที่จะค้นหา" onChange={(event) =>handleSearch(event)}>
+              <Input type="text" className="text-center" name="name_major" id="name_major" placeholder="กรุณาใส่ชื่อกลุ่มสาขาที่จะค้นหา" onChange={(event) => handleSearch(event)}>
                 <FontAwesomeIcon icon={faSearch} /></Input>
-            </FormGroup></Col>
-        </Row>
+            </FormGroup>
+          </Col>
+        </div>
       </div>
-      <br />
 
-      <Row className="px-12 pt-5">
+      <div className="flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Row className="pt-5">
         <Col>
           <h3 className="block text-left">รายชื่อกลุ่มสาขา</h3>
         </Col>
@@ -61,7 +61,6 @@ const ViewGroupCourse = (props) => {
           <a className="block text-right" href="./insertgroupcourse">เพิ่มกลุ่มสาขา</a>
         </Col>
       </Row>
-      <div className="flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -70,13 +69,13 @@ const ViewGroupCourse = (props) => {
                   <tr>
                     <th
                       scope="col"
-                      className="px-12 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                      className="px-12 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       รหัส
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       ชื่อกลุ่มสาขา
                     </th>
@@ -95,14 +94,14 @@ const ViewGroupCourse = (props) => {
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
                             <div className="ml-4">
-                              <div className="text-sm text-gray-500">{value.id_major}</div>
+                              <div className="text-md text-gray-500">{value.id_major}</div>
                             </div>
                           </div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                          <div className="text-sm text-gray-500">{value.name_major}</div>
+                        <td className="px-6 py-4 whitespace-nowrap text-md font-medium">
+                          <div className="text-md text-gray-500">{value.name_major}</div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
                           <a href={"/editgroupcourse/" + value.id_major} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                             Edit
                           </a>

@@ -31,72 +31,69 @@ const ViewEditFaculty = ({ id }) => {
 
   const saveFaculty = (e) => {
     e.preventDefault()
-      var data = {
-        name_faculty: faculty.name_faculty,
-      }
-    if (data['name_faculty'] === "" ){
-        Swal.fire(
+    var data = {
+      name_faculty: faculty.name_faculty,
+    }
+    if (data['name_faculty'] === "") {
+      Swal.fire(
 
-            'ผิดพลาด',
-            'กรุณารอกรอกข้อมูลให้ครบ',
-            'error'
-        )
+        'ผิดพลาด',
+        'กรุณารอกรอกข้อมูลให้ครบ',
+        'error'
+      )
     } else {
       axios.put("http://localhost:8080/faculty/" + id, data)
         .then((res) => {
-                console.log(res.data.message);
-                if (res.data.message == "success") {
-                    ////ต่อตรงนี้
-                    Swal.fire(
+          console.log(res.data.message);
+          if (res.data.message == "success") {
+            ////ต่อตรงนี้
+            Swal.fire(
 
-                        'อัพเดตข้อมูลคณะเรียบร้อย',
-                        '',
-                        'success'
-                    )
-                        .then(() => window.location.assign("/facultyall"))
+              'อัพเดตข้อมูลคณะเรียบร้อย',
+              '',
+              'success'
+            )
+              .then(() => window.location.assign("/facultyall"))
 
-                } else {
+          } else {
 
-                    Swal.fire(
-                        'เพิ่มข้อมูลสาขาผิดพลาด',
-                        'ชื่อคณะนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
-                        'error'
-                    )
+            Swal.fire(
+              'เพิ่มข้อมูลสาขาผิดพลาด',
+              'ชื่อคณะนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+              'error'
+            )
 
-                }
+          }
 
-            })
-            .catch((error) => {
-                console.log("error");
-            });//ใช้ ดัก Error
+        })
+        .catch((error) => {
+          console.log("error");
+        });//ใช้ ดัก Error
 
     };
-}
+  }
 
   return (
 
-    <div class="container">
-  
-<Form>
-          <center><h2>เเก้ไขคณะ</h2></center>
-  
-          <Jumbotron>
-            <Label for="name_faculty">ชื่อคณะ</Label>
-            <Input 
-            type="text" 
-            name="name_faculty" 
-            id="name_faculty" 
-            value={faculty.name_faculty}
-            onChange={handleInputChange}
-            placeholder={faculty.name_faculty}
-            />
-          </Jumbotron>
-          <div>
-            <Button className="btn btn-success" onClick={saveFaculty}>บันทึก</Button>
-          </div>
-        </Form>
-     
-      
+    <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
+      <h3 className="text-center">แก้ไขคณะ</h3>
+      <Form>
+        <Label for="name_faculty">ชื่อคณะ</Label>
+        <Input
+          type="text"
+          name="name_faculty"
+          id="name_faculty"
+          value={faculty.name_faculty}
+          onChange={handleInputChange}
+          placeholder={faculty.name_faculty}
+        />
+        <br />
+        <div className="text-center">
+          <Button className="w-25 btn btn-success" onClick={saveFaculty}>บันทึก</Button>
+        </div>
+      </Form>
+
+
 
     </div>
 

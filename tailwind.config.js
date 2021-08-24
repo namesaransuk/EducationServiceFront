@@ -19,7 +19,12 @@ module.exports = {
     },
   },
   plugins: [
+    plugin(function({ addUtilities, addComponents, e, prefix, config }) {
+      // Add your custom styles here
+    }),
+    require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),
     require('@tailwindcss/line-clamp'),
+    require('@tailwindcss/aspect-ratio'),
   ],
 }

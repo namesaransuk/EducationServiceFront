@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import './viewuniversity.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' //fornt
 import { faEdit, faTrash, faSearch } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -30,54 +31,48 @@ const ViewUniversity = () => {
     let result = [];
     console.log(value);
     result = university.filter((data) => {
-    return  data.name_uni.search(value) != -1;
+      return data.name_uni.search(value) != -1;
 
     });
     setFilteredData(result);
-    }
-    
-   
+  }
+
+
 
   useEffect(() => {
     axios('http://localhost:8080/university/searchUniversity?keyword=')
-    .then(response => {
-    console.log(response.data)
-    setUniversity(response.data);
-    setFilteredData(response.data);
-    })
-    .catch(error => {
-    console.log('Error getting fake data: ' + error);
-    })
-    }, []);
+      .then(response => {
+        console.log(response.data)
+        setUniversity(response.data);
+        setFilteredData(response.data);
+      })
+      .catch(error => {
+        console.log('Error getting fake data: ' + error);
+      })
+  }, []);
 
 
   return (
     <div className="pt-32">
-      <Container>
-        <br />
-        <Row>
-          <Col xs="6">
+      <div className="flex flex-col max-w-7xl mx-auto px-3">
+      <div className="text-center mx-auto">
+          <Col>
             <FormGroup>
-              <br />
               <Label for="id_university">ค้นหาชื่อมหาวิทยาลัย</Label>
-              <Input type="text" name="id_university" id="id_university" placeholder="กรุณาใส่ชื่อมหาลัยที่จะค้นหา" onChange={(event) =>handleSearch(event)} >
+              <Input className="text-center" type="text" name="id_university" id="id_university" placeholder="กรุณาใส่ชื่อมหาลัยที่จะค้นหา" onChange={(event) => handleSearch(event)} >
                 <FontAwesomeIcon icon={faSearch} />
               </Input>
             </FormGroup>
           </Col>
+      </div>
+        <Row className="pt-5">
+          <Col>
+            <h3 className="block text-left">รายชื่อมหาลัยมหาวิทยาลัย</h3>
+          </Col>
+          <Col>
+            <a className="block text-right" href="./insertuniversity">เพิ่มมหาวิทยาลัย</a>
+          </Col>
         </Row>
-      </Container>
-
-      <Row className="px-12 pt-5">
-        <Col>
-          <h3 className="block text-left">รายชื่อมหาลัยมหาวิทยาลัย</h3>
-        </Col>
-        <Col>
-          <a className="block text-right" href="./insertuniversity">เพิ่มมหาวิทยาลัย</a>
-        </Col>
-      </Row>
-
-      <div className="flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -86,19 +81,19 @@ const ViewUniversity = () => {
                   <tr>
                     <th
                       scope="col"
-                      className="px-12 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                      className="px-12 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       ชื่อมหาวิทยาลัย
                     </th>
                     <th
                       scope="col"
-                      className="break-all px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                      className="break-all px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       รายละเอียด
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       ลิ้งค์
                     </th>
@@ -110,24 +105,24 @@ const ViewUniversity = () => {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredData.map((value) => (
                     <tr key={value.id_university}>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-6 py-4 whitespace-wrap">
                         <div className="flex items-center">
                           {/* <div className="flex-shrink-0 h-10 w-10">
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
                           <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900"><img width="80" src={value.logo_uni|| 'https://via.placeholder.com/150'} /></div>
-                            <div className="text-sm text-gray-500">{value.name_uni}</div>
+                            <div className="text-md font-medium text-gray-900"><img width="80" src={value.logo_uni || 'https://via.placeholder.com/150'} /></div>
+                            <div className="text-md text-gray-500">{value.name_uni}</div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-wrap">
-                        <div className="text-sm text-gray-900">{value.detail_uni}</div>
+                        <p className="description text-md text-gray-900">{value.detail_uni}</p>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <a className="text-sm text-gray-500" target="_blank" href={value.url_uni}>{value.url_uni}</a>
+                        <a className="text-md text-gray-500" target="_blank" href={value.url_uni}>{value.url_uni}</a>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-medium">
                         <a href={"./editUniversity/" + value.id_university} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                           Edit
                         </a>
@@ -136,7 +131,7 @@ const ViewUniversity = () => {
                   ))}
                 </tbody>
               </table>
-              
+
             </div>
           </div>               <center> {filteredData.length === 0 && <span>ไม่พบข้อมูลที่ค้นหา</span>} </center>
 

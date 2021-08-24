@@ -310,7 +310,7 @@ const Header = () => {
                                                     </div>
                                                 </div>
                                                 <div className="px-2 pt-2 pb-2 space-y-1">
-                                                    {navigation.map((item) => (
+                                                    {navigationTeacher.map((item) => (
                                                         <a
                                                             key={item.name}
                                                             href={item.href}
@@ -335,7 +335,7 @@ const Header = () => {
                                                             </button>
                                                         </div>
                                                         <div className="mt-3 px-2 space-y-1">
-                                                            {profile.map((item) => (
+                                                            {profileTeacher.map((item) => (
                                                                 <a
                                                                     key={item.name}
                                                                     href={session.id == null ? item.href : item.href + session.id}

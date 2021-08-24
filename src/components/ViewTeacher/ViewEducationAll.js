@@ -18,60 +18,58 @@ const ViewEducationAll = () => {
     let result = [];
     console.log(value);
     result = education.filter((data) => {
-      if(education === ""){
+      if (education === "") {
         return data
-          }else if(data.name_uni.search(value) != -1){
-          return data
-          }else if(data.name_round.search(value) != -1){
-            return data
-          }else if(data.year_edu.search(value) != -1){
-              return data
-              }
+      } else if (data.name_uni.search(value) != -1) {
+        return data
+      } else if (data.name_round.search(value) != -1) {
+        return data
+      } else if (data.year_edu.search(value) != -1) {
+        return data
+      }
 
     });
     setFilteredData(result);
-    }
-    
-   
+  }
+
+
 
   useEffect(() => {
     axios('http://localhost:8080/education/searchEducation?keyword=')
-    .then(response => {
-    console.log(response.data)
-    setEducation(response.data);
-    setFilteredData(response.data);
-    })
-    .catch(error => {
-    console.log('Error getting fake data: ' + error);
-    })
-    }, []);
-  
+      .then(response => {
+        console.log(response.data)
+        setEducation(response.data);
+        setFilteredData(response.data);
+      })
+      .catch(error => {
+        console.log('Error getting fake data: ' + error);
+      })
+  }, []);
+
 
 
   return (
     <div className="pt-32">
-      <div className="container">
-        <br />
-        <Row>
-          <Col xs="6">
+
+      <div className="flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mx-auto">
+          <Col>
             <FormGroup>
               <Label for="year_edu">ค้นหา</Label>
-              <Input type="text" name="name_uni" id="name_uni"placeholder="กรุณาใส่ข้อมูลที่จะค้นหา" onChange={(event) =>handleSearch(event)} >
+              <Input className="text-center" type="text" name="name_uni" id="name_uni" placeholder="กรุณาใส่ข้อมูลที่จะค้นหา" onChange={(event) => handleSearch(event)} >
 
               </Input>
-            </FormGroup></Col>
+            </FormGroup>
+          </Col>
+        </div>
+        <Row className="pt-5">
+          <Col>
+            <h3 className="block text-left">รายชื่อการรับเข้าศึกษาต่อ</h3>
+          </Col>
+          <Col>
+            <a className="block text-right" href="./InsertEducation">เพิ่มข้อมูล</a>
+          </Col>
         </Row>
-      </div>
-      <br />
-      <Row className="px-12 pt-5">
-        <Col>
-          <h3 className="block text-left">รายชื่อการรับเข้าศึกษาต่อ</h3>
-        </Col>
-        <Col>
-          <a className="block text-right" href="./InsertEducation">เพิ่มข้อมูล</a>
-        </Col>
-      </Row>
-      <div className="flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -80,31 +78,31 @@ const ViewEducationAll = () => {
                   <tr>
                     <th
                       scope="col"
-                      className="px-12 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                      className="px-12 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       ปี
                     </th>
                     <th
                       scope="col"
-                      className="break-all px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                      className="break-all px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       รอบ
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       ชื่อมหาวิทยาลัย
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       วันที่เปิดรับสมัคร
                     </th>
                     <th
                       scope="col"
-                      className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       วันที่ปิดรับสมัคร
                     </th>
@@ -119,40 +117,40 @@ const ViewEducationAll = () => {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredData.map((value) => {
                     return (
-                    <tr key={value.id_education}>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="flex items-center">
-                          {/* <div className="flex-shrink-0 h-10 w-10">
+                      <tr key={value.id_education}>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="flex items-center">
+                            {/* <div className="flex-shrink-0 h-10 w-10">
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
-                          <div className="ml-4">
-                            <div className="text-sm text-gray-900">{value.year_edu}</div>
+                            <div className="ml-4">
+                              <div className="text-md text-gray-900">{value.year_edu}</div>
+                            </div>
                           </div>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-wrap">
-                        <div className="text-sm text-gray-900">{value.name_round}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-500">{value.name_uni}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-wrap">
-                        <div className="text-sm text-gray-900">{value.open_date}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-wrap">
-                        <div className="text-sm text-gray-900">{value.close_date}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a type="button" href={"/editeducation/" + value.id_education} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
-                          <b>แก้ไขข้อมูล</b>
-                        </a>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
-                        <a type="button" href={"/edudetailall/" + value.id_education} className="text-white bg-blue-600 hover:bg-blue-900 rounded-md px-4 py-2.5 hover:no-underline">
-                          <b>เพิ่มรายละเอียด</b>
-                        </a>
-                      </td>
-                    </tr>
+                        </td>
+                        <td className="px-6 py-4 whitespace-wrap">
+                          <div className="text-md text-gray-900">{value.name_round}</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-md text-gray-500">{value.name_uni}</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-wrap">
+                          <div className="text-md text-gray-900">{value.open_date}</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-wrap">
+                          <div className="text-md text-gray-900">{value.close_date}</div>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
+                          <a type="button" href={"/editeducation/" + value.id_education} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
+                            <b>แก้ไขข้อมูล</b>
+                          </a>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-left text-md font-medium">
+                          <a type="button" href={"/edudetailall/" + value.id_education} className="text-white bg-blue-600 hover:bg-blue-900 rounded-md px-4 py-2.5 hover:no-underline">
+                            <b>เพิ่มรายละเอียด</b>
+                          </a>
+                        </td>
+                      </tr>
                     )
                   })}
                 </tbody>

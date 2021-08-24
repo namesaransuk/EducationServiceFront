@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import {
   Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Card, CardText, CardBody, CardLink,
-  CardTitle, CardSubtitle, Jumbotron, Table, Alert} from 'reactstrap';
+  CardTitle, CardSubtitle, Jumbotron, Table, Alert
+} from 'reactstrap';
 import Swal from 'sweetalert2';
 
 const ViewInsertFaculty = () => {
@@ -29,62 +30,65 @@ const ViewInsertFaculty = () => {
     if (data['name_faculty'] === "") {
       Swal.fire(
 
-          'ผิดพลาด',
-          'กรุณารอกรอกข้อมูลให้ครบ',
-          'error'
+        'ผิดพลาด',
+        'กรุณารอกรอกข้อมูลให้ครบ',
+        'error'
       )
-  } else {
-    axios.post("http://localhost:8080/faculty/createFaculty" , data)
-      .then((res) => {
-              console.log(res.data.message);
-              if (res.data.message == "success") {
-                  ////ต่อตรงนี้
-                  Swal.fire(
+    } else {
+      axios.post("http://localhost:8080/faculty/createFaculty", data)
+        .then((res) => {
+          console.log(res.data.message);
+          if (res.data.message == "success") {
+            ////ต่อตรงนี้
+            Swal.fire(
 
-                      'เพิ่มข้อมูลคณะเรียบร้อย',
-                      '',
-                      'success'
-                  )
-                      .then(() => window.location.assign("/facultyall"))
+              'เพิ่มข้อมูลคณะเรียบร้อย',
+              '',
+              'success'
+            )
+              .then(() => window.location.assign("/facultyall"))
 
-              } else {
+          } else {
 
-                  Swal.fire(
-                      'เพิ่มข้อมูลคณะผิดพลาด',
-                      'ชื่อคณะนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
-                      'error'
-                  )
+            Swal.fire(
+              'เพิ่มข้อมูลคณะผิดพลาด',
+              'ชื่อคณะนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+              'error'
+            )
 
-              }
+          }
 
-          })
-          .catch((error) => {
-              console.log("error");
-          });//ใช้ ดัก Error
+        })
+        .catch((error) => {
+          console.log("error");
+        });//ใช้ ดัก Error
 
-  };
+    };
+  }
+
+  return (
+    <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
+      <h3 className="text-center">เพิ่มคณะ</h3>
+      <Form onSubmit={saveFaculty}>
+        <Col>
+          <Label for="faculty">ชื่อคณะ</Label>
+          <Input
+            type="text"
+            name="name_faculty"
+            id="name_faculty"
+            value={faculty.name_faculty || ""}
+            onChange={handleInputChange}
+            placeholder="ระบุชื่อคณะ"
+            required />
+        </Col>
+        <br/>
+        <div className="text-center">
+          <Button className="btn btn-success w-25" >บันทึก</Button>
+        </div>
+      </Form>
+    </div>
+  )
 }
-
-return (
-  <div class="container"><br /><br /><br /><br />
-  <Form onSubmit={saveFaculty}>
-  <Row>
-              <Label for="faculty">ชื่อคณะ</Label>
-              <Input
-                type="text"
-                name="name_faculty"
-                id="name_faculty"
-                value={faculty.name_faculty || ""}
-                onChange={handleInputChange}
-                placeholder="ระบุชื่อคณะ"
-              required/>
-            </Row>
-  
-  <Button className="btn btn-success" >บันทึก</Button>
-  
- 
-          </Form></div>
-          )}
 
 
 export default ViewInsertFaculty;
