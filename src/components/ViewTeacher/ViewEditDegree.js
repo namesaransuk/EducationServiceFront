@@ -40,7 +40,7 @@ const ViewEditDegree = ({ id }) => {
       Swal.fire(
 
         'ผิดพลาด',
-        'กรุณารอกรอกข้อมูลให้ครบ',
+        'กรุณากรอกข้อมูลให้ครบ',
         'error'
       )
     } else {
@@ -51,7 +51,7 @@ const ViewEditDegree = ({ id }) => {
             ////ต่อตรงนี้
             Swal.fire(
 
-              'อัพเดตข้อมูลวุฒิการศึกษาเรียบร้อย',
+              'เเก้ไขข้อมูลวุฒิการศึกษาเรียบร้อย',
               '',
               'success'
             )
@@ -60,7 +60,7 @@ const ViewEditDegree = ({ id }) => {
           } else {
 
             Swal.fire(
-              'อัพเดตข้อมูลวุฒิการศึกษาผิดพลาด',
+              'เเก้ไข้ข้อมูลวุฒิการศึกษาผิดพลาด',
               'ชื่อวุฒิการศึกษานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
               'error'
             )
@@ -88,7 +88,7 @@ const ViewEditDegree = ({ id }) => {
             value={degree.name_degree}
             onChange={handleInputChange}
             placeholder={degree.name_degree}
-            required />
+             />
         </FormGroup>
         <FormGroup>
           <Label for="degree">ชื่อย่อหลักสูตร</Label>
@@ -99,7 +99,7 @@ const ViewEditDegree = ({ id }) => {
             value={degree.initials_degree}
             onChange={handleInputChange}
             placeholder={degree.initials_degree}
-            required />
+             />
         </FormGroup>
         <div className="text-center">
           <Button className="btn btn-success w-25" onClick={saveDegree}>บันทึก</Button>

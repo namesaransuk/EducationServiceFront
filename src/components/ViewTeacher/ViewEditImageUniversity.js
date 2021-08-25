@@ -119,10 +119,11 @@ const ViewEditImageUniversity = ({ id }) => {
 {submitted ? (
    Swal.fire(
 
-    'อัพเดตตราประจำเรียบร้อย',
+    'เเก้ไขตราประจำเรียบร้อย',
     ' ',
      'success',
  )
+ 
  (window.location.assign("../editUniversity/" + university.id_university))
                 ) : (
                   

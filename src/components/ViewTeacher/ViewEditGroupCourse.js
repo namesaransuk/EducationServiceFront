@@ -53,7 +53,7 @@ const ViewEditGroupCourse = ({ id }) => {
             ////ต่อตรงนี้
             Swal.fire(
 
-              'อัพเดตข้อมูลกลุ่มสาขาเรียบร้อย',
+              'เเก้ไขข้อมูลกลุ่มสาขาเรียบร้อย',
               '',
               'success'
             )
@@ -62,7 +62,7 @@ const ViewEditGroupCourse = ({ id }) => {
           } else {
 
             Swal.fire(
-              'เพิ่มข้อมูลกลุ่มสาขาผิดพลาด',
+              'เเก้ไขข้อมูลกลุ่มสาขาผิดพลาด',
               'ชื่อกลุ่มสาขานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
               'error'
             )
@@ -89,7 +89,7 @@ const ViewEditGroupCourse = ({ id }) => {
           value={GroupCourse.name_major}
           onChange={handleInputChange}
           placeholder={GroupCourse.name_major}
-          required />
+           />
         <br />
         <div className="text-center">
           <Button className="btn btn-success w-25" >บันทึก</Button>

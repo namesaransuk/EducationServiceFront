@@ -34,7 +34,7 @@ const ViewInsertFaculty = () => {
       Swal.fire(
 
         'ผิดพลาด',
-        'กรุณารอกรอกข้อมูลให้ครบ',
+        'กรุณากรอกข้อมูลให้ครบ',
         'error'
       )
     } else {
@@ -84,7 +84,7 @@ const ViewInsertFaculty = () => {
             value={faculty.name_faculty || ""}
             onChange={handleInputChange}
             placeholder="ระบุชื่อคณะ"
-            required />
+             />
         </Col>
         <br/>
         <div className="text-center">

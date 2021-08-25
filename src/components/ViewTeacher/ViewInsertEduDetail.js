@@ -114,7 +114,7 @@ const ViewInsertEduDetail = ({ id }) => {
             Swal.fire(
 
                 'ผิดพลาด',
-                'กรุณารอกรอกข้อมูลให้ครบ',
+                'กรุณากรอกข้อมูลให้ครบ',
                 'error'
             )
         } else {
@@ -134,7 +134,7 @@ const ViewInsertEduDetail = ({ id }) => {
                     } else {
 
                         Swal.fire(
-                            'เพิ่มข้อมูลคณะผิดพลาด',
+                            'เพิ่มข้อมูลผิดพลาด',
                             'ชื่อสาขานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
                             'error'
                         )
@@ -150,10 +150,12 @@ const ViewInsertEduDetail = ({ id }) => {
     }
 
     return (
-        <Container>
-   <br />  <br />  <br />
+        <div className="mt-32">
+        <div className="px-4 flex flex-col max-w-7xl mx-auto mt-32">
+        <h3 className="text-center">รายละเอียดข้อมูลการเข้าศึกษาต่อ</h3>
+          <hr></hr>
+          <br></br>
    <Form onSubmit={saveEdudetail}>
-                        <center><h3> รายละเอียดข้อมูลการเข้าศึกษาต่อ </h3></center>
 
                         <Row>
                             <Col xs="6">
@@ -251,8 +253,9 @@ const ViewInsertEduDetail = ({ id }) => {
                         <Button className="btn btn-success" >ยืนยัน</Button>
                     </Form>
             
-        </Container >
+                    </div>
 
+</div>
     );
 }
 

@@ -71,7 +71,7 @@ const ViewEducationStudent = (props) => {
                       <center><CardTitle tag="h5">{value.name_uni}</CardTitle>   </center>
                     </CardBody>
                     <CardBody>
-                      <center> <img width="10%" src={value.logo_uni} alt="ยังไม่ได้อัพเดตตราประจำหมหาลัย" /> </center>
+                      <center> <img width="10%" src={value.logo_uni|| 'https://via.placeholder.com/150'} alt="ยังไม่ได้อัพเดตตราประจำหมหาลัย" /> </center>
                     </CardBody>
                     <CardBody>
                       <CardTitle >{value.detail_uni}</CardTitle>

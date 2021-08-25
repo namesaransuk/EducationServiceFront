@@ -52,7 +52,7 @@ const ViewProfile = ({ id }) => {
                       ชื่อ-นามสกุล
                       </label>
                     <p className="mt-2 text-sm text-gray-500">
-                      {student.name_title} {student.fname_stu} {student.lname_stu}
+                      {student.title} {student.fname_stu} {student.lname_stu}
                     </p>
                   </div>
 

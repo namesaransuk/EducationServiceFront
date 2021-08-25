@@ -67,7 +67,7 @@ const ViewInsertStaff = (props) => {
             Swal.fire(
 
                 'ผิดพลาด',
-                'กรุณารอกรอกข้อมูลให้ครบ',
+                'กรุณากรอกข้อมูลให้ครบ',
                 'error'
             )
 

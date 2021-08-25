@@ -68,7 +68,7 @@ import Swal from 'sweetalert2';
             Swal.fire(
 
                 'ผิดพลาด',
-                'กรุณารอกรอกข้อมูลให้ครบ',
+                'กรุณากรอกข้อมูลให้ครบ',
                 'error'
             )
 
@@ -104,8 +104,8 @@ import Swal from 'sweetalert2';
         };
     }
     return (
-        <div>
-          <br />
+      <div class="flex flex-col max-w-7xl mx-auto mt-32 px-3">
+
 <div class="container">
 
 <Form>
@@ -228,18 +228,25 @@ import Swal from 'sweetalert2';
         </Col > <Col >
         </Col >
       </Row>
-      <Button className="btn btn-success" onClick={saveTeacher}>Update</Button>
-
-      <Row>
-        <Col></Col>
-        <Col></Col>
-        <Col></Col>
-        <Col><NavLink href="/dashboardteacher">กลับหน้าหลัก</NavLink></Col>
-        <Col><NavLink href={"/profileTeacher/" + teacher.id_staff}>กลับไปข้อมูลส่วนตัว</NavLink>
-</Col>
-
-      </Row>
-
+      <div className="mx-auto text-center mb-3">
+                <Button className="btn btn-success" onClick={saveTeacher}>Update</Button>
+              </div>
+              <div className="mx-auto text-center">
+                <a
+                  type="button"
+                  href="/dashboardteacher"
+                  className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  กลับหน้าหลัก
+                </a>
+                <a
+                  type="button"
+                  href={"/profileTeacher/" + teacher.id_staff}
+                  className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  กลับไปข้อมูลส่วนตัว
+                </a>
+              </div>
 
 </Form>
 

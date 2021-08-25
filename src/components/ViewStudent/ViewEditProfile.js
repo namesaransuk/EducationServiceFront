@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 const ViewEditProfile = ({ id }) => {
   const initStudent = {
     id_stu: "",
-    id_title: "",
+    title: "",
     fname_stu: "",
     lname_stu: "",
     id_curriculum: "",
@@ -47,7 +47,7 @@ const ViewEditProfile = ({ id }) => {
     e.preventDefault()
 
     var data = {
-        id_title: student.id_title,
+        title: student.title,
         fname_stu: student.fname_stu,
         lname_stu: student.lname_stu,
         GPA_stu: student.GPA_stu,
@@ -57,7 +57,7 @@ const ViewEditProfile = ({ id }) => {
         id_curriculum: student.id_curriculum,
         password_stu: student.password_stu,
       }
-    if (data['id_title'] === "" || data['fname_stu'] === "" || data['lname_stu'] === ""
+    if (data['title'] === "" || data['fname_stu'] === "" || data['lname_stu'] === ""
     || data['GPA_stu'] === ""|| data['year_class'] === ""|| data['class'] === ""
     || data['year_stu'] === ""|| data['id_curriculum'] === ""|| data['password_stu'] === "") {
         Swal.fire(
@@ -136,21 +136,18 @@ const ViewEditProfile = ({ id }) => {
             <Label for="id_stu">คำนำหน้า</Label>
             <Input 
           type="select" 
-          name="id_title" 
-          id="id_title"
-          value={student.id_title || ""}
+          name="title" 
+          id="title"
+          value={student.title || ""}
           onChange={handleInputChange}
         >
-          {title.map((title) => {
-            return (
-              <option 
-                key={title.id_title} 
-                value={title.id_title}
-              >
-                {title.name_title}
-              </option>
-            );
-          })}
+                      <option value={student.title} selected>{student.title} </option>
+                      <option disabled>--------</option>
+                      <option value="นาย">นาย</option>
+                      <option value="นางสาว">นางสาว</option>
+                      <option value="นาง">นาง</option>
+                      <option value="อื่นๆ">อื่นๆ</option>
+
         </Input>
           </FormGroup>
                 </Col>
