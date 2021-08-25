@@ -63,7 +63,7 @@ const ViewEducationStudentAllStudent = (props) => {
         <center><h3>   ค้นหาข้อมูลการรับสมัครเข้าศึกษาต่อ </h3></center>
         <br />
         <Row>
-          <Col xs="6">
+          {/* <Col xs="6">
             <FormGroup>
               <Label for="id_university">ชื่อมหาวิทยาลัย</Label>
               <Input type="select" name="name_uni" id="name_uni" placeholder="กรุณาใส่ชื่อมหาลัยที่จะค้นหา" onChange={(event) =>handleSearch(event)}>
@@ -116,7 +116,7 @@ const ViewEducationStudentAllStudent = (props) => {
                 })}
               </Input>
             </FormGroup>
-          </Col>
+          </Col> */}
           <Col xs="12">
             <FormGroup>
               <center><Label for="id_major">ค้นหาข้อมูล</Label> </center>
@@ -151,6 +151,10 @@ const ViewEducationStudentAllStudent = (props) => {
                           <div className="mt-2 flex items-center text-sm text-gray-500">
                             <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
                           รอบ : {value.name_round}
+                          </div>
+                          <div className="mt-2 flex items-center text-sm text-gray-500">
+                            <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+                          GPA : {value.GPA}
                           </div>
                         </div>
                       </div>

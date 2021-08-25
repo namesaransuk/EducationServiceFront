@@ -25,50 +25,48 @@ const ViewInsertDegree = () => {
 
   const saveDegree = (e) => {
     e.preventDefault()
-
-    var data = {
-      name_degree: degree.name_degree,
-      initials_degree: degree.initials_degree,
-    }
-    if (data['name_degree'] === "" || data['initials_degree'] === "") {
-      Swal.fire(
-        'ผิดพลาด',
-        'กรุณารอกรอกข้อมูลให้ครบ',
-        'error'
-      )
-
-    } else {
-      axios.post("http://localhost:8080/degree", data)
-        .then((res) => {
-          console.log(res.data.message);
-          if (res.data.message == "success") {
-            ////ต่อตรงนี้
-            Swal.fire(
-
-              'เพิ่มข้อมูลวุฒิการศึกษาเรียบร้อย',
-              '',
-              'success'
-            )
-              .then(() => window.location.assign("/degreeall"))
-
-          } else {
-
-            Swal.fire(
-              'เพิ่มข้อมูลวุฒิการศึกษาผิดพลาด',
-              'ชื่อวุฒิการศึกษานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
-              'error'
-            )
-
+      var data = {
+        name_degree: degree.name_degree,
+        initials_degree: degree.initials_degree,
           }
+          if (data['name_degree'] === ""|| data['initials_degree'] === "" ){
+            Swal.fire(
 
-        })
-        .catch((error) => {
-          console.log("error");
-        });//ใช้ ดัก Error
+            'ผิดพลาด',
+            'กรุณากรอกข้อมูลให้ครบ',
+            'error'
+        )
+    } else {
+        axios.post("http://localhost:8080/degree" , data)
+      .then((res) => {
+                console.log(res.data.message);
+                if (res.data.message == "success") {
+                    ////ต่อตรงนี้
+                    Swal.fire(
+
+                        'เพิ่มข้อมูลวุฒิการศึกษาเรียบร้อย',
+                        '',
+                        'success'
+                    )
+                        .then(() => window.location.assign("/degreeall"))
+
+                } else {
+
+                    Swal.fire(
+                        'เพิ่มข้อมูลวุฒิการศึกษาผิดพลาด',
+                        'ชื่อวุฒิการศึกษานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                        'error'
+                    )
+
+                }
+
+            })
+            .catch((error) => {
+                console.log("error");
+            });//ใช้ ดัก Error
 
     };
 }
-
   return (
 
 
@@ -84,7 +82,7 @@ const ViewInsertDegree = () => {
             value={degree.name_degree || ""}
             onChange={handleInputChange}
             placeholder="ระบุชื่อหลักสูตร"
-            required />
+             />
         </Row>
         <br />
         <Row>
@@ -96,7 +94,7 @@ const ViewInsertDegree = () => {
             value={degree.initials_degree || ""}
             onChange={handleInputChange}
             placeholder="ตัวอย่าง นศ.บ"
-            required />
+             />
         </Row>
         <br/>
         <div className="text-center">

@@ -105,7 +105,7 @@ const ViewInsertUniversity = () => {
             Swal.fire(
 
                 'ผิดพลาด',
-                'กรุณารอกรอกข้อมูลให้ครบ',
+                'กรุณากรอกข้อมูลให้ครบ',
                 'error'
             )
         } else {
@@ -116,7 +116,7 @@ const ViewInsertUniversity = () => {
                         ////ต่อตรงนี้
                         Swal.fire(
 
-                            'เพิ่มข้อมูลมหาลัยเรียบร้อย',
+                            'เพิ่มข้อมูลมหาวิทยาลัยเรียบร้อย',
                             '',
                             'success'
                         )
@@ -125,8 +125,8 @@ const ViewInsertUniversity = () => {
                     } else {
 
                         Swal.fire(
-                            'เพิ่มข้อมูลมหาลัยผิดพลาด',
-                            'ชื่อมหาลัยนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                            'เพิ่มข้อมูลมหาวิทยาลัยลัยผิดพลาด',
+                            'ชื่อมหาวิทยาลัยนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
                             'error'
                         )
 
@@ -153,7 +153,7 @@ const ViewInsertUniversity = () => {
                         value={formik.values.name_uni}
                         onChange={formik.handleChange}//เมื่อมีการพิมพ์ข้อความ
                         placeholder="ระบุชื่อมหาลัย"
-                        required />
+                         />
                     {formik.errors.name && formik.touched.name_uni(
                         <p>{formik.errors.name_uni}</p>
                     )}
@@ -167,7 +167,7 @@ const ViewInsertUniversity = () => {
                         value={formik.values.url_uni}
                         onChange={formik.handleChange}
                         placeholder="ระบุ URL"
-                        required />
+                         />
 
                     {formik.errors.name && formik.touched.url_uni(
                         <p>{formik.errors.url_uni}</p> //เช็ค error
@@ -175,14 +175,13 @@ const ViewInsertUniversity = () => {
                 </FormGroup>
                 <FormGroup>
                     <Label for="productTags">รายละเอียด</Label>
-                    <Input
-                        type="text"
+                    <Input style={{ height: 150 }} type="textarea"
                         name="detail_uni"
                         id="productTags"
                         value={formik.values.detail_uni}
                         onChange={formik.handleChange}
                         placeholder="ระบุรายละเอียด"
-                        required />
+                         />
                     {formik.errors.name && formik.touched.detail_uni(
                         <p>{formik.errors.detail_uni}</p>
                     )}
