@@ -2,7 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import {
   Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Card, CardText, CardBody, CardLink,
-  CardTitle, CardSubtitle, Jumbotron, Table, Alert} from 'reactstrap';
+  CardTitle, CardSubtitle, Jumbotron, Table, Alert
+} from 'reactstrap';
 import Swal from 'sweetalert2';
 
 const ViewInsertDegree = () => {
@@ -27,42 +28,42 @@ const ViewInsertDegree = () => {
     var data = {
       name_degree: degree.name_degree,
       initials_degree: degree.initials_degree,
-  }
+    }
     if (data['name_degree'] === "" || data['initials_degree'] === "") {
-        Swal.fire(
-            'ผิดพลาด',
-            'กรุณารอกรอกข้อมูลให้ครบ',
-            'error'
-        )
+      Swal.fire(
+        'ผิดพลาด',
+        'กรุณารอกรอกข้อมูลให้ครบ',
+        'error'
+      )
 
     } else {
-      axios.post("http://localhost:8080/degree" , data)
-      .then((res) => {
-                console.log(res.data.message);
-                if (res.data.message == "success") {
-                    ////ต่อตรงนี้
-                    Swal.fire(
+      axios.post("http://localhost:8080/degree", data)
+        .then((res) => {
+          console.log(res.data.satatus);
+          if (res.data.satatus == "201") {
+            ////ต่อตรงนี้
+            Swal.fire(
 
-                        'เพิ่มข้อมูลวุฒิการศึกษาเรียบร้อย',
-                        '',
-                        'success'
-                    )
-                        .then(() => window.location.assign("/degreeall"))
+              'เพิ่มข้อมูลวุฒิการศึกษาเรียบร้อย',
+              '',
+              'success'
+            )
+              .then(() => window.location.assign("/degreeall"))
 
-                } else {
+          } else {
 
-                    Swal.fire(
-                        'เพิ่มข้อมูลวุฒิการศึกษาผิดพลาด',
-                        'ชื่อวุฒิการศึกษานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
-                        'error'
-                    )
+            Swal.fire(
+              'เพิ่มข้อมูลวุฒิการศึกษาผิดพลาด',
+              'ชื่อวุฒิการศึกษานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+              'error'
+            )
 
-                }
+          }
 
-            })
-            .catch((error) => {
-                console.log("error");
-            });//ใช้ ดัก Error
+        })
+        .catch((error) => {
+          console.log("error");
+        });//ใช้ ดัก Error
 
     };
   };
@@ -70,39 +71,39 @@ const ViewInsertDegree = () => {
   return (
 
     <div class="container">
- 
- <Form onSubmit={saveDegree}>
-            <center><h3> เพิ่มหลักสูตร </h3></center>
-            <Row>
-            <br/>
-            <Row>
-              <Label for="degree">ชื่อหลักสูตร</Label>
-              <Input
-                type="text"
-                name="name_degree"
-                id="name_degree"
-                value={degree.name_degree || ""}
-                onChange={handleInputChange}
-                placeholder="ระบุชื่อหลักสูตร"
-              required/>
-            </Row>
-            </Row>
-            <br/>
-            <Row>
-              <Label for="degree">ชื่อย่อหลักสูตร</Label>
-              <Input
-                type="text"
-                name="initials_degree"
-                id="initials_degree"
-                value={degree.initials_degree || ""}
-                onChange={handleInputChange}
-                placeholder="ตัวอย่าง นศ.บ"
-              required/>
-            </Row>
-            <Button className="btn btn-success" >บันทึก</Button>
-          </Form>
 
-    
+      <Form onSubmit={saveDegree}>
+        <center><h3> เพิ่มหลักสูตร </h3></center>
+        <Row>
+          <br />
+          <Row>
+            <Label for="degree">ชื่อหลักสูตร</Label>
+            <Input
+              type="text"
+              name="name_degree"
+              id="name_degree"
+              value={degree.name_degree || ""}
+              onChange={handleInputChange}
+              placeholder="ระบุชื่อหลักสูตร"
+              required />
+          </Row>
+        </Row>
+        <br />
+        <Row>
+          <Label for="degree">ชื่อย่อหลักสูตร</Label>
+          <Input
+            type="text"
+            name="initials_degree"
+            id="initials_degree"
+            value={degree.initials_degree || ""}
+            onChange={handleInputChange}
+            placeholder="ตัวอย่าง นศ.บ"
+            required />
+        </Row>
+        <Button className="btn btn-success" >บันทึก</Button>
+      </Form>
+
+
     </div>
 
   );

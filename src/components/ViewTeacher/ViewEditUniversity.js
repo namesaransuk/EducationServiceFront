@@ -95,7 +95,7 @@ const ViewEditUniversity = ({ id }) => {
             url_uni: university.url_uni,
             detail_uni: university.detail_uni,
         };
-        if (data['name_uni'] === "" || data['url_uni'] === "" || data['detail_uni'] === ""|| data['logo_uni'] === "") {
+        if (data['name_uni'] === "" || data['url_uni'] === "" || data['detail_uni'] === "" || data['logo_uni'] === "") {
             Swal.fire(
     
                 'ผิดพลาด',
@@ -106,8 +106,8 @@ const ViewEditUniversity = ({ id }) => {
         } else {
             axios.put("http://localhost:8080/university/" + id , data)
             .then((res) => {
-                    console.log(res.data.message);
-                    if (res.data.message == "success") {
+                    console.log(res.data.satatus);
+                    if (res.data.satatus == "201") {
                         ////ต่อตรงนี้
                         Swal.fire(
     

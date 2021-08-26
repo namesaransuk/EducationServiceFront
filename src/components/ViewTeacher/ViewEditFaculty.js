@@ -44,8 +44,8 @@ const ViewEditFaculty = ({ id }) => {
     } else {
       axios.put("http://localhost:8080/faculty/" + id, data)
         .then((res) => {
-                console.log(res.data.message);
-                if (res.data.message == "success") {
+          console.log(res.data.satatus);
+          if (res.data.satatus == "201") {
                     ////ต่อตรงนี้
                     Swal.fire(
 
