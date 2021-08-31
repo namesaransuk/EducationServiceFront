@@ -123,13 +123,13 @@ const ViewEditEducation = ({ id }) => {
   }, []);
   return (
     <div className="mt-32">
-      <div className="px-4 flex flex-col max-w-7xl mx-auto mt-32">
+      <div className="px-4 flex flex-col max-w-7xl mx-auto">
         <h3 className="text-center">แก้ไขการสมัครการเข้ารับศึกษาต่อ</h3>
         <hr></hr>
         <br></br>
         <Form>
-          <Row>
-            <Col xs="2">
+          <Row form>
+            <Col md="2">
               <FormGroup>
                 <Label for="year_edu">ปีที่เปิดรับสมัคร</Label>
                 <Input type="select" name="year_edu" id="year_edu" value={education.year_edu || ""}
@@ -143,7 +143,7 @@ const ViewEditEducation = ({ id }) => {
                 </Input>
               </FormGroup></Col>
 
-            <Col xs="3">
+            <Col md="2">
               <FormGroup>
                 <Label for="id_round">รอบ</Label>
                 <Input type="select" name="id_round" id="id_round" placeholder="เลือกรอบที่ต้องการ" value={education.id_round || ""}
@@ -157,9 +157,7 @@ const ViewEditEducation = ({ id }) => {
                 </Input>
               </FormGroup>
             </Col>
-          </Row>
-          <Row>
-            <Col xs="7">
+            <Col md="5">
               <FormGroup>
                 <Label for="id_university">มหาวิทยาลัย</Label>
                 <Input type="select" name="id_university" id="id_university" placeholder="เลือกมหาวิทยาลัยที่ต้องการ"
@@ -173,7 +171,7 @@ const ViewEditEducation = ({ id }) => {
                 </Input>
               </FormGroup>
             </Col>
-            <Col xs="3">
+            <Col md="3">
               <FormGroup>
                 <Label for="tcas">Tcas</Label>
                 <Input type="select" name="tcas" id="tcas" onChange={handleInputChange} value={education.tcas || ""} >
@@ -182,8 +180,32 @@ const ViewEditEducation = ({ id }) => {
               </FormGroup>
             </Col>
           </Row>
-          <Row>
-            <Col xs="3">
+          {/* <Row form>
+            <Col md="7">
+              <FormGroup>
+                <Label for="id_university">มหาวิทยาลัย</Label>
+                <Input type="select" name="id_university" id="id_university" placeholder="เลือกมหาวิทยาลัยที่ต้องการ"
+                  onChange={handleInputChange} value={education.id_university || ""}>
+                  {university.map((university) => {
+                    return (
+                      <option key={university.id_university} value={university.id_university}>
+                        {university.name_uni}</option>
+                    )
+                  })}
+                </Input>
+              </FormGroup>
+            </Col>
+            <Col md="3">
+              <FormGroup>
+                <Label for="tcas">Tcas</Label>
+                <Input type="select" name="tcas" id="tcas" onChange={handleInputChange} value={education.tcas || ""} >
+                  <option>{education.tcas}</option>
+                </Input>
+              </FormGroup>
+            </Col>
+          </Row> */}
+          <Row form>
+            <Col md="4">
               <FormGroup>
                 <Label for="open_ date">วันเปิดรับสมัคร</Label>
                 <Input type="date" name="open_date" id="open_date" onChange={handleInputChange}
@@ -191,20 +213,20 @@ const ViewEditEducation = ({ id }) => {
                 </Input>
               </FormGroup>
             </Col>
-            <Col xs="3">
+            <Col md="4">
               <FormGroup>
                 <Label for="close_ date">วันปิดรับสมัคร</Label>
                 <Input type="date" name="close_date" id="close_date" onChange={handleInputChange}
                   value={education.close_date}>
                 </Input>
               </FormGroup></Col>
-            <Col xs="3" >
+            <Col md="4" >
               <FormGroup>
                 <Label for="list_day">ประกาศรายชื่อผู้มีสิทธ์สอบสัมภาษณ์</Label>
                 <Input type="date" name="list_day" id="list_day" onChange={handleInputChange} value={education.list_day || ""}>
                 </Input>
-              </FormGroup></Col>
-            <Col xs="6"></Col>
+              </FormGroup>
+            </Col>
           </Row>
           <FormGroup >
             <Label for="general">คุณสมบัติ</Label>

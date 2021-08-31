@@ -152,7 +152,7 @@ const ViewUpdateDetailEducationStudent = ({ id }) => {
   return (
 
     <div>
-      <div class="container mt-32">
+      <div class="px-4 flex flex-col max-w-3xl mx-auto mt-32">
         <Form>
 
           {submited ? (
@@ -168,7 +168,7 @@ const ViewUpdateDetailEducationStudent = ({ id }) => {
 
               <center><h3> เเก้ไขข้อมูลการศึกษาต่อ </h3></center>
               <Row form>
-                <Col >
+                <Col sm={6}>
                   <FormGroup>
                     <Label for="id_university  ">มหาวิทยาลัย</Label>
                     <Input type="select" name="id_university" id="id_university" onChange={handleInputChange} placeholder="ระบุชื่อ" >
@@ -180,7 +180,7 @@ const ViewUpdateDetailEducationStudent = ({ id }) => {
                       })}
                     </Input></FormGroup>
                 </Col>
-                <Col >
+                <Col sm={6}>
                   <FormGroup>
                     <Label for="id_faculty">คณะ</Label>
                     <Input type="select" name="id_faculty" id="id_faculty" onChange={handleInputChange} placeholder="ระบุชื่อ" >
@@ -195,7 +195,7 @@ const ViewUpdateDetailEducationStudent = ({ id }) => {
 
               </Row>
               <Row form>
-                <Col >
+                <Col sm={6}>
                   <FormGroup>
                     <Label for="id_course">สาขา</Label>
                     <Input type="select" name="id_course" id="id_course" onChange={handleInputChange} placeholder="ระบุชื่อ" >
@@ -207,7 +207,7 @@ const ViewUpdateDetailEducationStudent = ({ id }) => {
                       })}
                     </Input></FormGroup>
                 </Col>
-                <Col >
+                <Col sm={6}>
                   <FormGroup>
                     <Label for="id_major">กลุ่มสาขา</Label>
                     <Input type="select" name="id_major" id="id_major" onChange={handleInputChange} placeholder="ระบุชื่อ" >

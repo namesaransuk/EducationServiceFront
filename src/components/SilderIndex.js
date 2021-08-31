@@ -10,10 +10,10 @@ import {
 
 const items = [
   {
-    src: 'https://scontent.fbkk22-1.fna.fbcdn.net/v/t1.6435-9/105402551_113182790439456_806841832412441641_n.jpg?_nc_cat=101&ccb=1-3&_nc_sid=e3f864&_nc_eui2=AeFH3UvknB5ibnTxk8kjLYKHdtDBk20SvN920MGTbRK831KNfwY3gtYh5wyEnlX47KO4ty5J9cceyVzJ2EqVXTNY&_nc_ohc=SHaRMnp8C5YAX-FY385&_nc_ht=scontent.fbkk22-1.fna&oh=3f886144e26d817049bcf3fd2e141f8d&oe=612415FC',
+    src: 'https://gitlab.com/614259047/project-p4/-/raw/main/105402551_113182790439456_806841832412441641_n.jpg',
   },
   {
-    src: 'https://raw.githubusercontent.com/namesaransuk/EducationSeviceFront/main/img/maxresdefault.jpg'
+    src: 'https://gitlab.com/614259047/project-p4/-/raw/main/maxresdefault__1_.jpg'
   }
 ];
 

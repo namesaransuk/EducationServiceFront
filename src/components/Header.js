@@ -207,7 +207,7 @@ const Header = () => {
                                                         />
                                                     </a>
                                                     <div className="-mr-2 flex items-center md:hidden">
-                                                        <Popover.Button className="bg-blue-500 rounded-md p-2 inline-flex items-center justify-center text-white hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
+                                                        <Popover.Button className="bg-blue-500 rounded-md p-2 inline-flex items-center justify-center text-white hover:text-blue-300 hover:bg-blue-300 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
                                                             <span className="sr-only">Open main menu</span>
                                                             <MenuIcon className="h-6 w-6" aria-hidden="true" />
                                                         </Popover.Button>
@@ -305,7 +305,7 @@ const Header = () => {
                                                         />
                                                     </div>
                                                     <div className="-mr-2">
-                                                        <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-white hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
+                                                        <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-dark hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
                                                             <span className="sr-only">Close main menu</span>
                                                             <XIcon className="h-6 w-6" aria-hidden="true" />
                                                         </Popover.Button>
@@ -372,7 +372,7 @@ const Header = () => {
             <div className="fixed left-0 right-0 z-50 top-0">
                 {/* เต็มหน้าจอ */}
                 <div className="mx-auto">
-                    <div className="pb-2 sm:pt-4 md:pt-4 bg-yellow-600">
+                    <div className="pb-2 sm:pt-4 md:pt-4 bg-indigo-800">
                         <Popover>
                             {({ open }) => (
                                 <>
@@ -391,7 +391,7 @@ const Header = () => {
                                                         />
                                                     </a>
                                                     <div className="-mr-2 flex items-center md:hidden">
-                                                        <Popover.Button className="bg-yellow-600 rounded-md p-2 inline-flex items-center justify-center text-white hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
+                                                        <Popover.Button className="bg-indigo-800 rounded-md p-2 inline-flex items-center justify-center text-white hover:text-indigo-800 hover:bg-indigo-600 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
                                                             <span className="sr-only">Open main menu</span>
                                                             <MenuIcon className="h-6 w-6" aria-hidden="true" />
                                                         </Popover.Button>
@@ -411,7 +411,7 @@ const Header = () => {
                                                     {({ open }) => (
                                                         <>
                                                             <div>
-                                                                <Menu.Button className="bg-yellow-600 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                                                                <Menu.Button className="bg-indigo-800 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                     <span className="sr-only">Open user menu</span>
                                                                     <a href="#!" className="font-medium text-white hover:text-gray hover:no-underline mr-2">{session.fname_admin}{" "}{session.lname_admin}</a>
                                                                  
@@ -489,14 +489,14 @@ const Header = () => {
                                                         />
                                                     </div>
                                                     <div className="-mr-2">
-                                                        <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-white hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
+                                                        <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-dark hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
                                                             <span className="sr-only">Close main menu</span>
                                                             <XIcon className="h-6 w-6" aria-hidden="true" />
                                                         </Popover.Button>
                                                     </div>
                                                 </div>
                                                 <div className="px-2 pt-2 pb-2 space-y-1">
-                                                    {navigation.map((item) => (
+                                                    {navigationAdmin.map((item) => (
                                                         <a
                                                             key={item.name}
                                                             href={item.href}
@@ -521,7 +521,7 @@ const Header = () => {
                                                             </button>
                                                         </div>
                                                         <div className="mt-3 px-2 space-y-1">
-                                                            {profile.map((item) => (
+                                                            {profileAdmin.map((item) => (
                                                                 <a
                                                                     key={item.name}
                                                                     href={session.id == null ? item.href : item.href + session.id}

@@ -4,6 +4,7 @@ import {
   Container, Row, Col, Button, Form, FormGroup, Label, Input, FormText, Card, CardText, CardBody, CardLink,
   CardTitle, CardSubtitle
 } from 'reactstrap';
+import "./vieweducationstudent.css"
 
 const ViewEducationStudent = (props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -30,55 +31,51 @@ const ViewEducationStudent = (props) => {
     });
   }, []);
   return (
-    <div>
-      <div class="container mt-32">
-
-        <center><h3>   ค้นหามหาวิทยาลัย  </h3></center>
-        <br />
-        <Row>
-          <Col xs="6">
-            <FormGroup>
-              <Label for="id_university">ชื่อมหาวิทยาลัย</Label>
-              <Input type="select" name="name_uni" id="name_uni" placeholder="กรุณาใส่ชื่อมหาลัยที่จะค้นหา" onChange={(event) => handleSearch(event)}>
-                <option value="">เลือกมหาลัยที่ค้นหา</option>
-                {university.map((university) => {
-                  return (
-                    <option value={university.name_uni}>{university.name_uni}</option>
-                  );
-                })}
-              </Input>
-
-            </FormGroup>
-          </Col>
-        </Row>
-        {/* <Row>
-<Col xs="12"> 
-<FormGroup>
-         <Input type="email" name="email" id="exampleEmail" placeholder="ค้นหามหาวิทยาลัย" />
-      </FormGroup>
-      <center><Button>ค้นหา</Button> </center>
-</Col>
-        </Row> */}
+    <div class="mt-32">
+      <div className="flex flex-col max-w-7xl mx-auto">
+        <div className="text-center mx-auto">
+          <h3>ค้นหามหาวิทยาลัย</h3>
+          <br />
+          <Row>
+            <Col>
+              <FormGroup>
+                <Label for="id_university">ชื่อมหาวิทยาลัย</Label>
+                <Input type="select" className="text-center" name="name_uni" id="name_uni" placeholder="กรุณาใส่ชื่อมหาลัยที่จะค้นหา" onChange={(event) => handleSearch(event)}>
+                  <option value="">เลือกมหาลัยที่ค้นหา</option>
+                  {university.map((university) => {
+                    return (
+                      <option value={university.name_uni}>{university.name_uni}</option>
+                    );
+                  })}
+                </Input>
+              </FormGroup>
+            </Col>
+          </Row>
+        </div>
       </div>
       <br />
-      <div class="container">
+      <div class="flex flex-col max-w-7xl mx-auto px-4">
         <div className="row row-cols-1 row-cols-md-2">
           {filteredData.map((value) => {
             return (
               <div class="col mb-4">
-                  <Card>
-                    <CardBody>
-                      <center><CardTitle tag="h5">{value.name_uni}</CardTitle>   </center>
-                    </CardBody>
-                    <CardBody>
-                      <center> <img width="10%" src={value.logo_uni|| 'https://via.placeholder.com/150'} alt="ยังไม่ได้อัพเดตตราประจำหมหาลัย" /> </center>
-                    </CardBody>
-                    <CardBody>
-                      <CardTitle >{value.detail_uni}</CardTitle>
-                    </CardBody>
-                    <Button href={value.url_uni}>ดูรายละเอียด</Button>
-                  </Card><br /><br />
-                </div>
+                <Card>
+                  <CardBody>
+                    <center><CardTitle tag="h5">{value.name_uni}</CardTitle>   </center>
+                  </CardBody>
+                  <CardBody>
+                    <div className="">
+                      <img className="mx-auto py-auto" width="30%" src={value.logo_uni || 'https://via.placeholder.com/150'} alt="ยังไม่ได้อัพเดตตราประจำหมหาลัย" />
+                    </div>
+                  </CardBody>
+                  <CardBody>
+                    <CardTitle className="description">{value.detail_uni}</CardTitle>
+                  </CardBody>
+                  <FormGroup className="mx-auto">
+                    <Button href={value.url_uni} target="_blank">ดูรายละเอียด</Button>
+                  </FormGroup>
+                </Card>
+              </div>
             );
           })}
         </div>

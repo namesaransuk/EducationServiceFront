@@ -54,7 +54,7 @@ const Footer = () => {
     }
     else if (session.fname_admin = session.fname_admin) {
         return (
-            <footer>
+            <footer className="bg-gradient-to-r from-indigo-800 to-indigo-500">
                 <div className="roww">
                     <div className="coll">
                         <h3>Developer</h3>
@@ -72,7 +72,7 @@ const Footer = () => {
     }
     else if (session.fname = session.fname) {
         return (
-            <footer>
+            <footer className="bg-gradient-to-r from-yellow-700 to-yellow-500">
                 <div className="roww">
                     <div className="coll">
                         <h3>Developer</h3>

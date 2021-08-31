@@ -110,14 +110,14 @@ const ViewUniversity = () => {
                           {/* <div className="flex-shrink-0 h-10 w-10">
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
-                          <div className="ml-4">
-                            <div className="text-md font-medium text-gray-900"><img width="80" src={value.logo_uni || 'https://via.placeholder.com/150'} /></div>
-                            <div className="text-md text-gray-500">{value.name_uni}</div>
+                          <div className="">
+                            <div className="text-md font-medium text-gray-900"><img width="80" className="mx-auto" src={value.logo_uni || 'https://via.placeholder.com/150'} /></div>
+                            <div className="text-md text-gray-500 text-center">{value.name_uni}</div>
                           </div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-wrap">
-                        <p className="description text-md text-gray-900">{value.detail_uni}</p>
+                        <div className="description text-md text-gray-900">{value.detail_uni}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <a className="text-md text-gray-500" target="_blank" href={value.url_uni}>{value.url_uni}</a>

@@ -19,13 +19,13 @@ const ViewEditProfile = ({ id }) => {
   const [student, setStudent] = useState(initStudent);
   const [submited, setSumited] = useState(false)
   const [title, setTitle] = useState([]);
-      useEffect(() => {
-        axios.get("http://localhost:8080/title/getTitle")
-        .then((response)=>{
-          setTitle(response.data.title);
-        });
-    }, [id]);//เมื่อidมีการเปลี่ยนเเปรง ก็จะรีหน้าทำการเปลี่ยนที่เราเปลี่ย
-    
+  useEffect(() => {
+    axios.get("http://localhost:8080/title/getTitle")
+      .then((response) => {
+        setTitle(response.data.title);
+      });
+  }, [id]);//เมื่อidมีการเปลี่ยนเเปรง ก็จะรีหน้าทำการเปลี่ยนที่เราเปลี่ย
+
   useEffect(() => {
     axios.get("http://localhost:8080/students/" + id)
       .then((response) => {
@@ -47,60 +47,60 @@ const ViewEditProfile = ({ id }) => {
     e.preventDefault()
 
     var data = {
-        title: student.title,
-        fname_stu: student.fname_stu,
-        lname_stu: student.lname_stu,
-        GPA_stu: student.GPA_stu,
-        year_class: student.year_class,
-        class: student.class,
-        year_stu: student.year_stu,
-        id_curriculum: student.id_curriculum,
-        password_stu: student.password_stu,
-      }
+      title: student.title,
+      fname_stu: student.fname_stu,
+      lname_stu: student.lname_stu,
+      GPA_stu: student.GPA_stu,
+      year_class: student.year_class,
+      class: student.class,
+      year_stu: student.year_stu,
+      id_curriculum: student.id_curriculum,
+      password_stu: student.password_stu,
+    }
     if (data['title'] === "" || data['fname_stu'] === "" || data['lname_stu'] === ""
-    || data['GPA_stu'] === ""|| data['year_class'] === ""|| data['class'] === ""
-    || data['year_stu'] === ""|| data['id_curriculum'] === ""|| data['password_stu'] === "") {
-        Swal.fire(
+      || data['GPA_stu'] === "" || data['year_class'] === "" || data['class'] === ""
+      || data['year_stu'] === "" || data['id_curriculum'] === "" || data['password_stu'] === "") {
+      Swal.fire(
 
-            'ผิดพลาด',
-            'กรุณารอกรอกข้อมูลให้ครบ',
-            'error'
-        )
+        'ผิดพลาด',
+        'กรุณารอกรอกข้อมูลให้ครบ',
+        'error'
+      )
 
     } else {
-        axios.put("http://localhost:8080/students/" + student.id_stu, data)
+      axios.put("http://localhost:8080/students/" + student.id_stu, data)
         .then((res) => {
-                console.log(res.data.message);
-                if (res.data.message == "success") {
-                    
-                    Swal.fire(
+          console.log(res.data.message);
+          if (res.data.message == "success") {
 
-                        'เเก้ไขข้อมูลข้อมูลส่วนตัวเรียบร้อย',
-                        'เเก้ไขได้เเต่ชื่อบน NavBar มันติดงงๆออกเข้าใหม่',
-                        'success'
-                    )
-                        .then(() => window.location.assign("/profile/" + student.id_stu))
+            Swal.fire(
 
-                } else {
+              'เเก้ไขข้อมูลข้อมูลส่วนตัวเรียบร้อย',
+              'เเก้ไขได้เเต่ชื่อบน NavBar มันติดงงๆออกเข้าใหม่',
+              'success'
+            )
+              .then(() => window.location.assign("/profile/" + student.id_stu))
 
-                    Swal.fire(
-                        'เพิ่มข้อมูลผิดพลาด',
-                        'ชื่อนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
-                        'error'
-                    )
+          } else {
 
-                }
+            Swal.fire(
+              'เพิ่มข้อมูลผิดพลาด',
+              'ชื่อนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+              'error'
+            )
 
-            })
-            .catch((error) => {
-                console.log("error");
-            });//ใช้ ดัก Error
+          }
+
+        })
+        .catch((error) => {
+          console.log("error");
+        });//ใช้ ดัก Error
 
     };
-}
+  }
   return (
-    <div>
-      <div class="container mt-32 mb-5">
+    <div class="mt-32">
+      <div className="flex flex-col max-w-3xl mx-auto px-4">
         <Form>
 
 
@@ -117,10 +117,11 @@ const ViewEditProfile = ({ id }) => {
               )
           ) : (
             <Form>
-
-              <center><h3> เเก้ไขข้อมูลส่วนตัว </h3></center>
-              <Row>
-                <Col>
+              <div className="text-center mx-auto pb-4">
+                <h3> เเก้ไขข้อมูลส่วนตัว </h3>
+              </div>
+              <Row form>
+                <Col sm={3}>
                   <FormGroup>
                     <Label for="id_stu">รหัสประจำตัว</Label>
                     <Input type="text"
@@ -131,16 +132,16 @@ const ViewEditProfile = ({ id }) => {
                       placeholder="" disabled />
                   </FormGroup>
                 </Col>
-                <Col>
-                <FormGroup>
-            <Label for="id_stu">คำนำหน้า</Label>
-            <Input 
-          type="select" 
-          name="title" 
-          id="title"
-          value={student.title || ""}
-          onChange={handleInputChange}
-        >
+                <Col sm={3}>
+                  <FormGroup>
+                    <Label for="id_stu">คำนำหน้า</Label>
+                    <Input
+                      type="select"
+                      name="title"
+                      id="title"
+                      value={student.title || ""}
+                      onChange={handleInputChange}
+                    >
                       <option value={student.title} selected>{student.title} </option>
                       <option disabled>--------</option>
                       <option value="นาย">นาย</option>
@@ -148,10 +149,10 @@ const ViewEditProfile = ({ id }) => {
                       <option value="นาง">นาง</option>
                       <option value="อื่นๆ">อื่นๆ</option>
 
-        </Input>
-          </FormGroup>
+                    </Input>
+                  </FormGroup>
                 </Col>
-                <Col >
+                <Col sm={3}>
                   <FormGroup>
                     <Label for="fname_stu">ชื่อ</Label>
                     <Input type="text"
@@ -162,7 +163,7 @@ const ViewEditProfile = ({ id }) => {
                       placeholder="ระบุชื่อ" required />
                   </FormGroup>
                 </Col>
-                <Col >
+                <Col sm={3}>
                   <FormGroup>
                     <Label for="lname_stu">นามสกุล</Label>
                     <Input type="text"
@@ -175,7 +176,7 @@ const ViewEditProfile = ({ id }) => {
                 </Col>
               </Row>
               <Row form>
-                <Col >
+                <Col sm={4}>
                   <FormGroup>
                     <Label for="id_curriculum  ">สายการเรียน</Label>
                     <Input type="select" name="id_curriculum" id="id_curriculum" onChange={handleInputChange} placeholder="ระบุชื่อ" >
@@ -185,7 +186,7 @@ const ViewEditProfile = ({ id }) => {
                       <option value="3">ศิลป์คำนวณ</option>
                     </Input></FormGroup>
                 </Col>
-                <Col >
+                <Col sm={4}>
                   <FormGroup>
                     <Label for="GPA_stu">GPA รวม</Label>
                     <Input type="text"
@@ -196,17 +197,17 @@ const ViewEditProfile = ({ id }) => {
                       placeholder="ระบุแท็ก" />
                   </FormGroup>
                 </Col>
-                <Col >
-                <FormGroup>
-            <Label for="year_stu">ปีการศึกษา</Label>
-            <Input type="select" type="number" min="2500" max="2600" step="1" name="year_stu" value={student.year_stu || ""} id="year_stu" onChange={handleInputChange} placeholder="ระบุชื่อ" >
-            <option value="" selected>{student.year_stu}</option>
-    
-          </Input></FormGroup>
+                <Col sm={4}>
+                  <FormGroup>
+                    <Label for="year_stu">ปีการศึกษา</Label>
+                    <Input type="select" type="number" min="2500" max="2600" step="1" name="year_stu" value={student.year_stu || ""} id="year_stu" onChange={handleInputChange} placeholder="ระบุชื่อ" >
+                      <option value="" selected>{student.year_stu}</option>
+
+                    </Input></FormGroup>
                 </Col>
               </Row>
               <Row form>
-                <Col >
+                <Col sm={6}>
                   <FormGroup>
                     <Label for="year_class">มัธยมปีที่</Label>
                     <Input type="select" name="year_class" id="year_class" onChange={handleInputChange} placeholder="ระบุชื่อ" >
@@ -216,7 +217,7 @@ const ViewEditProfile = ({ id }) => {
                       <option value="6">6</option>
                     </Input></FormGroup>
                 </Col>
-                <Col >
+                <Col sm={6}>
                   <FormGroup>
                     <Label for="class">ห้อง</Label>
                     <Input type="select" name="class" id="class" onChange={handleInputChange} placeholder="ระบุชื่อ" >
@@ -237,7 +238,7 @@ const ViewEditProfile = ({ id }) => {
                 </Col >
               </Row>
               <Row form>
-                <Col >
+                <Col>
                   <FormGroup>
                     <Label for="password_stu">รหัสผ่าน</Label>
                     <Input type="password"

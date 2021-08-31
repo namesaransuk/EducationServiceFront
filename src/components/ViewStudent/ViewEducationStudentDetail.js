@@ -27,12 +27,12 @@ const ViewEducationStudentDetail = ({ id }) => {
         <div className="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 shadow overflow-hidden rounded-lg">
           <div className="p-5 -mb-5 flex items-center justify-center md:grid md:grid-cols-3">
             <div className="col-span-2">
-              <h3 className="text-lg leading-6 font-medium text-gray-900">ข้อมูลมหาวิทยาลัย</h3>
-              <p className="mt-1 max-w-2xl text-sm text-gray-500">{educationdataia.name_uni}</p>
+              <h2 className="text-lg leading-6 font-medium text-gray-900">ข้อมูลมหาวิทยาลัย</h2>
+              <p className="mt-1 max-w-2xl text-md text-gray-500">{educationdataia.name_uni}</p>
             </div>
             <div className="col-span-1 ml-auto hidden sm:block">
               <img
-                className="h-16 w-auto -mt-5"
+                className="h-20 w-auto -mt-5"
                 src="https://www.npru.ac.th/2019/img/Npru-logo.png"
                 alt="Workflow"
               />
@@ -40,42 +40,42 @@ const ViewEducationStudentDetail = ({ id }) => {
           </div>
           <div className="border-t border-gray-200">
             <div className="bg-gray-50 p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-              <dt className="mt-1 text-sm font-medium text-gray-500">คณะ</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.name_faculty}</dd>
+              <dt className="mt-1 text-md font-medium text-gray-500">คณะ</dt>
+              <dd className="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.name_faculty}</dd>
             </div>
             <div className="bg-white p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-              <dt className="mt-1 text-sm font-medium text-gray-500">สาขา</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.name_course}</dd>
+              <dt className="mt-1 text-md font-medium text-gray-500">สาขา</dt>
+              <dd className="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.name_course}</dd>
             </div>
             <div className="bg-gray-50 p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-              <dt className="mt-1 text-sm font-medium text-gray-500">กลุ่มสาขา</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.name_major}</dd>
+              <dt className="mt-1 text-md font-medium text-gray-500">กลุ่มสาขา</dt>
+              <dd className="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.name_major}</dd>
             </div>
             <div className="bg-white p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-              <dt className="mt-1 text-sm font-medium text-gray-500">รอบ</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.name_round}</dd>
+              <dt className="mt-1 text-md font-medium text-gray-500">รอบ</dt>
+              <dd className="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.name_round}</dd>
             </div>
             <div className="bg-gray-50 p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-              <dt className="mt-1 text-sm font-medium text-gray-500">จำนวนรับสมัคร</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.number_of_edu}</dd>
+              <dt className="mt-1 text-md font-medium text-gray-500">จำนวนรับสมัคร</dt>
+              <dd className="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.number_of_edu}</dd>
             </div>
             <div className="bg-white p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-              <dt className="mt-1 text-sm font-medium text-gray-500">วันเปิดรับสมัคร</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.open_date}</dd>
+              <dt className="mt-1 text-md font-medium text-gray-500">วันเปิดรับสมัคร</dt>
+              <dd className="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.open_date}</dd>
             </div>
             <div className="bg-gray-50 p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-              <dt className="mt-1 text-sm font-medium text-gray-500">วันปิดรับสมัคร</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.close_date}</dd>
+              <dt className="mt-1 text-md font-medium text-gray-500">วันปิดรับสมัคร</dt>
+              <dd className="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.close_date}</dd>
             </div>
             <div className="bg-white p-4 sm:grid sm:grid-cols-3 sm:gap-4">
-              <dt className="mt-1 text-sm font-medium text-gray-500">วันประกาศผล</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.list_day}</dd>
+              <dt className="mt-1 text-md font-medium text-gray-500">วันประกาศผล</dt>
+              <dd className="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">{educationdataia.list_day}</dd>
             </div>
             <div className="bg-gray-50 p-4 -mb-4 sm:grid sm:grid-cols-3 sm:gap-4">
-              <dt className="mt-1 text-sm font-medium text-gray-500">เอกสารเพิ่มเติม</dt>
-              <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+              <dt className="mt-1 text-md font-medium text-gray-500">เอกสารเพิ่มเติม</dt>
+              <dd className="mt-1 text-md text-gray-900 sm:mt-0 sm:col-span-2">
                 <ul className="border border-gray-200 rounded-md divide-y divide-gray-200">
-                  <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                  <li className="pl-3 pr-4 py-3 flex items-center justify-between text-md">
                     <div className="w-0 flex-1 flex items-center">
                       <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
                       <span className="ml-2 flex-1 w-0 truncate">ประกาศรับรับสมัคร ภาคปกติ v1.pdf</span>
@@ -104,7 +104,7 @@ const ViewEducationStudentDetail = ({ id }) => {
           <div className="md:col-span-1">
             <div className="px-4 py-4 sm:px-0">
               <h3 className="text-lg font-medium leading-6 text-gray-900">คุณสมบัติ</h3>
-              <p className="mt-0 text-sm text-gray-600">
+              <p className="mt-0 text-md text-gray-600">
                 Property
               </p>
             </div>
@@ -117,7 +117,7 @@ const ViewEducationStudentDetail = ({ id }) => {
               <div className="px-4 py-3 bg-gray-50 text-center sm:px-6">
                 <button
                   type="submit"
-                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-md font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   ดูรายละเอียดเพิ่มเติม
                   </button>
@@ -138,7 +138,7 @@ const ViewEducationStudentDetail = ({ id }) => {
           <div className="md:col-span-1">
             <div className="px-4 py-4 sm:px-0">
               <h3 className="text-lg font-medium leading-6 text-gray-900">เอกสาร</h3>
-              <p className="mt-0 text-sm text-gray-600">Document</p>
+              <p className="mt-0 text-md text-gray-600">Document</p>
             </div>
           </div>
           <div className="md:mt-0 md:col-span-2">
@@ -150,7 +150,7 @@ const ViewEducationStudentDetail = ({ id }) => {
                 <div className="px-4 py-3 bg-gray-50 text-center sm:px-6">
                   <button
                     type="submit"
-                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-md font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     ดูรายละเอียดเพิ่มเติม
                   </button>
