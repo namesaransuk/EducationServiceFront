@@ -157,6 +157,18 @@ import ProfileTeacher from "./pages/Teacher/ProfileTeacher";
 import EditProfileTeacher from "./pages/Teacher/EditProfileTeacher";
 import ProfileAdmin from "./pages/Admin/ProfileAdmin";
 import EditProfileAdmin from "./pages/Admin/EditProfileAdmin";
+import CarouselAll from "./pages/Admin/CarouselAll";
+import InsertCarousel from "./pages/Admin/InsertCarousel";
+import EditCarousel from "./pages/Admin/EditCarousel";
+import EditImageCarousel from "./pages/Admin/EditImageCarousel";
+import EditNameLogo from "./pages/Admin/EditNameLogo";
+import EditImageNameLogo from "./pages/Admin/EditImageNameLogo";
+import EditImageEducation from "./pages/Teacher/EditImageEducation";
+import NewAll from "./pages/Admin/NewAll";
+import InsertNew from "./pages/Admin/InsertNew";
+import EditNew from "./pages/Admin/EditNew";
+import EditImageNew from "./pages/Admin/EditImageNew";
+import EditFooter from "./pages/Admin/EditFooter";
 
 import Hometeacher from "./pages/Hometeacher";
 
@@ -167,62 +179,74 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/home" component={Home} />
-        <Route path="/Hometeacher" component={Hometeacher} />
-        <Route path="/educationstudent" component={EducationStudent} />
-        <Route path="/educationstudentdetail/:id" component={EducationStudentDetail} />
         <Route path="/login" component={Login} />
-        <Route path="/profile/:id" component={Profile} />
-        <Route path="/insertdetaileducationstudent/:id" component={InsertDetailEducationStudent} />
-        <Route path="/editprofile/:id" component={EditProfile} />
-        <Route path="/detaileducationstudent/:id" component={DetailEducationStudent} />
-        <Route path="/updatedetaileducationstudent/:id" component={UpdateDetailEducationStudent} />
-        <Route path="/inserteducation" component={InsertEducation} />
-        <Route path="/editeducation/:id" component={EditEducation} />
-        <Route path="/universityAll" component={UniversityAll} />
-        <Route path="/editUniversity/:id" component={EditUniversity} />
-        <Route path="/editFaculty/:id" component={EditFaculty} />
-        <Route path="/editCourse/:id" component={EditCourse} />
-        <Route path="/insertdetaileducationstudent/:id" component={InsertDetailEducationStudent} />
-        <Route path="/educationstudentallstudent" component={EducationStudentAllStudent} />
-        <Route path="/dashboardteacher" component={DashboardTeacher} />
-        <Route path="/insertuniversity" component={InsertUniversity} />
-        <Route path="/facultyall" component={FacultyAll} />
-        <Route path="/insertfaculty" component={InsertFaculty} />
-        <Route path="/courseall" component={CourseAll} />
-        <Route path="/insertcourse" component={InsertCourse} />
-        <Route path="/groupcourseall" component={GroupCourseAll} />
-        <Route path="/insertgroupcourse" component={InsertGroupCourse} />
-        <Route path="/editgroupcourse/:id" component={EditGroupCourse} />
-        <Route path="/educationall" component={EducationAll} />
-        <Route path="/educationstudentall" component={EducationStudentAll} />
-        <Route path="/detailstudenteducation" component={DetailStudentEducation} />
-        <Route path="/insertstudent" component={InsertStudent} />
-        <Route path="/dashboardadmin" component={DashBoardAdmin} />
-        <Route path="/InsertEdudetail/:id" component={InsertEdudetail} />
-        <Route path="/edudetailall/:id" component={Edudetailall} />
-        <Route path="/editedudetail/:id" component={EditEdudetail} />
-        <Route path="/InsertEdudetail/:id" component={InsertEdudetail} />
-        <Route path="/degreeall" component={DegreeAll} />
-        <Route path="/insertdegree" component={InsertDegree} />
-        <Route path="/Editdegree/:id" component={EditDegree} />
-        <Route path="/EducationStudentClass/:id" component={EducationStudentClass} />
-        <Route path="/EducationStudentData/:id" component={EducationStudentData} />
 
-        <Route path="/EducationStudentProfile/:id" component={EducationStudentProfile} />
-        <Route path="/EditImageUniversity/:id" component={EditImageUniversity} />
+        <Route path="/Student/home" component={Home} />
+        <Route path="/Student/educationstudent" component={EducationStudent} />
+        <Route path="/Student/educationstudentdetail/:id" component={EducationStudentDetail} />
+        <Route path="/Student/profile/:id" component={Profile} />
+        <Route path="/Student/editprofile/:id" component={EditProfile} />
+        <Route path="/Student/insertdetaileducationstudent/:id" component={InsertDetailEducationStudent} />
+        <Route path="/Student/detaileducationstudent/:id" component={DetailEducationStudent} />
+        <Route path="/Student/updatedetaileducationstudent/:id" component={UpdateDetailEducationStudent} />
+        <Route path="/Student/educationstudentallstudent" component={EducationStudentAllStudent} />
 
-        <Route path="/ProfileTeacher/:id" component={ProfileTeacher} />
-        <Route path="/EditProfileTeacher/:id" component={EditProfileTeacher} />
+        <Route path="/Teacher/dashboardteacher" component={DashboardTeacher} />
+        <Route path="/Teacher/inserteducation" component={InsertEducation} />
+        <Route path="/Teacher/Hometeacher" component={Hometeacher} />
+        <Route path="/Teacher/editeducation/:id" component={EditEducation} />
+        <Route path="/Teacher/universityAll" component={UniversityAll} />
+        <Route path="/Teacher/editUniversity/:id" component={EditUniversity} />
+        <Route path="/Teacher/editFaculty/:id" component={EditFaculty} />
+        <Route path="/Teacher/editCourse/:id" component={EditCourse} />
+        <Route path="/Teacher/insertuniversity" component={InsertUniversity} />
+        <Route path="/Teacher/facultyall" component={FacultyAll} />
+        <Route path="/Teacher/insertfaculty" component={InsertFaculty} />
+        <Route path="/Teacher/courseall" component={CourseAll} />
+        <Route path="/Teacher/insertcourse" component={InsertCourse} />
+        <Route path="/Teacher/groupcourseall" component={GroupCourseAll} />
+        <Route path="/Teacher/insertgroupcourse" component={InsertGroupCourse} />
+        <Route path="/Teacher/editgroupcourse/:id" component={EditGroupCourse} />
+        <Route path="/Teacher/educationall" component={EducationAll} />
+        <Route path="/Teacher/educationstudentall" component={EducationStudentAll} />
+        <Route path="/Teacher/detailstudenteducation" component={DetailStudentEducation} />
+        <Route path="/Teacher/InsertEdudetail/:id" component={InsertEdudetail} />
+        <Route path="/Teacher/edudetailall/:id" component={Edudetailall} />
+        <Route path="/Teacher/editedudetail/:id" component={EditEdudetail} />
+        <Route path="/Teacher/InsertEdudetail/:id" component={InsertEdudetail} />
+        <Route path="/Teacher/degreeall" component={DegreeAll} />
+        <Route path="/Teacher/insertdegree" component={InsertDegree} />
+        <Route path="/Teacher/Editdegree/:id" component={EditDegree} />
+        <Route path="/Teacher/EducationStudentClass/:id" component={EducationStudentClass} />
+        <Route path="/Teacher/EducationStudentData/:id" component={EducationStudentData} />
+        <Route path="/Teacher/ProfileTeacher/:id" component={ProfileTeacher} />
+        <Route path="/Teacher/EditProfileTeacher/:id" component={EditProfileTeacher} />
+        <Route path="/Teacher/EditImageEducation/:id" component={EditImageEducation} />
 
-        <Route path="/ProfileAdmin/:id" component={ProfileAdmin} />
-        <Route path="/EditProfileAdmin/:id" component={EditProfileAdmin} />
+        <Route path="/Teacher/EducationStudentProfile/:id" component={EducationStudentProfile} />
+        <Route path="/Teacher/EditImageUniversity/:id" component={EditImageUniversity} />
 
-        <Route path="/Adminall" component={Adminall} />
-        <Route path="/InsertStaff" component={InsertStaff} />
+        <Route path="/Admin/dashboardadmin" component={DashBoardAdmin} />
+        <Route path="/Admin/ProfileAdmin/:id" component={ProfileAdmin} />
+        <Route path="/Admin/EditProfileAdmin/:id" component={EditProfileAdmin} />
+        <Route path="/Admin/Adminall" component={Adminall} />
+        <Route path="/Admin/InsertStaff" component={InsertStaff} />
+        <Route path="/Admin/CarouselAll" component={CarouselAll} />
+        <Route path="/Admin/InsertCarousel" component={InsertCarousel} />
+        <Route path="/Admin/EditCarousel/:id" component={EditCarousel} />
+        <Route path="/Admin/EditImageCarousel/:id" component={EditImageCarousel} />
+        <Route path="/Admin/EditNameLogo/:id" component={EditNameLogo} />
+        <Route path="/Admin/EditImageNameLogo/:id" component={EditImageNameLogo} />
+        <Route path="/Admin/NewAll" component={NewAll} />
+        <Route path="/Admin/InsertNew" component={InsertNew} />
+        <Route path="/Admin/EditNew/:id" component={EditNew} />
+        <Route path="/Admin/EditImageNew/:id" component={EditImageNew} />
+        <Route path="/Admin/insertstudent" component={InsertStudent} />
+        <Route path="/Admin/EditFooter/:id" component={EditFooter} />
 
         <Route path="/Test" component={Test} />
         <Route path="/Tests" component={Test} />
-
+        
       </Switch>
       <Footer/>
     </Router>

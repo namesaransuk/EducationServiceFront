@@ -55,7 +55,7 @@ const ViewDegreeAll = (props) => {
           <h3 className="block text-left">รายชื่อหลักสูตร</h3>
         </Col>
         <Col>
-          <a className="block text-right" href="./insertdegree">เพิ่มหลักสูตร</a>
+          <a className="block text-right" href="/Teacher/insertdegree">เพิ่มหลักสูตร</a>
         </Col>
       </Row>
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -99,7 +99,7 @@ const ViewDegreeAll = (props) => {
                           <div className="text-md text-gray-500">{value.initials_degree}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
-                          <a href={"./editDegree/" + value.id_degree} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
+                          <a href={"/Teacher/editDegree/" + value.id_degree} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                             Edit
                           </a>
                         </td>

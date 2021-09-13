@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 import {
   Carousel,
   CarouselItem,
@@ -7,6 +8,7 @@ import {
   CarouselIndicators,
   CarouselCaption
 } from 'reactstrap';
+
 
 const items = [
   {
@@ -20,16 +22,26 @@ const items = [
 const SilderIndex = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
-
+  const [carousel, setCarousel] = useState([]);
+  useEffect(() => {
+    axios('http://localhost:8080/Carousel/getCarousel')
+      .then(response => {
+        console.log(response.data)
+        setCarousel(response.data);
+      })
+      .catch(error => {
+        console.log('Error getting fake data: ' + error);
+      })
+  }, []);
   const next = () => {
     if (animating) return;
-    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+    const nextIndex = activeIndex === carousel.length - 1 ? 0 : activeIndex + 1;
     setActiveIndex(nextIndex);
   }
 
   const previous = () => {
     if (animating) return;
-    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+    const nextIndex = activeIndex === 0 ? carousel.length - 1 : activeIndex - 1;
     setActiveIndex(nextIndex);
   }
 
@@ -38,7 +50,7 @@ const SilderIndex = (props) => {
     setActiveIndex(newIndex);
   }
 
-  const slides = items.map((item) => {
+  const slides = carousel.map((item) => {
     return (
       <CarouselItem
       className="wow bounceInUp"
@@ -46,7 +58,7 @@ const SilderIndex = (props) => {
         onExited={() => setAnimating(false)}
         key={item.src}
       >
-        <img src={item.src} alt={item.altText} />
+        <img src={item.image_carousel} alt={item.altText} />
         <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
       </CarouselItem>
     );

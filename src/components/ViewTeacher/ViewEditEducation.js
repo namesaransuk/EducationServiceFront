@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { Container, Row, Col, Button, Form, FormGroup, Label, Input, Alert } from 'reactstrap';
 import Swal from 'sweetalert2';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' //fornt
+import { faEdit, faTrash, faSearch } from "@fortawesome/free-solid-svg-icons";
 const ViewEditEducation = ({ id }) => {
   const initEducation = {
     id_education: "",
@@ -17,7 +18,7 @@ const ViewEditEducation = ({ id }) => {
     doculment_edu: "",
     note_edu: "",
     url_doculment: "",
-
+    image: "",
   };
 
   const [education, setEducation] = useState(initEducation);
@@ -57,7 +58,7 @@ const ViewEditEducation = ({ id }) => {
       doculment_edu: education.doculment_edu,
       note_edu: education.note_edu,
       url_doculment: education.url_doculment,
-
+      image: education.image,
     }
     if (data['year_edu'] === "" || data['id_round'] === "" || data['id_university'] === ""
       || data['tcas'] === "" || data['open_date'] === "" || data['close_date'] === ""
@@ -82,7 +83,7 @@ const ViewEditEducation = ({ id }) => {
               '',
               'success'
             )
-              .then(() => window.location.assign("/educationall"))
+              .then(() => window.location.assign("/Teacher/educationall"))
 
           } else {
 
@@ -128,6 +129,19 @@ const ViewEditEducation = ({ id }) => {
         <hr></hr>
         <br></br>
         <Form>
+        <center> <img width="20%" alt="ยังไม่ได้อัพเดตตราประจำมหาลัย" src={education.image || 'https://via.placeholder.com/300'} />
+                    <input type="hidden" name="file" value={education.image} />
+                    <FormGroup>
+                        <Input type="hidden"
+                            name="image"
+                            value={education.image}
+                            onChange={handleInputChange} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Button href={"/Teacher/EditImageEducation/" + education.id_education} >
+                            <FontAwesomeIcon icon={faEdit} />เเก้ไขรูปการรับสมัคร
+                        </Button>
+                    </FormGroup></center>
           <Row form>
             <Col md="2">
               <FormGroup>

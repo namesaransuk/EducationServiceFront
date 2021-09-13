@@ -86,7 +86,7 @@ const ViewEditCourse = ({ id }) => {
               '',
               'success'
             )
-              .then(() => window.location.assign("/courseall"))
+              .then(() => window.location.assign("/Teacher/courseall"))
 
           } else {
 

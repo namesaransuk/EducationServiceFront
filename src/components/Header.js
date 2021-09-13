@@ -1,4 +1,5 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState,useEffect } from 'react';
+import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Swal from 'sweetalert2';
 import { Disclosure, Menu, Transition, Popover } from '@headlessui/react'
@@ -7,26 +8,26 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 
 const Header = () => {
     const navigation = [
-        { name: 'ข้อมูลการรับเข้าเรียนต่อ', href: '/educationstudentallstudent', current: true },
-        { name: 'ข้อมูลมหาลัย', href: '/educationstudent', current: false },
+        { name: 'ข้อมูลการรับเข้าเรียนต่อ', href: '/Student/educationstudentallstudent', current: true },
+        { name: 'ข้อมูลมหาลัย', href: '/Student/educationstudent', current: false },
     ]
     const navigationTeacher = [
-        { name: 'ข้อมูลหลัก', href: '/dashboardTeacher', current: true },
-        { name: 'ข้อมูลการรับเข้าเรียนต่อ', href: '/educationall', current: false },
-        { name: 'ข้อมูลนักเรียน', href: '/educationstudentall', current: false },
+        { name: 'ข้อมูลหลัก', href: '/Teacher/dashboardTeacher', current: true },
+        { name: 'ข้อมูลการรับเข้าเรียนต่อ', href: '/Teacher/educationall', current: false },
+        { name: 'ข้อมูลนักเรียน', href: '/Teacher/educationstudentall', current: false },
     ]
     const navigationAdmin = [
-        { name: 'ข้อมูลหลัก', href: '/dashboardAdmin', current: true },
+        { name: 'ข้อมูลหลัก', href: '/Admin/dashboardAdmin', current: true },
     ]
     const profile = [
-        { name: 'ข้อมูลส่วนตัว', href: '/profile/' },
-        { name: 'ข้อมูลการศึกษาต่อ', href: '/detaileducationstudent/' }
+        { name: 'ข้อมูลส่วนตัว', href: '/Student/profile/' },
+        { name: 'ข้อมูลการศึกษาต่อ', href: '/Student/detaileducationstudent/' }
     ]
     const profileTeacher = [
-        { name: 'ข้อมูลส่วนตัวครู', href: '/ProfileTeacher/' },
+        { name: 'ข้อมูลส่วนตัวครู', href: '/Teacher/ProfileTeacher/' },
     ]
     const profileAdmin = [
-        { name: 'ข้อมูลส่วนตัวเเอดมิน', href: '/ProfileAdmin/' },
+        { name: 'ข้อมูลส่วนตัวเเอดมิน', href: '/Admin/ProfileAdmin/' },
     ]
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
@@ -50,7 +51,17 @@ const Header = () => {
     //     fname_staff: localStorage.getItem('fname_staff'),
     //     lname_staff: localStorage.getItem('lname_staff'),
     // }
-
+    const [namelogo, setNamelogo] = useState([])
+    useEffect(() => {
+      axios.get("http://localhost:8080/NameLogo/getDataNameLogo")
+        .then((response) => {
+          setNamelogo(response.data);
+        })
+        .catch(error => {
+          console.log('Error getting fake data: ' + error);
+        })
+    }, []);
+    
     const [ses, setSes] = useState(session);
     // const [ses2, setSes2] = useState(sessionstaff);
 
@@ -71,10 +82,10 @@ const Header = () => {
 
             'ออกจากระบบเสร็จสิ้น',
             '',
-            'success',
-            window.location.assign("/")
+            'success'
         )
-        window.location.assign("/")
+            .then(() => window.location.assign("/"))
+
 
     }
     const toggle = () => setIsOpen(!isOpen);
@@ -94,21 +105,34 @@ const Header = () => {
                                             aria-label="Global"
                                         >
                                             <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
+                                            {namelogo.map((namelogo) => {
+                    return (
                                                 <div className="flex items-center justify-between w-full md:w-auto">
                                                     <a href="/">
                                                         <span className="sr-only">Workflow</span>
                                                         <img
                                                             className="h-16 w-auto"
-                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
+                                                           src={namelogo.LogoWeb || 'https://via.placeholder.com/300'}
                                                         />
                                                     </a>
+                                                    {/*เปลี่ยนได้ให้สวยๆหน่อยก็ดี*/}
+                                                    <div className="flex items-center justify-between w-full md:w-auto">
+                                                    <a>
+                                                        <span className="sr-only">Workflow</span>
+                                                     <br />
+                                                       <a className="font-medium text-white hover:text-gray hover:no-underline"><h4>{namelogo.NameHeaderWeb}</h4> </a>
+                                                  
+                                                       </a></div>
+
                                                     <div className="-mr-2 flex items-center md:hidden">
-                                                        <Popover.Button className="bg-yellow-600 rounded-md p-2 inline-flex items-center justify-center text-white hover:text-black focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                                                        <Popover.Button className="bg-yellow-800 rounded-md p-2 inline-flex items-center justify-center text-white hover:text-yellow-800 hover:bg-yellow-600 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-yellow-500">
                                                             <span className="sr-only">Open main menu</span>
                                                             <MenuIcon className="h-6 w-6" aria-hidden="true" />
                                                         </Popover.Button>
                                                     </div>
                                                 </div>
+                                                     )
+                                                    })}
                                             </div>
                                             <div className="hidden md:block md:ml-auto md:pr-4 md:space-x-8">
                                                 {navigation.map((item) => (
@@ -141,19 +165,24 @@ const Header = () => {
                                         >
                                             <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
                                                 <div className="px-5 pt-4 flex items-center justify-between">
+                                                {namelogo.map((namelogo) => {
+                    return (
                                                     <div>
                                                         <img
                                                             className="h-12 w-auto"
-                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
+                                                            src={namelogo.LogoWeb || 'https://via.placeholder.com/300'}
                                                             alt=""
                                                         />
                                                     </div>
+                                                      )
+                                                    })}
                                                     <div className="-mr-2">
                                                         <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-black hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-black">
                                                             <span className="sr-only">Close main menu</span>
                                                             <XIcon className="h-6 w-6" aria-hidden="true" />
                                                         </Popover.Button>
                                                     </div>
+                                                    
                                                 </div>
                                                 <div className="px-2 pt-2 pb-3 space-y-1">
                                                     {navigation.map((item) => (
@@ -198,21 +227,35 @@ const Header = () => {
                                             aria-label="Global"
                                         >
                                             <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
+                                            {namelogo.map((namelogo) => {
+                    return (
                                                 <div className="flex items-center justify-between w-full md:w-auto">
-                                                    <a href="/DashboardTeacher">
+                                                    <a href="/Teacher/DashBoardteacher">
                                                         <span className="sr-only">Workflow</span>
                                                         <img
                                                             className="h-16 w-auto"
-                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
+                                                           src={namelogo.LogoWeb || 'https://via.placeholder.com/300'}
                                                         />
                                                     </a>
+                                                    {/*เปลี่ยนได้ให้สวยๆหน่อยก็ดี*/}
+                                                    <div className="flex items-center justify-between w-full md:w-auto">
+                                                    <a>
+                                                        <span className="sr-only">Workflow</span>
+                                                       <br/>
+                                                     
+                                                       <a className="font-medium text-white hover:text-gray hover:no-underline"><h4>{namelogo.NameHeaderWeb}</h4> </a>
+                                                  
+                                                       </a></div>
+
                                                     <div className="-mr-2 flex items-center md:hidden">
-                                                        <Popover.Button className="bg-blue-500 rounded-md p-2 inline-flex items-center justify-center text-white hover:text-blue-300 hover:bg-blue-300 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
+                                                        <Popover.Button className="bg-indigo-800 rounded-md p-2 inline-flex items-center justify-center text-white hover:text-indigo-800 hover:bg-indigo-600 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
                                                             <span className="sr-only">Open main menu</span>
                                                             <MenuIcon className="h-6 w-6" aria-hidden="true" />
                                                         </Popover.Button>
                                                     </div>
                                                 </div>
+                                                     )
+                                                    })}
                                             </div>
                                             <div className="hidden md:block md:ml-auto md:pr-4 md:space-x-8">
                                                 {navigationTeacher.map((item) => (
@@ -229,7 +272,7 @@ const Header = () => {
                                                             <div>
                                                                 <Menu.Button className="bg-blue-500 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                     <span className="sr-only">Open user menu</span>
-                                                                    <a href="#!" className="font-medium text-white hover:text-gray hover:no-underline mr-2">{session.fname_staff}{" "}{session.lname_staff}</a>
+                                                                    <a href="#!" className="font-medium text-white hover:text-gray hover:no-underline mr-2">{session.id}{" "}</a>
                                                                 
                                                                 </Menu.Button>
                                                             </div>
@@ -297,13 +340,17 @@ const Header = () => {
                                         >
                                             <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
                                                 <div className="px-5 pt-4 flex items-center justify-between">
+                                                {namelogo.map((namelogo) => {
+                    return (
                                                     <div>
                                                         <img
                                                             className="h-12 w-auto"
-                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
+                                                            src={namelogo.LogoWeb || 'https://via.placeholder.com/300'}
                                                             alt=""
                                                         />
                                                     </div>
+                                                      )
+                                                    })}
                                                     <div className="-mr-2">
                                                         <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-dark hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
                                                             <span className="sr-only">Close main menu</span>
@@ -328,8 +375,8 @@ const Header = () => {
                                                          
                                                             </div>
                                                             <div className="ml-3">
-                                                                <div className="text-base text-white font-medium leading-none">{session.fname}{' '}{session.lname}</div>
-                                                                <div className="text-sm font-medium leading-none text-white">{session.id}</div>
+                                                                <div className="text-base text-white font-medium leading-none">{session.id}{' '}</div>
+                                                                {/* <div className="text-sm font-medium leading-none text-white">{session.id}</div> */}
                                                             </div>
                                                             <button className="ml-auto bg-gray-300 flex-shrink-0 p-1 rounded-full text-dark-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                 <span className="sr-only">View notifications</span>
@@ -381,15 +428,28 @@ const Header = () => {
                                             className="relative flex items-center justify-between sm:h-10 lg:justify-start"
                                             aria-label="Global"
                                         >
+                                            
                                             <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
+                                            {namelogo.map((namelogo) => {
+                    return (
                                                 <div className="flex items-center justify-between w-full md:w-auto">
-                                                    <a href="/DashBoardAdmin">
+                                                    <a href="/Admin/DashBoardAdmin">
                                                         <span className="sr-only">Workflow</span>
                                                         <img
                                                             className="h-16 w-auto"
-                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
+                                                           src={namelogo.LogoWeb || 'https://via.placeholder.com/300'}
                                                         />
                                                     </a>
+                                                    {/*เปลี่ยนได้ให้สวยๆหน่อยก็ดี*/}
+                                                    <div className="flex items-center justify-between w-full md:w-auto">
+                                                    <a>
+                                                        <span className="sr-only">Workflow</span>
+                                                       <br/> 
+                                                     
+                                                       <a className="font-medium text-white hover:text-gray hover:no-underline"><h4>{namelogo.NameHeaderWeb || namelogo.NameWeb }</h4> </a> 
+                                                  
+                                                       </a></div>
+
                                                     <div className="-mr-2 flex items-center md:hidden">
                                                         <Popover.Button className="bg-indigo-800 rounded-md p-2 inline-flex items-center justify-center text-white hover:text-indigo-800 hover:bg-indigo-600 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
                                                             <span className="sr-only">Open main menu</span>
@@ -397,6 +457,8 @@ const Header = () => {
                                                         </Popover.Button>
                                                     </div>
                                                 </div>
+                                                     )
+                                                    })}
                                             </div>
                                             <div className="hidden md:block md:ml-auto md:pr-4 md:space-x-8">
                                                 {navigationAdmin.map((item) => (
@@ -413,7 +475,7 @@ const Header = () => {
                                                             <div>
                                                                 <Menu.Button className="bg-indigo-800 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                     <span className="sr-only">Open user menu</span>
-                                                                    <a href="#!" className="font-medium text-white hover:text-gray hover:no-underline mr-2">{session.fname_admin}{" "}{session.lname_admin}</a>
+                                                                    <a href="#!" className="font-medium text-white hover:text-gray hover:no-underline mr-2">{session.id}{" "}</a>
                                                                  
                                                                 </Menu.Button>
                                                             </div>
@@ -481,13 +543,17 @@ const Header = () => {
                                         >
                                             <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
                                                 <div className="px-5 pt-4 flex items-center justify-between">
+                                                {namelogo.map((namelogo) => {
+                    return (
                                                     <div>
                                                         <img
                                                             className="h-12 w-auto"
-                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
+                                                            src={namelogo.LogoWeb || 'https://via.placeholder.com/300'}
                                                             alt=""
                                                         />
                                                     </div>
+                                                      )
+                                                    })}
                                                     <div className="-mr-2">
                                                         <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-dark hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
                                                             <span className="sr-only">Close main menu</span>
@@ -512,8 +578,8 @@ const Header = () => {
                                                               
                                                             </div>
                                                             <div className="ml-3">
-                                                                <div className="text-base text-white font-medium leading-none">{session.fname}{' '}{session.lname}</div>
-                                                                <div className="text-sm font-medium leading-none text-white">{session.id}</div>
+                                                                <div className="text-base text-white font-medium leading-none">{session.id}{' '}</div>
+                                                                {/* <div className="text-sm font-medium leading-none text-white">{session.id}</div> */}
                                                             </div>
                                                             <button className="ml-auto bg-gray-300 flex-shrink-0 p-1 rounded-full text-dark-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                 <span className="sr-only">View notifications</span>
@@ -566,21 +632,35 @@ const Header = () => {
                                             aria-label="Global"
                                         >
                                             <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
+                                            {namelogo.map((namelogo) => {
+                    return (
                                                 <div className="flex items-center justify-between w-full md:w-auto">
-                                                    <a href="/">
+                                                    <a href="/Student/home">
                                                         <span className="sr-only">Workflow</span>
                                                         <img
                                                             className="h-16 w-auto"
-                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
+                                                           src={namelogo.LogoWeb || 'https://via.placeholder.com/300'}
                                                         />
                                                     </a>
+                                                    {/*เปลี่ยนได้ให้สวยๆหน่อยก็ดี*/}
+                                                    <div className="flex items-center justify-between w-full md:w-auto">
+                                                    <a>
+                                                        <span className="sr-only">Workflow</span>
+                                                       <br/> 
+                                                     
+                                                       <a className="font-medium text-white hover:text-gray hover:no-underline"><h4>{namelogo.NameHeaderWeb}</h4> </a>
+                                                  
+                                                       </a></div>
+
                                                     <div className="-mr-2 flex items-center md:hidden">
-                                                        <Popover.Button className="bg-yellow-600 rounded-md p-2 inline-flex items-center justify-center text-white hover:text-gray-900 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
+                                                        <Popover.Button className="bg-indigo-800 rounded-md p-2 inline-flex items-center justify-center text-white hover:text-indigo-800 hover:bg-indigo-600 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-indigo-500">
                                                             <span className="sr-only">Open main menu</span>
                                                             <MenuIcon className="h-6 w-6" aria-hidden="true" />
                                                         </Popover.Button>
                                                     </div>
                                                 </div>
+                                                     )
+                                                    })}
                                             </div>
                                             <div className="hidden md:block md:ml-auto md:pr-4 md:space-x-8">
                                                 {navigation.map((item) => (
@@ -597,7 +677,7 @@ const Header = () => {
                                                             <div>
                                                                 <Menu.Button className="bg-yellow-600 rounded-full flex items-center focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                     <span className="sr-only">Open user menu</span>
-                                                                    <a href="#!" className="font-medium text-white hover:text-gray hover:no-underline mr-2">{session.fname}{" "}{session.lname}</a>
+                                                                    <a href="#!" className="font-medium text-white hover:text-gray hover:no-underline mr-2">{session.id}{" "}</a>
                                                                 
                                                                 </Menu.Button>
                                                             </div>
@@ -665,13 +745,17 @@ const Header = () => {
                                         >
                                             <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
                                                 <div className="px-5 pt-4 flex items-center justify-between">
+                                                {namelogo.map((namelogo) => {
+                    return (
                                                     <div>
                                                         <img
                                                             className="h-12 w-auto"
-                                                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
+                                                            src={namelogo.LogoWeb || 'https://via.placeholder.com/300'}
                                                             alt=""
                                                         />
                                                     </div>
+                                                      )
+                                                    })}
                                                     <div className="-mr-2">
                                                         <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-dark hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-0 focus:ring-inset focus:ring-dark">
                                                             <span className="sr-only">Close main menu</span>
@@ -696,8 +780,8 @@ const Header = () => {
                                                              
                                                             </div>
                                                             <div className="ml-3">
-                                                                <div className="text-base text-white font-medium leading-none">{session.fname}{' '}{session.lname}</div>
-                                                                <div className="text-sm font-medium leading-none text-white">{session.id}</div>
+                                                                <div className="text-base text-white font-medium leading-none">{session.id}{' '}</div>
+                                                                {/* <div className="text-sm font-medium leading-none text-white">{session.id}</div> */}
                                                             </div>
                                                             <button className="ml-auto bg-gray-300 flex-shrink-0 p-1 rounded-full text-dark-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                                                                 <span className="sr-only">View notifications</span>

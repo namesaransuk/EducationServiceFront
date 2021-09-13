@@ -51,17 +51,17 @@ const ViewEditDegree = ({ id }) => {
             ////ต่อตรงนี้
             Swal.fire(
 
-              'เเก้ไขข้อมูลวุฒิการศึกษาเรียบร้อย',
+              'เเก้ไขข้อมูลหลักสูตรการศึกษาเรียบร้อย',
               '',
               'success'
             )
-              .then(() => window.location.assign("/degreeall"))
+              .then(() => window.location.assign("/Teacher/degreeall"))
 
           } else {
 
             Swal.fire(
-              'เเก้ไข้ข้อมูลวุฒิการศึกษาผิดพลาด',
-              'ชื่อวุฒิการศึกษานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+              'เเก้ไข้ข้อมูลหลักสูตรการศึกษาผิดพลาด',
+              'ชื่อหลักสูตรการศึกษานี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
               'error'
             )
 
@@ -77,10 +77,10 @@ const ViewEditDegree = ({ id }) => {
   return (
 
     <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
-      <h3 className="text-center">เเก้ไขคณะ</h3>
+      <h3 className="text-center">เเก้ไขหลักสูตร</h3>
       <Form>
         <FormGroup>
-          <Label for="name_faculty">ชื่อคณะ</Label>
+          <Label for="name_faculty">ชื่อหลักสูตร</Label>
           <Input
             type="text"
             name="name_degree"

@@ -128,7 +128,7 @@ const ViewInsertdetailEducationStudent = ({id}) => {
                                             '',
                                             'success'
                                         )
-                                            .then(() => window.location.assign("/detaileducationstudent/"+ student.id_stu))
+                                            .then(() => window.location.assign("/Student/detaileducationstudent/"+ student.id_stu))
                 
                                     } else {
                 

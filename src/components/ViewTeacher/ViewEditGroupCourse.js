@@ -57,7 +57,7 @@ const ViewEditGroupCourse = ({ id }) => {
               '',
               'success'
             )
-              .then(() => window.location.assign("/groupcourseall"))
+              .then(() => window.location.assign("/Teacher/groupcourseall"))
 
           } else {
 
@@ -78,7 +78,7 @@ const ViewEditGroupCourse = ({ id }) => {
   }
   return (
 
-    <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
+    <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32"><br /> <br /> 
       <h3 className="text-center">เเก้ไขกลุ่มสาขา</h3>
       <Form onSubmit={saveGroupCourse}>
         <Label for="name_faculty">ชื่อกลุ่มสาขา</Label>

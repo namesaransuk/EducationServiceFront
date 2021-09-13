@@ -70,7 +70,7 @@ const ViewUniversity = () => {
             <h3 className="block text-left">รายชื่อมหาลัยมหาวิทยาลัย</h3>
           </Col>
           <Col>
-            <a className="block text-right" href="./insertuniversity">เพิ่มมหาวิทยาลัย</a>
+            <a className="block text-right" href="/Teacher/insertuniversity">เพิ่มมหาวิทยาลัย</a>
           </Col>
         </Row>
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -123,7 +123,7 @@ const ViewUniversity = () => {
                         <a className="text-md text-gray-500" target="_blank" href={value.url_uni}>{value.url_uni}</a>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-medium">
-                        <a href={"./editUniversity/" + value.id_university} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
+                        <a href={"/Teacher/editUniversity/" + value.id_university} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                           Edit
                         </a>
                       </td>

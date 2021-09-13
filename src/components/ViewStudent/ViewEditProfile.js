@@ -76,10 +76,10 @@ const ViewEditProfile = ({ id }) => {
             Swal.fire(
 
               'เเก้ไขข้อมูลข้อมูลส่วนตัวเรียบร้อย',
-              'เเก้ไขได้เเต่ชื่อบน NavBar มันติดงงๆออกเข้าใหม่',
+              '',
               'success'
             )
-              .then(() => window.location.assign("/profile/" + student.id_stu))
+              .then(() => window.location.assign("/Student/profile/" + student.id_stu))
 
           } else {
 
@@ -104,18 +104,7 @@ const ViewEditProfile = ({ id }) => {
         <Form>
 
 
-          {submited ? (
-            Swal.fire(
-
-              'เเก้ไขข้อมูลส่วนตัวสำเร็จ',
-              ' ',
-              'success',
-              (window.location.assign("/profile/" + student.id_stu)
-              )
-            )
-              (window.location.assign("/profile/" + student.id_stu)
-              )
-          ) : (
+     
             <Form>
               <div className="text-center mx-auto pb-4">
                 <h3> เเก้ไขข้อมูลส่วนตัว </h3>
@@ -256,14 +245,14 @@ const ViewEditProfile = ({ id }) => {
               <div className="mx-auto text-center">
                 <a
                   type="button"
-                  href="/home"
+                  href="/Student/home"
                   className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   กลับหน้าหลัก
                 </a>
                 <a
                   type="button"
-                  href={"/profile/" + student.id_stu}
+                  href={"/Student/profile/" + student.id_stu}
                   className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   กลับไปข้อมูลส่วนตัว
@@ -272,7 +261,7 @@ const ViewEditProfile = ({ id }) => {
 
 
             </Form>
-          )}
+    
 
         </Form>
 

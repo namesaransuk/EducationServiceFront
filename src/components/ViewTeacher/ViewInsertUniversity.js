@@ -13,7 +13,6 @@ const ViewInsertUniversity = () => {
         url_uni: "",
         file: "",
         detail_uni: "",
-
     };
 
     const [progress, setProgress] = useState(0); //เซต progress
@@ -120,12 +119,12 @@ const ViewInsertUniversity = () => {
                             '',
                             'success'
                         )
-                            .then(() => window.location.assign("/universityall"))
+                            .then(() => window.location.assign("/Teacher/universityall"))
 
                     } else {
 
                         Swal.fire(
-                            'เพิ่มข้อมูลมหาวิทยาลัยลัยผิดพลาด',
+                            'เพิ่มข้อมูลมหาวิทยาลัยผิดพลาด',
                             'ชื่อมหาวิทยาลัยนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
                             'error'
                         )

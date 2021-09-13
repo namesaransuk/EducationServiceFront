@@ -97,7 +97,7 @@ const ViewDetailStudentEducation = (props) => {
       </FormGroup>
         </Col>
       </Row>
-      <Button href="./educationstudentall">กลับ</Button>
+      <Button href="/Teacher/educationstudentall">กลับ</Button>
 
 
       <Row>

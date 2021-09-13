@@ -43,17 +43,7 @@ const ViewEducationStudentProfile = ({ id }) => {
           <div className="md:grid md:grid-cols-3 md:gap-6">
             <div className="md:col-span-1">
               <h3 className="text-center mb-4"> ข้อมูลการส่วนตัว </h3>
-              <div className="p-3 text-center rounded-t-lg md:rounded-md px-4 bg-gradient-to-r from-blue-400 via-blue-500 to-blue-600">
-                <img
-                  className="mx-auto mt-3 h-20 w-20 rounded-full ring-2 ring-white"
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                  alt=""
-                />
-                <h3 className="mt-4 text-lg text-white font-medium leading-6 text-gray-900">{student.fname_stu} {student.lname_stu}</h3>
-                <p className="mt-1 text-sm text-white">
-                  รหัสนักศึกษา : {student.id_stu}
-                </p>
-              </div>
+            
             </div>
             <div className="md:mt-0 md:col-span-2">
               <div className="shadow md:rounded-md md:overflow-hidden">

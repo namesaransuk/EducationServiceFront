@@ -9,35 +9,35 @@ const ViewDashboardTeacher = (props) => {
   const features = [
     {
       name: 'มหาวิทยาลัย',
-      href: './universityall',
+      href: '/Teacher/universityall',
       description:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
       icon: LibraryIcon,
     },
     {
       name: 'คณะ',
-      href: './facultyall',
+      href: '/Teacher/facultyall',
       description:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
       icon: OfficeBuildingIcon,
     },
     {
       name: 'สาขา',
-      href: './courseall',
+      href: '/Teacher/courseall',
       description:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
       icon: UserIcon,
     },
     {
       name: 'กลุ่มสาขา',
-      href: './groupcourseall',
+      href: '/Teacher/groupcourseall',
       description:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
       icon: UsersIcon,
     },
     {
-      name: 'วุฒิ',
-      href: './degreeall',
+      name: 'หลักสูตร',
+      href: '/Teacher/degreeall',
       description:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
       icon: AcademicCapIcon,
@@ -47,7 +47,7 @@ const ViewDashboardTeacher = (props) => {
   const featuresUniversity = [
     {
       name: 'ข้อมูลการศึกษาต่อ',
-      href: './educationall',
+      href: '/Teacher/educationall',
       description:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
       icon: BookmarkAltIcon,
@@ -57,7 +57,7 @@ const ViewDashboardTeacher = (props) => {
   const featuresStudent = [
     {
       name: 'ข้อมูลการศึกษาต่อของนักเรียน',
-      href: './educationstudentall',
+      href: '/Teacher/educationstudentall',
       description:
         'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.',
       icon: IdentificationIcon,

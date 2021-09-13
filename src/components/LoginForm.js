@@ -35,6 +35,16 @@ const LoginForm = () => {
         setUser({ ...user, [name]: value });
     }
 
+    const [namelogo, setNamelogo] = useState([])
+    useEffect(() => {
+      axios.get("http://localhost:8080/NameLogo/getDataNameLogo")
+        .then((response) => {
+          setNamelogo(response.data);
+        })
+        .catch(error => {
+          console.log('Error getting fake data: ' + error);
+        })
+    }, []);
     const saveStudent = async (e) => {
         e.preventDefault();
 
@@ -44,75 +54,85 @@ const LoginForm = () => {
         };
 
         await axios.post("http://localhost:8080/Login", data)
-            .then((res) => {
-                console.log(res.data.message);
-                if (res.data.message == "Student") {
-                    localStorage.setItem('id', res.data.id);
-                    localStorage.setItem('fname', res.data.fname);
-                    localStorage.setItem('lname', res.data.lname);
-                    Swal.fire(
+        .then((res) => {
+            console.log(res.data.message);
+            if (res.data.message == "Student") {
+                localStorage.setItem('id', res.data.id);
+                localStorage.setItem('fname', res.data.fname);
+                localStorage.setItem('lname', res.data.lname);
+                // Swal.fire({
+                //     title: "<h1>Title</h1>", 
+                //     html: "Testno  sporocilo za objekt: <b>test</b>",  
+                //     confirmButtonText: "V <u>redu</u>", 
+                //   })
+    Swal.fire(
+         
+        '<div id="loginSucess"> เข้าสู่ระบบเสร็จสิ้น </div>',
+        'คุณเป็น นักเรียน',
+        'success'
+        
+    )
+        .then(() => window.location.assign("/Student/home"))
 
-                        'เข้าสู่ระบบเสร็จสิ้น',
-                        'คุณเป็น นักเรียน',
-                        'success',
-                        window.location.assign("/")
+
+}
+            else if (res.data.message == "ครู") {
+                // else if (res.data.message == "Teacher") {
+                localStorage.setItem('id', res.data.id);
+                localStorage.setItem('fname_staff', res.data.fname_staff);
+                localStorage.setItem('lname_staff', res.data.lname_staff);
+                localStorage.setItem('name_position', res.data.name_position);
+                Swal.fire(
+
+                    'เข้าสู่ระบบเสร็จสิ้น',
+                    'คุณเป็น ครู ',
+                    'success',
                     )
-                    window.location.assign("/")
-                }
-                else if (res.data.message == "ครู") {
-                    localStorage.setItem('id', res.data.id);
-                    localStorage.setItem('fname_staff', res.data.fname_staff);
-                    localStorage.setItem('lname_staff', res.data.lname_staff);
-                    localStorage.setItem('name_position', res.data.name_position);
-                    Swal.fire(
+                    .then(() => window.location.assign("/Teacher/DashboardTeacher"))
 
-                        'เข้าสู่ระบบเสร็จสิ้น',
-                        'คุณเป็น ครู ',
-                        'success',
-                        window.location.assign("/DashboardTeacher")
+            }
+            else if (res.data.message == "แอดมิน") {
+                // else if (res.data.message == "Admin") {
+                localStorage.setItem('id', res.data.id);
+                localStorage.setItem('fname_admin', res.data.fname_staff);
+                localStorage.setItem('lname_admin', res.data.lname_staff);
+                localStorage.setItem('name_position', res.data.name_position);
+                Swal.fire(
+
+                    'เข้าสู่ระบบเสร็จสิ้น',
+                    'คุณเป็น เเอดมิน ',
+                    'success',
                     )
-                    window.location.assign("/DashboardTeacher")
-                }
-                else if (res.data.message == "แอดมิน") {
-                    localStorage.setItem('id', res.data.id);
-                    localStorage.setItem('fname_admin', res.data.fname_staff);
-                    localStorage.setItem('lname_admin', res.data.lname_staff);
-                    localStorage.setItem('name_position', res.data.name_position);
-                    Swal.fire(
+        .then(() => window.location.assign("/Admin/DashBoardAdmin"))
+            } else {
+                Swal.fire(
+                    'เข้าสู่ระบบล้มเหลว',
+                    'กรุณากรอกรหัสผ่านกับไอดีใหม่ ',
+                    'error'
+                )
+            }
 
-                        'เข้าสู่ระบบเสร็จสิ้น',
-                        'คุณเป็น เเอดมิน ',
-                        'success',
-                        window.location.assign("/DashBoardAdmin")
-                    )
-                    window.location.assign("/DashBoardAdmin")
-                } else {
-                    Swal.fire(
-                        'เข้าสู่ระบบล้มเหลว',
-                        'กรุณากรอกรหัสผ่านกับอีเมลใหม่ ',
-                        'error'
-                    )
-                }
+        })
 
-            })
+        .catch((error) => {
+            console.log("error");
+        });
 
-            .catch((error) => {
-                console.log("error");
-            });
-
-    }
+}
     return (
             <div className="sm:pt-32 min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+                  {namelogo.map((namelogo) => {
+                    return (
                 <div className="max-w-md w-full space-y-8">
                     <div>
                         <img
                             className="mx-auto h-32 w-auto"
-                            src="https://gitlab.com/614259047/project-p4/-/raw/main/unnamed.gif"
+                            src={namelogo.LogoWeb || 'https://via.placeholder.com/300'}
                             alt="Workflow"
                         />
                         <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900">เข้าสู่ระบบ</h2>
                         <p className="mt-2 text-center text-2xl text-gray-600">
-                            โรงเรียนประสาทรัฐประชากิจ
+                        {namelogo.NameWeb}
                         </p>
                     </div>
                     <form className="mt-8 space-y-6" onSubmit={saveStudent}>
@@ -183,6 +203,8 @@ const LoginForm = () => {
                         </div>
                     </form>
                 </div>
+                 )
+                })}
             </div>
     )
 }

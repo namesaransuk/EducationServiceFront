@@ -162,7 +162,7 @@ const ViewUpdateDetailEducationStudent = ({ id }) => {
               ' ',
               'success',
             )
-              (window.location.assign("/detaileducationstudent/" + student.id_stu))
+              (window.location.assign("/Student/detaileducationstudent/" + student.id_stu))
           ) : (
             <Form>
 
@@ -228,14 +228,14 @@ const ViewUpdateDetailEducationStudent = ({ id }) => {
               <div className="mx-auto text-center">
                 <a
                   type="button"
-                  href="/home"
+                  href="/Student/home"
                   className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   กลับหน้าหลัก
                 </a>
                 <a
                   type="button"
-                  href={"/detaileducationstudent/" + student.id_stu}
+                  href={"/Student/detaileducationstudent/" + student.id_stu}
                   className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   กลับไปข้อมูลการศึกษาต่อ

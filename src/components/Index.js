@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import Pagination from './pagination/paginationnewindex';
+import Paginations from './pagination/paginationnewindexstudent';
+import ViewDashBoardAdmin from './ViewAdmin/ViewDashBoardAdmin';
+import ViewDashboardTeacher from './ViewTeacher/ViewDashboardTeacher';
+
 import {
   BriefcaseIcon,
   CalendarIcon,
@@ -99,8 +104,43 @@ function Index() {
   //     lname_staff: localStorage.getItem('lname_staff'),
   // }
 
+  const [namelogo, setNamelogo] = useState([])
+  useEffect(() => {
+    axios.get("http://localhost:8080/NameLogo/getDataNameLogo")
+      .then((response) => {
+        setNamelogo(response.data);
+      })
+      .catch(error => {
+        console.log('Error getting fake data: ' + error);
+      })
+  }, []);
+
   const [ses, setSes] = useState(session);
   // const [ses2, setSes2] = useState(sessionstaff);
+
+
+  const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(6);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const res = await axios.get('http://localhost:8080/EducationNew/');
+      setPosts(res.data);
+    };
+
+    fetchPosts();
+  }, []);
+
+
+  // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  // Change page
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -137,17 +177,21 @@ function Index() {
     updateEducationdata();
   }, []);
 
+
+
   if (session.id === null) {
     return (
       <div>
+          {namelogo.map((namelogo) => {
+                    return (
         <div className="pt-36 md:pt-52 bg-yellow-600 mx-auto">
           <div className="mx-auto sm:text-center lg:text-left pb-12 md:pb-28">
             <h1 className="text-center mx-auto text-3xl font-extrabold text-white sm:text-5xl md:text-6xl lg:text-7xl sm:max-w-5xl md:max-w-4xl lg:max-w-6xl">
-              <span className="block xl:inline">โรงเรียนประสาทรัฐประชากิจ</span>{' '}
-              <span className="block text-red-800 xl:inline">Prasartratprachakit School</span>
+              <span className="block xl:inline">{namelogo.NameWeb}</span>{' '}
+              <span className="block text-red-800 xl:inline">{namelogo.EngNameWeb || "EducationServiceWebsite"}</span>
             </h1>
             <p className="mt-3 text-center text-base text-dark sm:mt-5 sm:text-lg sm:max-w-2xl sm:mx-auto md:mt-5">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, explicabo. Ex a error perspiciatis eos nulla aut dicta dolores? Culpa, quia! Corrupti, adipisci harum laboriosam dolores odit possimus veritatis tenetur.
+            {namelogo.DetailWeb || "EducationServiceWebsite" }
             </p>
             {/* <div className="mr-3 ml-3 mt-3 sm:mt-8 sm:flex sm:justify-center">
             <div className="mt-2 sm:mt-0 sm:ml-3">
@@ -169,29 +213,30 @@ function Index() {
           </div> */}
           </div>
           <SilderIndex />
-        </div>
+        </div>  )
+              })}
         <div class="wow fadeInUpBig bg-fixed w-full h-80 md:h-screen bg-center overflow-y-1" style={{ backgroundImage: `url("https://www.npru.ac.th/2019/img/gallery/npru-57.jpg")`, filter: 'blur(2px)' }}></div>
         <div class="container-fluid mt-5">
           <center><h2> ประชาสัมพันธ์ </h2></center>
 
           <div class="row row-cols-1 row-cols-md-3">
-            {educationdata.map((educationdata) => {
+            {currentPosts.map((Post) => {
               return (
                 <div class="col mb-4">
                   <Card>
-                    <CardImg top width="" src="https://tcaster.net/wp-content/uploads/2020/10/631010.01.png" alt="Card image cap" />
+                  <CardImg width="10" className="mx-auto" src={Post.new_image || 'https://via.placeholder.com/604x317'} />
                     <CardBody>
                       <div className="lg:items-center lg:justify-between">
                         <div className="flex-1 min-w-0">
-                          <h2 className="text-lg flex-warp font-bold leading-7 text-gray-900 sm:text-xl pb-3 border-b">{educationdata.name_uni}</h2>
+                          <h2 className="text-lg flex-warp font-bold leading-7 text-gray-900 sm:text-xl pb-3 border-b">{Post.new_name}</h2>
                           <div className="">
                             <div className="mt-2 flex items-center text-sm text-gray-500">
                               <BriefcaseIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                              รับจำนวน : {educationdata.number_of_edu}
+                              รายละเอียด : {Post.new_detail}
                             </div>
                             <div className="mt-2 flex items-center text-sm text-gray-500">
                               <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                              รอบ : {educationdata.name_round}
+                              วันที่ลง : {Post.new_date}
                             </div>
                           </div>
                         </div>
@@ -199,7 +244,7 @@ function Index() {
                           <span className="">
                             <a
                               type="button"
-                              href={"/educationstudentdetail/" + educationdata.id_education}
+                              href={"/educationstudentdetail/" + Post.new_url}
                               className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                               ดูรายละเอียด
@@ -213,6 +258,11 @@ function Index() {
               );
             })}
           </div>
+          <Pagination
+        postsPerPage={postsPerPage}
+        totalPosts={posts.length}
+        paginate={paginate}
+      />
           <br />
         </div>
       </div>
@@ -221,177 +271,104 @@ function Index() {
   }
   else if (session.fname_staff = session.fname_staff) {
     return (
-      <div className="mt-32 mx-auto">
-        <div className="bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="lg:text-center">
-              <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                จัดการข้อมูลทั้งหมด
-              </p>
-              {/* <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                      Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in
-                      accusamus quisquam.
-                    </p> */}
-            </div>
-
-            <div className="mt-10">
-              <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Main Menu</h2>
-              <dl className="mt-4 space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-                {features.map((feature) => (
-                  <a className="hover:no-underline" href={feature.href}>
-                    <div key={feature.name} className="relative">
-                      <dt>
-                        <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                          <feature.icon className="h-6 w-6" aria-hidden="true" />
-                        </div>
-                        <p className="ml-16 text-lg leading-6 font-medium text-gray-900">{feature.name}</p>
-                      </dt>
-                      <dd className="mt-2 ml-16 text-base text-gray-500">{feature.description}</dd>
-                    </div>
-                  </a>
-                ))}
-              </dl>
-
-              <h2 className="mt-5 text-base text-indigo-600 font-semibold tracking-wide uppercase">University Information Menu</h2>
-              <dl className="mt-4 space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-                {featuresUniversity.map((feature) => (
-                  <a className="hover:no-underline" href={feature.href}>
-                    <div key={feature.name} className="relative">
-                      <dt>
-                        <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                          <feature.icon className="h-6 w-6" aria-hidden="true" />
-                        </div>
-                        <p className="ml-16 text-lg leading-6 font-medium text-gray-900">{feature.name}</p>
-                      </dt>
-                      <dd className="mt-2 ml-16 text-base text-gray-500">{feature.description}</dd>
-                    </div>
-                  </a>
-                ))}
-              </dl>
-
-              <h2 className="mt-5 text-base text-indigo-600 font-semibold tracking-wide uppercase">Student Information Menu</h2>
-              <dl className="mt-4 space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">
-                {featuresStudent.map((feature) => (
-                  <a className="hover:no-underline" href={feature.href}>
-                    <div key={feature.name} className="relative">
-                      <dt>
-                        <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-                          <feature.icon className="h-6 w-6" aria-hidden="true" />
-                        </div>
-                        <p className="ml-16 text-lg leading-6 font-medium text-gray-900">{feature.name}</p>
-                      </dt>
-                      <dd className="mt-2 ml-16 text-base text-gray-500">{feature.description}</dd>
-                    </div>
-                  </a>
-                ))}
-              </dl>
-
-            </div>
-          </div>
-        </div>
-      </div>
+     <ViewDashboardTeacher />
     );
   }
   else if (session.fname_admin = session.fname_admin) {
     return (
-      <div>
-        <center><h2> DashBoard </h2></center>
-        <div class="container">
-          <Row>
-            <Col><Button href="./insertstudent">AddStudent</Button></Col>
-          </Row>
-          <Row>
-            <Col><Button href="./Adminall">ข้อมูลผู้ดูเเล</Button></Col>
-          </Row>
-        </div>
-
-
-
-      </div>
+     <ViewDashBoardAdmin />
     );
   }
   else {
     return (
       <div>
-        <div className="pt-36 md:pt-52 bg-yellow-600 mx-auto">
-          <div className="mx-auto sm:text-center lg:text-left pb-12 md:pb-28">
-            <h1 className="text-center mx-auto text-3xl font-extrabold text-white sm:text-5xl md:text-6xl lg:text-7xl sm:max-w-5xl md:max-w-4xl lg:max-w-6xl">
-              <span className="block xl:inline">โรงเรียนประสาทรัฐประชากิจ</span>{' '}
-              <span className="block text-red-800 xl:inline">Prasartratprachakit School</span>
-            </h1>
-            <p className="mt-3 text-center text-base text-dark sm:mt-5 sm:text-lg sm:max-w-2xl sm:mx-auto md:mt-5">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum, explicabo. Ex a error perspiciatis eos nulla aut dicta dolores? Culpa, quia! Corrupti, adipisci harum laboriosam dolores odit possimus veritatis tenetur.
-            </p>
-            {/* <div className="mr-3 ml-3 mt-3 sm:mt-8 sm:flex sm:justify-center">
-                  <div className="mt-2 sm:mt-0 sm:ml-3">
-                    <a
-                      href="#"
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
-                    >
-                      เข้าสู่ระบบ
-                    </a>
-                  </div>
-                  <div className="mt-2 sm:mt-0 sm:ml-3">
-                    <a
-                      href="#"
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10"
-                    >
-                      ลงทะเบียน
-                                                  </a>
-                  </div>
-                </div> */}
-          </div>
-          <SilderIndex />
+      {namelogo.map((namelogo) => {
+                return (
+    <div className="pt-36 md:pt-52 bg-yellow-600 mx-auto">
+      <div className="mx-auto sm:text-center lg:text-left pb-12 md:pb-28">
+        <h1 className="text-center mx-auto text-3xl font-extrabold text-white sm:text-5xl md:text-6xl lg:text-7xl sm:max-w-5xl md:max-w-4xl lg:max-w-6xl">
+          <span className="block xl:inline">{namelogo.NameWeb}</span>{' '}
+          <span className="block text-red-800 xl:inline">{namelogo.EngNameWeb || "EducationServiceWebsite" }</span>
+        </h1>
+        <p className="mt-3 text-center text-base text-dark sm:mt-5 sm:text-lg sm:max-w-2xl sm:mx-auto md:mt-5">
+        {namelogo.DetailWeb || "EducationServiceWebsite" }
+        </p>
+        {/* <div className="mr-3 ml-3 mt-3 sm:mt-8 sm:flex sm:justify-center">
+        <div className="mt-2 sm:mt-0 sm:ml-3">
+          <a
+            href="#"
+            className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+          >
+            เข้าสู่ระบบ
+          </a>
         </div>
+        <div className="mt-2 sm:mt-0 sm:ml-3">
+          <a
+            href="#"
+            className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10"
+          >
+            ลงทะเบียน
+                                        </a>
+        </div>
+      </div> */}
+      </div>
+      <SilderIndex />
+    </div>  )
+          })}
         <div class="wow fadeInUpBig bg-fixed w-full h-80 md:h-screen bg-center overflow-y-1" style={{ backgroundImage: `url("https://www.npru.ac.th/2019/img/gallery/npru-57.jpg")`, filter: 'blur(2px)' }}></div>
         <div class="container-fluid mt-5">
-          <center><h2> ประชาสัมพันธ์ </h2></center>
+        <center><h2> ประชาสัมพันธ์ </h2></center>
 
-          <div class="row row-cols-1 row-cols-md-3">
-            {educationdata.map((educationdata) => {
-              return (
-                <div class="col mb-4">
-                  <Card>
-                    <CardImg top width="" src="https://tcaster.net/wp-content/uploads/2020/10/631010.01.png" alt="Card image cap" />
-                    <CardBody>
-                      <div className="lg:items-center lg:justify-between">
-                        <div className="flex-1 min-w-0">
-                          <h2 className="text-lg flex-warp font-bold leading-7 text-gray-900 sm:text-xl pb-3 border-b">{educationdata.name_uni}</h2>
-                          <div className="">
-                            <div className="mt-2 flex items-center text-sm text-gray-500">
-                              <BriefcaseIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                              รับจำนวน : {educationdata.number_of_edu}
-                            </div>
-                            <div className="mt-2 flex items-center text-sm text-gray-500">
-                              <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                              รอบ : {educationdata.name_round}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="mt-3 lg:mt-0">
-                          <span className="">
-                            <a
-                              type="button"
-                              href={"/educationstudentdetail/" + educationdata.id_education}
-                              className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            >
-                              ดูรายละเอียด
-                            </a>
-                          </span>
-                        </div>
-                      </div>
-                    </CardBody>
-                  </Card>
+<div class="row row-cols-1 row-cols-md-3">
+  {currentPosts.map((Post) => {
+    return (
+      <div class="col mb-4">
+        <Card>
+        <CardImg width="10" className="mx-auto" src={Post.new_image || 'https://via.placeholder.com/604x317'} />
+          <CardBody>
+            <div className="lg:items-center lg:justify-between">
+              <div className="flex-1 min-w-0">
+                <h2 className="text-lg flex-warp font-bold leading-7 text-gray-900 sm:text-xl pb-3 border-b">{Post.new_name}</h2>
+                <div className="">
+                  <div className="mt-2 flex items-center text-sm text-gray-500">
+                    <BriefcaseIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+                    รายละเอียด : {Post.new_detail}
+                  </div>
+                  <div className="mt-2 flex items-center text-sm text-gray-500">
+                    <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+                    วันที่ลง : {Post.new_date}
+                  </div>
                 </div>
-              );
-            })}
-          </div>
-          <br />
-        </div>
+              </div>
+              <div className="mt-3 lg:mt-0">
+                <span className="">
+                  <a
+                    type="button"
+                    href={"/educationstudentdetail/" + Post.new_url}
+                    className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    ดูรายละเอียด
+                  </a>
+                </span>
+              </div>
+            </div>
+          </CardBody>
+        </Card>
       </div>
-
     );
-  }
+  })}
+</div>
+<Paginations
+postsPerPage={postsPerPage}
+totalPosts={posts.length}
+paginate={paginate}
+/>
+<br />
+</div>
+</div>
+
+);
+}
 
 }
 

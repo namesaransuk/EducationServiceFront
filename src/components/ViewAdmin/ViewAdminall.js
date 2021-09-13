@@ -36,20 +36,20 @@ const ViewAdminall = () => {
       })
   }, []);
 
-  const deleteProduct = async (StaffName, StaffId) => {
+  const deleteProduct = async (Name, id) => {
     let result = await confirm(
       {
         title: <>คำเตือน!! </>,
-        message: 'คุณต้องการลบผู้ดูเเล" ' + StaffName + ' "ใช่ไหม?',
+        message: 'คุณต้องการลบผู้ดูเเล" ' + Name + ' "ใช่ไหม?',
         confirmText: "ใช่",
         confirmColor: "primary",
         cancelText: "ไม่ใช่",
         cancelColor: "btn btn-danger",
 
-      }); (window.location.assign("/Adminall"))
+      }); (window.location.assign("/Admin/Adminall"))
 
     if (result) {
-      axios.delete("http://localhost:8080/staff/DeleteStaff/" + StaffId)//คำสั่งลบที่ดึงมาจาก url
+      axios.delete("http://localhost:8080/staff/DeleteStaff/" + id)//คำสั่งลบที่ดึงมาจาก url
         .then((response) => {
           setAdmin(); //อัพเดตหน้าว่าลบไปเเล้ว
         });
@@ -76,7 +76,7 @@ const ViewAdminall = () => {
             <h3 className="block text-left">รายชื่อผู้ดูเเล</h3>
           </Col>
           <Col>
-            <a className="block text-right" href="./InsertStaff">เพิ่มผู้ดูเเล</a>
+            <a className="block text-right" href="/Admin/InsertStaff">เพิ่มผู้ดูเเล</a>
           </Col>
         </Row>
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -137,7 +137,7 @@ const ViewAdminall = () => {
                         <div className="text-md text-gray-900">{value.name_position}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-lg font-medium">
-                        <a onClick={() => deleteProduct(Admin.fname_staff, Admin.id_staff)} className="text-white bg-red-600 hover:bg-red-800 rounded-md px-4 py-2.5 hover:no-underline">
+                        <a onClick={() => deleteProduct(value.fname_staff, value.id_staff)} className="text-white bg-red-600 hover:bg-red-800 rounded-md px-4 py-2.5 hover:no-underline">
                           Delete
                         </a>
                       </td>

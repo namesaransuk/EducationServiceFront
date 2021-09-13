@@ -61,7 +61,7 @@ const ViewEducationStudentAll = (props) => {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-left text-md font-medium">
-                          <a type="button" href={"/EducationStudentData/" + year.class} className="px-4 py-2.5 rounded text-white bg-indigo-600 hover:text-indigo-900">
+                          <a type="button" href={"/Teacher/EducationStudentData/" + year.class} className="px-4 py-2.5 rounded text-white bg-indigo-600 hover:text-indigo-900">
                           ดูข้อมูลรายชื่อนักเรียน
                           </a>
                         </td>

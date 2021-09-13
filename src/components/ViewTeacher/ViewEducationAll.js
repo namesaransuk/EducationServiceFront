@@ -67,7 +67,7 @@ const ViewEducationAll = () => {
             <h3 className="block text-left">รายชื่อการรับเข้าศึกษาต่อ</h3>
           </Col>
           <Col>
-            <a className="block text-right" href="./InsertEducation">เพิ่มข้อมูล</a>
+            <a className="block text-right" href="/Teacher/InsertEducation">เพิ่มข้อมูล</a>
           </Col>
         </Row>
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -141,12 +141,12 @@ const ViewEducationAll = () => {
                           <div className="text-md text-gray-900">{value.close_date}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
-                          <a type="button" href={"/editeducation/" + value.id_education} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
+                          <a type="button" href={"/Teacher/editeducation/" + value.id_education} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                             <b>แก้ไขข้อมูล</b>
                           </a>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-left text-md font-medium">
-                          <a type="button" href={"/edudetailall/" + value.id_education} className="text-white bg-blue-600 hover:bg-blue-900 rounded-md px-4 py-2.5 hover:no-underline">
+                          <a type="button" href={"/Teacher/edudetailall/" + value.id_education} className="text-white bg-blue-600 hover:bg-blue-900 rounded-md px-4 py-2.5 hover:no-underline">
                             <b>เพิ่มรายละเอียด</b>
                           </a>
                         </td>

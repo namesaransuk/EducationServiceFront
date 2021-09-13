@@ -121,7 +121,7 @@ const ViewEditEdudetail = ({ id }) => {
                             '',
                             'success'
                         )
-                            .then(() => window.location.assign("/edudetailall/" + edudetail.id_education))
+                            .then(() => window.location.assign("/Teacher/edudetailall/" + edudetail.id_education))
 
                     } else {
 

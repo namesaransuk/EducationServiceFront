@@ -85,7 +85,7 @@ const ViewInsertStaff = (props) => {
               '',
               'success'
             )
-              .then(() => window.location.assign("/Adminall"))
+              .then(() => window.location.assign("/Admin/Adminall"))
 
           } else {
 

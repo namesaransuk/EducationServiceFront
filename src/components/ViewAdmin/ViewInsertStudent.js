@@ -66,7 +66,7 @@ const ViewInsertStudent = () => {
                'success',
 
              )
-             (window.location.assign("/insertstudent"))
+             (window.location.assign("/Admin/insertstudent"))
            ):(
             <Form>
    <br /><br /><br /><br /><br /><br /> <Label> เพิ่มนักเรียน </Label>

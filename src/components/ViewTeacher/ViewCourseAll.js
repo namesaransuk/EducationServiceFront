@@ -62,7 +62,7 @@ const ViewCourseAll = (props) => {
             <h3 className="block text-left">รายชื่อสาขา</h3>
           </Col>
           <Col>
-            <a className="block text-right" href="./insertcourse">เพิ่มสาขา</a>
+            <a className="block text-right" href="/Teacher/insertcourse">เพิ่มสาขา</a>
           </Col>
         </Row>
           <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -107,7 +107,7 @@ const ViewCourseAll = (props) => {
                             <div className="text-md text-gray-500">{value.name_course}</div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap text-right text-md font-medium">
-                            <a href={"./editCourse/" + value.id_course} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
+                            <a href={"/Teacher/editCourse/" + value.id_course} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                               Edit
                             </a>
                           </td>

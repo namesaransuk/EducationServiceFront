@@ -115,7 +115,7 @@ const ViewEditUniversity = ({ id }) => {
                             '',
                             'success'
                         )
-                            .then(() => window.location.assign("/universityall"))
+                            .then(() => window.location.assign("/Teacher/universityall"))
 
                     } else {
 
@@ -148,7 +148,7 @@ const ViewEditUniversity = ({ id }) => {
                             onChange={handlleInputChange} />
                     </FormGroup>
                     <FormGroup>
-                        <Button href={"../editImageUniversity/" + university.id_university} >
+                        <Button href={"/Teacher/editImageUniversity/" + university.id_university} >
                             <FontAwesomeIcon icon={faEdit} />เเก้ไขตราประจำมหาลัย
                         </Button>
                     </FormGroup></center>

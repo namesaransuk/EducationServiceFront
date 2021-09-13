@@ -84,7 +84,7 @@ import Swal from 'sweetalert2';
                             '',
                             'success'
                         )
-                            .then(() => window.location.assign("/profileAdmin/"+ teacher.id_staff))
+                            .then(() => window.location.assign("/Admin/profileAdmin/"+ teacher.id_staff))
 
                     } else {
 
@@ -234,14 +234,14 @@ import Swal from 'sweetalert2';
               <div className="mx-auto text-center">
                 <a
                   type="button"
-                  href="/dashboardadmin"
+                  href="/Admin/dashboardadmin"
                   className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   กลับหน้าหลัก
                 </a>
                 <a
                   type="button"
-                  href={"/profileadmin/" + teacher.id_staff}
+                  href={"/Admin/profileadmin/" + teacher.id_staff}
                   className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
                   กลับไปข้อมูลส่วนตัว

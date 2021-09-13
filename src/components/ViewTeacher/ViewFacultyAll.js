@@ -57,7 +57,7 @@ const ViewFacultyAll = () => {
             <h3 className="block text-left">รายชื่อคณะ</h3>
           </Col>
           <Col>
-            <a className="block text-right" href="./insertfaculty">เพิ่มคณะ</a>
+            <a className="block text-right" href="/Teacher/insertfaculty">เพิ่มคณะ</a>
           </Col>
         </Row>
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -92,7 +92,7 @@ const ViewFacultyAll = () => {
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <a href={"./editFaculty/" + value.id_faculty} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
+                          <a href={"/Teacher/editFaculty/" + value.id_faculty} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                             Edit
                           </a>
                         </td>

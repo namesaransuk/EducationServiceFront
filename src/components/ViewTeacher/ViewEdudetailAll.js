@@ -83,7 +83,7 @@ const ViewEducationAll = ({ id }) => {
             <h3 className="block text-left"></h3>
           </Col>
           <Col>
-            <a className="block text-right" href={"/InsertEdudetail/" + education.id_education}>เพิ่มรายละเอียดข้อมูลการเข้าศึกษาต่อ</a>
+            <a className="block text-right" href={"/Teacher/InsertEdudetail/" + education.id_education}>เพิ่มรายละเอียดข้อมูลการเข้าศึกษาต่อ</a>
           </Col>
         </Row>
         <div className="mt-1 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -154,7 +154,7 @@ const ViewEducationAll = ({ id }) => {
                           <div className="text-sm text-gray-900">{value.GPA}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                          <a type="button" href={"/editedudetail/" + value.id_edu_detail} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
+                          <a type="button" href={"/Teacher/editedudetail/" + value.id_edu_detail} className="text-white bg-indigo-600 hover:bg-indigo-900 rounded-md px-4 py-2.5 hover:no-underline">
                             <b>Edit</b>
                           </a>
                         </td>

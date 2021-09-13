@@ -94,16 +94,46 @@ const ViewEditImageUniversity = ({ id }) => {
             url_uni: university.url_uni,
             detail_uni: university.detail_uni,
         };
-    axios.put("http://localhost:8080/university/" + id , data)
-    .then((response) => {
-      console.log(response.data);
-      setUniversity({ ...university, data });
-      setSubmitted(true);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-};
+        if (data['name_uni'] === "" || data['url_uni'] === "" || data['detail_uni'] === "" || data['logo_uni'] === "") {
+            Swal.fire(
+
+                'ผิดพลาด',
+                'กรุณารอกรอกข้อมูลให้ครบ',
+                'error'
+            )
+
+        } else {
+            axios.put("http://localhost:8080/university/" + id , data)
+            .then((res) => {
+                    console.log(res.data.message);
+                    if (res.data.message == "success") {
+                        ////ต่อตรงนี้
+                            Swal.fire(
+                         
+                             'เเก้ไขตราประจำเรียบร้อย',
+                             ' ',
+                              'success',
+                          )
+                          
+                            .then(() => window.location.assign("/Teacher/editUniversity/" + university.id_university))
+
+                    } else {
+
+                        Swal.fire(
+                            'เเก้ไขตราประจำมหาลัยผิดพลาด',
+                            'ชื่อรูปนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                            'error'
+                        )
+
+                    }
+
+                })
+                .catch((error) => {
+                    console.log("error");
+                });//ใช้ ดัก Error
+
+        };
+    }
 
 
     const newProduct = () => {
@@ -114,21 +144,11 @@ const ViewEditImageUniversity = ({ id }) => {
     return (
       
         <Container>
-           
-               
-{submitted ? (
-   Swal.fire(
-
-    'เเก้ไขตราประจำเรียบร้อย',
-    ' ',
-     'success',
- )
- 
- (window.location.assign("../editUniversity/" + university.id_university))
-                ) : (
+        
                   
                         <Form onSubmit={formik.handleSubmit}>
                             <FormGroup><br /><br /><br /><br />
+                            <h3 className="text-center">แก้ไขรูปตรามหาลัย</h3>
                                 <Input
                                     type="hidden"
                                     name="name_uni"
@@ -183,7 +203,7 @@ const ViewEditImageUniversity = ({ id }) => {
                             </FormGroup>
                             <Button type="submit" className="btn btn-success" >ตกลง</Button>
                         </Form>
-                    )}
+                    
 
         </Container>
     )

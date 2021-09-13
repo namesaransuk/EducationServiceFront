@@ -53,7 +53,7 @@ const ViewEditFaculty = ({ id }) => {
               '',
               'success'
             )
-              .then(() => window.location.assign("/facultyall"))
+              .then(() => window.location.assign("/Teacher/facultyall"))
 
           } else {
 
@@ -75,7 +75,7 @@ const ViewEditFaculty = ({ id }) => {
 
   return (
 
-    <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
+    <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32"><br /> <br /> 
       <h3 className="text-center">แก้ไขคณะ</h3>
       <Form>
         <Label for="name_faculty">ชื่อคณะ</Label>

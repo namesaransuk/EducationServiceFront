@@ -49,7 +49,7 @@ const ViewInsertFaculty = () => {
               '',
               'success'
             )
-              .then(() => window.location.assign("/facultyall"))
+              .then(() => window.location.assign("/Teacher/facultyall"))
 
           } else {
 
@@ -72,7 +72,7 @@ const ViewInsertFaculty = () => {
 
 
   return (
-    <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
+    <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32"> <br /> <br /> 
       <h3 className="text-center">เพิ่มคณะ</h3>
       <Form onSubmit={saveFaculty}>
         <Col>
@@ -91,7 +91,7 @@ const ViewInsertFaculty = () => {
           <Button className="btn btn-success w-25" >บันทึก</Button>
         </div>
       </Form>
-    </div>
+      </div>
   )
 }
 
