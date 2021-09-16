@@ -128,7 +128,7 @@ const ViewEditCarousel = ({ id }) => {
         <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
             <h3 className="text-center">แก้ไขCarousel</h3>
             <Form onSubmit={formik.handleSubmit}>
-                <center> <img width="70%" alt="ยังไม่ได้อัพเดตตราประจำมหาลัย" src={carousel.image_carousel || 'https://via.placeholder.com/300'} />
+                <center> <img width="70%" alt="ยังไม่ได้อัพเดตตราประจำมหาลัย" src={carousel.image_carousel || 'https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif'} />
                     <input type="hidden" name="file" value={carousel.image_carousel} />
                     <FormGroup>
                         <Input type="hidden"

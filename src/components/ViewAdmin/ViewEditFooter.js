@@ -91,7 +91,7 @@ const ViewEditFooter = ({ id }) => {
             <Row form>
             <Col sm={6}>
                 <FormGroup>
-                    <Label for="footer_devloper">ชื่อFooterด้านซ้าย</Label>
+                    <Label for="footer_devloper">ชื่อ Footer Column 1</Label>
                     <Input
                         type="text"
                         name="footer_devloper"
@@ -105,7 +105,7 @@ const ViewEditFooter = ({ id }) => {
                 </Col>
                 <Col sm={6}>
                 <FormGroup>
-                    <Label for="footer_contact">ชื่อFooterด้านขวา</Label>
+                    <Label for="footer_contact">ชื่อ Footer Column 2</Label>
                     <Input
                         type="text"
                         name="footer_contact"

@@ -84,7 +84,7 @@ const ViewNewAll = () => {
                     </th>
                     <th
                       scope="col"
-                      className="px-12 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
+                      className="px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       หัวข้อข่าว
                     </th>

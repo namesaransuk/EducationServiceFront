@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' //fornt
-import { faEdit,faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import {
   Row, Col, Button, FormGroup, Label, Input,
-  NavLink, Table
+  NavLink, Table, Card, CardImg, CardBody
 } from 'reactstrap';
 import Swal from 'sweetalert2';
 
@@ -19,12 +19,12 @@ const ViewCarouselAll = () => {
     let result = [];
     console.log(value);
     result = carousel.filter((data) => {
-    return  data.id_carousel.search(value) != -1;
+      return data.id_carousel.search(value) != -1;
 
     });
     setFilteredData(result);
-    }
-  
+  }
+
   useEffect(() => {
     axios.get("http://localhost:8080/Carousel/getCarousel")
       .then((response) => {
@@ -32,79 +32,88 @@ const ViewCarouselAll = () => {
         setFilteredData(response.data);
       })
       .catch(error => {
-      console.log('Error getting fake data: ' + error);
+        console.log('Error getting fake data: ' + error);
       })
-      }, []);
+  }, []);
 
-      const deleteProduct = async (Name, id) => {
-        let result = await confirm(
-        {
-            title :<>คำเตือน!! </>,
-            message : 'คุณต้องการลบCaruselลำดับที่" '+ Name +' "ใช่ไหม?',
-            confirmText : "ใช่",
-            confirmColor : "primary",
-            cancelText : "ไม่ใช่",
-            cancelColor : "btn btn-danger",
-            
-        }); (window.location.assign("/CarouselAll"))
+  const deleteProduct = async (Name, id) => {
+    let result = await confirm(
+      {
+        title: <>คำเตือน!! </>,
+        message: 'คุณต้องการลบCaruselลำดับที่" ' + Name + ' "ใช่ไหม?',
+        confirmText: "ใช่",
+        confirmColor: "primary",
+        cancelText: "ไม่ใช่",
+        cancelColor: "btn btn-danger",
 
-        if(result){
-            axios.delete("http://localhost:8080/Carousel/DeleteCarousel/" + id)//คำสั่งลบที่ดึงมาจาก url
-            .then((response) =>{
-              setCarousel(); //อัพเดตหน้าว่าลบไปเเล้ว
-            });
-        }
-};
+      }); (window.location.assign("/CarouselAll"))
+
+    if (result) {
+      axios.delete("http://localhost:8080/Carousel/DeleteCarousel/" + id)//คำสั่งลบที่ดึงมาจาก url
+        .then((response) => {
+          setCarousel(); //อัพเดตหน้าว่าลบไปเเล้ว
+        });
+    }
+  };
 
 
   return (
-    <div><br /><br /><br /><br /><br /><br />
-      <div className="container">
-        <br />
-        <Row>
-          <Col xs="6"><h3 className="block text-left">ข้อมูลCarousel</h3>
-
-            <FormGroup>
-              <Label for="year_edu">ค้นหา</Label>
-              <Input type="text" name="fname_staff" id="fname_staff" placeholder="กรุณาใส่ชื่อที่จะค้นหา" onChange={(event) =>handleSearch(event)}>
-
-              </Input>
-            </FormGroup></Col>
-        </Row>
+    <div>
+      <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
+        <div className="mx-auto text-center">
+          <Row>
+            <Col><h3 className="block">ข้อมูลCarousel</h3>
+              <FormGroup>
+                <Label for="year_edu">ค้นหา</Label>
+                <Input type="text" className="text-center" name="fname_staff" id="fname_staff" placeholder="กรุณาใส่ชื่อที่จะค้นหา" onChange={(event) => handleSearch(event)} />
+              </FormGroup>
+            </Col>
+          </Row>
+        </div>
       </div>
-      <br />
-      <div className="container">
-        <Row>
-          <Col></Col>
-          <Col></Col>
-          <Col><NavLink href="/Admin/InsertCarousel">เพิ่มCarousel</NavLink>
+
+      <div class="container-fluid mt-5">
+        <Row className="pb-3">
+          <Col className="text-right">
+            <a href="/Admin/InsertCarousel">เพิ่มCarousel</a>
           </Col>
-        </Row>
-        <Table>
-          <thead>
-            <tr>
-              <th><center>Carousel</center></th>
-              <th>เเก้ไข้</th>
-              <th>ลบ</th>
-            </tr>
-          </thead>
-          <tbody>
+        </Row>        
+        <div class="row row-cols-1 row-cols-md-3">
           {filteredData.map((value) => {
-              return (
-                <tr key={value.id_carousel}>
-                  <td><img width="100" className="mx-auto" src={value.image_carousel || 'https://via.placeholder.com/150'} /></td>
-                  <td><a href={"./EditCarousel/" + value.id_carousel} className="text-white bg-green-600 hover:bg-green-800 rounded-md px-4 py-2.5 hover:no-underline">
-                          เเก้ไข
-                        </a></td>        
-                  <td>    <a onClick={() => deleteProduct(value.image_carousel, value.id_carousel)} className="text-white bg-red-600 hover:bg-red-800 rounded-md px-4 py-2.5 hover:no-underline">
-                          Delete
-                        </a></td>
-               
-                </tr>
-              )
-            })}
-          </tbody>
-        </Table> <center> {filteredData.length === 0 && <span>ไม่พบข้อมูลที่ค้นหา</span>} </center>
+            return (
+              <div class="col mb-4">
+                <Card>
+                  <CardImg width="10" className="mx-auto" src={value.image_carousel || 'https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif'} />
+                  <CardBody>
+                    <div className="lg:items-center lg:justify-between">
+                      <div className="flex-1 min-w-0">
+                        <h2 className="text-lg flex-warp font-bold leading-7 text-gray-900 sm:text-xl pb-0 border-t"></h2>
+                      </div>
+                      <div className="mt-3 lg:mt-0 text-center">
+                        <span className="">
+                          <a
+                            type="button"
+                            href={"./EditCarousel/" + value.id_carousel}
+                            className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          >
+                            Edit
+                          </a>
+                          <a
+                            type="button"
+                            onClick={() => deleteProduct(value.image_carousel, value.id_carousel)}
+                            className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          >
+                            Delete
+                          </a>
+                        </span>
+                      </div>
+                    </div>
+                  </CardBody>
+                </Card>
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   );

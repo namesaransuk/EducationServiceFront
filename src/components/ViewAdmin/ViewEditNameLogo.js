@@ -142,7 +142,7 @@ const ViewEditNameLogo = ({ id }) => {
         <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
             <h3 className="text-center">แก้ไขเว็ปไซต์</h3>
             <Form onSubmit={formik.handleSubmit}>
-                <center> <img width="20%" alt="ยังไม่ได้อัพเดตตราประจำมหาลัย" src={namelogo.LogoWeb || 'https://via.placeholder.com/300'} />
+                <center> <img width="150px" alt="ยังไม่ได้อัพเดตตราประจำมหาลัย" src={namelogo.LogoWeb || 'https://mir-s3-cdn-cf.behance.net/project_modules/max_632/04de2e31234507.564a1d23645bf.gif'} />
                     <input type="hidden" name="file" value={namelogo.LogoWeb} />
                     <FormGroup>
                         <Input type="hidden"

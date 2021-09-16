@@ -71,7 +71,7 @@ const ViewAdminall = () => {
         </div>
       </div>
       <div className="flex flex-col max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <Row className="pt-5">
+        <Row className="pt-5">
           <Col>
             <h3 className="block text-left">รายชื่อผู้ดูเเล</h3>
           </Col>
