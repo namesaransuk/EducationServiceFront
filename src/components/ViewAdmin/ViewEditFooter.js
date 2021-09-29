@@ -85,13 +85,13 @@ const ViewEditFooter = ({ id }) => {
     return (
 
         <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
-            <h3 className="text-center">แก้ไขFooterเว็ปไซต์</h3>
+            <h3 className="text-center">แก้ไขส่วนท้ายเว็ปไซต์</h3>
             <br />
             <Form>
             <Row form>
             <Col sm={6}>
                 <FormGroup>
-                    <Label for="footer_devloper">ชื่อ Footer Column 1</Label>
+                    <Label for="footer_devloper">ชื่อ ส่วนท้าย Column 1</Label>
                     <Input
                         type="text"
                         name="footer_devloper"
@@ -105,7 +105,7 @@ const ViewEditFooter = ({ id }) => {
                 </Col>
                 <Col sm={6}>
                 <FormGroup>
-                    <Label for="footer_contact">ชื่อ Footer Column 2</Label>
+                    <Label for="footer_contact">ชื่อ ส่วนท้าย Column 2</Label>
                     <Input
                         type="text"
                         name="footer_contact"

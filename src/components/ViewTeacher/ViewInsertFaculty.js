@@ -76,7 +76,7 @@ const ViewInsertFaculty = () => {
       <h3 className="text-center">เพิ่มคณะ</h3>
       <Form onSubmit={saveFaculty}>
         <Col>
-          <Label for="faculty">ชื่อคณะ</Label>
+          <Label for="name_faculty">ชื่อคณะ</Label>
           <Input
             type="text"
             name="name_faculty"

@@ -172,7 +172,7 @@ const ViewInsertEduDetail = ({ id }) => {
                                     <Label for="id_faculty">คณะที่เปิดรับ</Label>
                                     <Input type="select" name="id_faculty" id="id_faculty"
                                         onChange={handleInputChange} value={edudetail.id_faculty || ""} >
-                                        <option></option>
+                                        <option>กรุณาเลือกคณะที่เปิดรับ</option>
                                         {faculty.map((faculty) => {
                                             return (
                                                 <option key={faculty.id_faculty} value={faculty.id_faculty}>
@@ -187,7 +187,7 @@ const ViewInsertEduDetail = ({ id }) => {
                                     <Input type="select" name="id_course" id="id_course"
                                         value={edudetail.id_course || ""}
                                         onChange={handleInputChange}>
-                                        <option></option>
+                                        <option>กรุณาเลือกสาขาที่เปิดรับ</option>
                                         {course.map((course) => {
                                             return (
                                                 <option key={course.id_course} value={course.id_course}>
@@ -199,10 +199,10 @@ const ViewInsertEduDetail = ({ id }) => {
                                 </FormGroup></Col>
                             <Col xs="6">
                                 <FormGroup>
-                                    <Label for="">กลุ่มสาขาวิชา</Label>
+                                    <Label for="id_major">กลุ่มสาขาวิชา</Label>
                                     <Input type="select" name="id_major" id="id_major" value={edudetail.id_major}
                                         onChange={handleInputChange}>
-                                        <option></option>
+                                        <option>กรุณาเลือกกลุ่มสาขาวิชา</option>
                                             {major.map((major) => {
                                                 return (
                                                     <option key={major.id_major} value={major.id_major}>
@@ -214,14 +214,14 @@ const ViewInsertEduDetail = ({ id }) => {
                             <Col xs="6">
                                 <FormGroup>
                                     <Label for="number_of_edu">จำนวนที่เปิดรับสมัคร</Label>
-                                    <Input type="text" name="number_of_edu" id="number_of_edu" value={edudetail.number_of_edu || ""}
+                                    <Input type="text" name="number_of_edu" id="number_of_edu" placeholder="กรุณากำหนดจำนวน" value={edudetail.number_of_edu || ""}
                                         onChange={handleInputChange}>
                                     </Input>
                                 </FormGroup></Col>
                             <Col xs="6">
                                 <FormGroup>
                                     <Label for="GPA">เกรดขั้นต่ำ</Label>
-                                    <Input type="text" name="GPA" id="GPA" value={edudetail.GPA || ""}
+                                    <Input type="text" name="GPA" id="GPA" placeholder="กรุณากำหนด GPA" value={edudetail.GPA || ""}
                                         onChange={handleInputChange}>
                                     </Input>
                                 </FormGroup></Col>
@@ -230,7 +230,7 @@ const ViewInsertEduDetail = ({ id }) => {
                                     <Label for="id_curriculum">แผนการเรียน</Label>
                                     <Input type="select" name="id_curriculum" id="id_curriculum" value={edudetail.id_curriculum || ""}
                                         onChange={handleInputChange}>
-                                        <option></option>
+                                        <option>กรุณาเลือกเเผนการเรียน</option>
                                         {curriculum.map((curri) => {
                                             return (
                                                 <option key={curri.id_curriculum} value={curri.id_curriculum}>
@@ -254,7 +254,7 @@ const ViewInsertEduDetail = ({ id }) => {
                             <Col xs="12">
                                 <FormGroup>
                                     <Label for="note_condi">เงื่อนไขการรับสมัคร</Label>
-                                    <Input type="textarea" name="note_condi" id="note_condi" value={edudetail.note_condi || ""}
+                                    <Input type="textarea" name="note_condi" id="note_condi" placeholder="กรุณากำหนดเงื่อนไขการรับสมัคร" value={edudetail.note_condi || ""}
                                         onChange={handleInputChange}>
                                     </Input>
                                 </FormGroup></Col>

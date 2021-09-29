@@ -177,7 +177,7 @@ const ViewEditEdudetail = ({ id }) => {
                         </FormGroup></Col>
                     <Col xs="6">
                         <FormGroup>
-                            <Label for="">กลุ่มสาขาวิชา</Label>
+                            <Label for="id_major">กลุ่มสาขาวิชา</Label>
                             <Input type="select" name="id_major" id="id_major" value={edudetail.id_major || ""}
                                 onChange={handleInputChange}>
                                 <option></option>

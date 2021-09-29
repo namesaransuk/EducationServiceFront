@@ -169,6 +169,7 @@ import InsertNew from "./pages/Admin/InsertNew";
 import EditNew from "./pages/Admin/EditNew";
 import EditImageNew from "./pages/Admin/EditImageNew";
 import EditFooter from "./pages/Admin/EditFooter";
+import New_detail from "./pages/Admin/New_detail";
 
 import Hometeacher from "./pages/Hometeacher";
 
@@ -190,6 +191,8 @@ const App = () => {
         <Route path="/Student/detaileducationstudent/:id" component={DetailEducationStudent} />
         <Route path="/Student/updatedetaileducationstudent/:id" component={UpdateDetailEducationStudent} />
         <Route path="/Student/educationstudentallstudent" component={EducationStudentAllStudent} />
+        <Route path="/Student/New_detail/:id" component={New_detail} />
+
 
         <Route path="/Teacher/dashboardteacher" component={DashboardTeacher} />
         <Route path="/Teacher/inserteducation" component={InsertEducation} />

@@ -9,7 +9,7 @@ import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
 const Header = () => {
     const navigation = [
         { name: 'ข้อมูลการรับเข้าเรียนต่อ', href: '/Student/educationstudentallstudent', current: true },
-        { name: 'ข้อมูลมหาลัย', href: '/Student/educationstudent', current: false },
+        { name: 'ข้อมูลมหาวิทยาลัย', href: '/Student/educationstudent', current: false },
     ]
     const navigationTeacher = [
         { name: 'ข้อมูลหลัก', href: '/Teacher/dashboardTeacher', current: true },

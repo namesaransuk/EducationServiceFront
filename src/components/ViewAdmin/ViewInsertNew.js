@@ -10,8 +10,10 @@ import { Progress, Button, Form, FormGroup, Label, Input, Container, Row, Alert 
 const ViewInsertNew = () => {
     const initProduct = {
         new_name: "",
-        new_date: "",
+        new_date_open: "",
+        new_date_close: "",
         file: "",
+        new_sub_detail: "",
         new_detail: "",
         new_url: "",
     };
@@ -97,12 +99,15 @@ const ViewInsertNew = () => {
     const saveProduct = (imagesURL) => {
         var data = {
             new_name: formik.values.new_name,
-            new_date: formik.values.new_date,
+            new_date_open: formik.values.new_date_open,
             new_detail: formik.values.new_detail,
+            new_date_close: formik.values.new_date_close,
+            new_sub_detail: formik.values.new_sub_detail,
             new_url: formik.values.new_url,
             new_image: imagesURL,
         };
-        if (data['new_name'] === "" || data['new_date'] === "" || data['new_detail'] === "" || data['new_url'] === "") {
+        if (data['new_name'] === "" || data['new_date_open'] === "" || data['new_date_close'] === ""
+        || data['new_detail'] === "" || data['new_sub_detail'] === "" || data['new_url'] === "") {
             Swal.fire(
 
                 'ผิดพลาด',
@@ -160,18 +165,47 @@ const ViewInsertNew = () => {
                     )}
                 </FormGroup>
                 <FormGroup>
-                    <Label for="productCategory">วันที่ลงข่าว</Label>
+                    <Label for="productCategory">วันเริ่มกิจกรรม</Label>
                     <Input
                         type="date"
-                        name="new_date"
-                        id="new_date"
-                        value={formik.values.new_date}
+                        name="new_date_open"
+                        id="new_date_open"
+                        value={formik.values.new_date_open}
                         onChange={formik.handleChange}
-                        placeholder="ระบุวันที่ลงข่าว"
+                        placeholder="ระบุวันเริ่มกิจกรรม"
                          />
 
-                    {formik.errors.name && formik.touched.new_date(
-                        <p>{formik.errors.url_unew_dateni}</p> //เช็ค error
+                    {formik.errors.name && formik.touched.new_date_open(
+                        <p>{formik.errors.new_date_open}</p> //เช็ค error
+                    )}
+                </FormGroup>
+                
+                <FormGroup>
+                    <Label for="productCategory">วันจบกิจกรรม</Label>
+                    <Input
+                        type="date"
+                        name="new_date_close"
+                        id="new_date_close"
+                        value={formik.values.new_date_close}
+                        onChange={formik.handleChange}
+                        placeholder="ระบุวันจบกิจกรรม"
+                         />
+
+                    {formik.errors.name && formik.touched.new_date_close(
+                        <p>{formik.errors.new_date_close}</p> //เช็ค error
+                    )}
+                </FormGroup>
+                <FormGroup>
+                    <Label for="productTags">รายละเอียดย่อย</Label>
+                    <Input type="text"
+                        name="new_sub_detail"
+                        id="new_sub_detail"
+                        value={formik.values.new_sub_detail}
+                        onChange={formik.handleChange}
+                        placeholder="ระบุรายละเอียดย่อย"
+                         />
+                    {formik.errors.name && formik.touched.new_sub_detail(
+                        <p>{formik.errors.new_sub_detail}</p>
                     )}
                 </FormGroup>
                 <FormGroup>
@@ -188,8 +222,8 @@ const ViewInsertNew = () => {
                     )}
                 </FormGroup>
                 <FormGroup>
-                    <Label for="productTags">รายละเอียด</Label>
-                    <Input style={{ height: 150 }} type="textarea"
+                    <Label for="productTags">ลิงค์เฟสบุ๊ค</Label>
+                    <Input type="text"
                         name="new_url"
                         id="new_url"
                         value={formik.values.new_url}

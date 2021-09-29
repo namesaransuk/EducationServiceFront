@@ -74,7 +74,7 @@ const ViewInsertDegree = () => {
       <h3 className="text-center">เพิ่มหลักสูตร</h3>
       <Form onSubmit={saveDegree}>
         <Row>
-          <Label for="degree">ชื่อหลักสูตร</Label>
+          <Label for="name_degree">ชื่อหลักสูตร</Label>
           <Input
             type="text"
             name="name_degree"
@@ -86,7 +86,7 @@ const ViewInsertDegree = () => {
         </Row>
         <br />
         <Row>
-          <Label for="degree">ชื่อย่อหลักสูตร</Label>
+          <Label for="initials_degree">ชื่อย่อหลักสูตร</Label>
           <Input
             type="text"
             name="initials_degree"

@@ -142,7 +142,7 @@ const ViewEditImageEducation = ({ id }) => {
                              <h3 className="text-center">แก้ไขรูปการรับสมัคร</h3>
                                
                              <FormGroup>
-                                 <Label for="productImage"> รูปการรับสมัคร (รองรับเฉพาะรูปภาพที่มีขนาดไม่เกิน 2 Mb)</Label>
+                                 <Label for="file"> รูปการรับสมัคร (รองรับเฉพาะรูปภาพที่มีขนาดไม่เกิน 2 Mb)</Label>
                                  <Input type="file"
                                      name="file"
                                      onChange={(event) => { formik.setFieldValue("file", event.currentTarget.files[0]) }}

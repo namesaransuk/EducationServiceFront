@@ -100,7 +100,7 @@ const ViewEditCarousel = ({ id }) => {
                         ////ต่อตรงนี้
                         Swal.fire(
 
-                            'เเก้ไขข้อมูลCarouselเรียบร้อย',
+                            'เเก้ไขข้อมูลรูปสไลด์เรียบร้อย',
                             '',
                             'success'
                         )
@@ -109,8 +109,8 @@ const ViewEditCarousel = ({ id }) => {
                     } else {
 
                         Swal.fire(
-                            'เเก้ไขข้อมูลCarouselผิดพลาด',
-                            'ชื่อCarouselนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                            'เเก้ไขข้อมูลรูปสไลด์ผิดพลาด',
+                            'ชื่อรูปสไลด์นี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
                             'error'
                         )
 
@@ -126,9 +126,9 @@ const ViewEditCarousel = ({ id }) => {
     return (
 
         <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
-            <h3 className="text-center">แก้ไขCarousel</h3>
+            <h3 className="text-center">แก้ไขรูปสไลด์</h3>
             <Form onSubmit={formik.handleSubmit}>
-                <center> <img width="70%" alt="ยังไม่ได้อัพเดตตราประจำมหาลัย" src={carousel.image_carousel || 'https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif'} />
+                <center> <img width="70%" alt="รูปสไลด์" src={carousel.image_carousel || 'https://flevix.com/wp-content/uploads/2019/07/Curve-Loading.gif'} />
                     <input type="hidden" name="file" value={carousel.image_carousel} />
                     <FormGroup>
                         <Input type="hidden"
@@ -138,7 +138,7 @@ const ViewEditCarousel = ({ id }) => {
                     </FormGroup>
                     <FormGroup>
                         <Button href={"/Admin/editImageCarousel/" + carousel.id_carousel} >
-                            <FontAwesomeIcon icon={faEdit} />เเก้ไขรูปCarousel
+                            <FontAwesomeIcon icon={faEdit} />เเก้ไขรูปรูปสไลด์
                         </Button>
                     </FormGroup></center>
                 <div className="text-center">

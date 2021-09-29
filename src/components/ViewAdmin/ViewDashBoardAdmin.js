@@ -53,7 +53,7 @@ const ViewDashBoardAdmin = (props) => {
           <Row form>
             <Col sm={6}>
               <a href="/Admin/CarouselAll">
-                <div type="submit" className="items-center text-center justify-center py-32 border border-transparent text-lg md:text-xl lg:text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">จัดการCarouselเว็ปไซต์</div>
+                <div type="submit" className="items-center text-center justify-center py-32 border border-transparent text-lg md:text-xl lg:text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">จัดการรูปสไลด์เว็ปไซต์</div>
               </a>
             </Col>
             {namelogo.map((namelogo) => {
@@ -74,7 +74,7 @@ const ViewDashBoardAdmin = (props) => {
                     return (
             <Col sm={6}>
               <a href={"/Admin/EditFooter/" + footer.id}>
-              <div type="submit" className="items-center text-center justify-center py-32 border border-transparent text-lg md:text-xl lg:text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">Footer</div>
+              <div type="submit" className="items-center text-center justify-center py-32 border border-transparent text-lg md:text-xl lg:text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">ข้อมูลส่วนท้าย</div>
               </a>
             </Col>
               )

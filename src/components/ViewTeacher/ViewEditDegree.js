@@ -80,7 +80,7 @@ const ViewEditDegree = ({ id }) => {
       <h3 className="text-center">เเก้ไขหลักสูตร</h3>
       <Form>
         <FormGroup>
-          <Label for="name_faculty">ชื่อหลักสูตร</Label>
+          <Label for="name_degree">ชื่อหลักสูตร</Label>
           <Input
             type="text"
             name="name_degree"
@@ -91,7 +91,7 @@ const ViewEditDegree = ({ id }) => {
              />
         </FormGroup>
         <FormGroup>
-          <Label for="degree">ชื่อย่อหลักสูตร</Label>
+          <Label for="initials_degree">ชื่อย่อหลักสูตร</Label>
           <Input
             type="text"
             name="initials_degree"

@@ -109,7 +109,7 @@ const ViewInsertCarousel = () => {
                         ////ต่อตรงนี้
                         Swal.fire(
 
-                            'เพิ่มข้อมูลCarouselเรียบร้อย',
+                            'เพิ่มข้อมูลรูปสไลด์เรียบร้อย',
                             '',
                             'success'
                         )
@@ -118,8 +118,8 @@ const ViewInsertCarousel = () => {
                     } else {
 
                         Swal.fire(
-                            'เพิ่มข้อมูลCarouselผิดพลาด',
-                            'ข้อมูลCarouselนี้มีอยู่แล้วกรุณาเปลี่ยนไฟล์',
+                            'เพิ่มข้อมูลรูปสไลด์ผิดพลาด',
+                            'ข้อมูลรูปสไลด์นี้มีอยู่แล้วกรุณาเปลี่ยนไฟล์',
                             'error'
                         )
 
@@ -135,7 +135,7 @@ const ViewInsertCarousel = () => {
     return (
 
         <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
-            <h3 className="text-center">เพิ่มCarousel</h3>
+            <h3 className="text-center">เพิ่มรูปสไลด์</h3>
             <Form onSubmit={formik.handleSubmit}>
                 <FormGroup>
                     <Label for="productCategory"></Label>
@@ -144,7 +144,7 @@ const ViewInsertCarousel = () => {
                     <Label for="productCategory"></Label>
                 </FormGroup>
                 <FormGroup>
-                    <Label for="productImage"> Carousel (รองรับเฉพาะรูปภาพที่มีขนาดไม่เกิน 2 Mb)</Label>
+                    <Label for="productImage"> รูปสไลด์ (รองรับเฉพาะรูปภาพที่มีขนาดไม่เกิน 2 Mb)</Label>
                     <Input type="file"
                         name="file"
                         onChange={(event) => { formik.setFieldValue("file", event.currentTarget.files[0]) }} />

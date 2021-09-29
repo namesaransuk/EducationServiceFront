@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useReducer } from "react";
 import axios from "axios";
+import Select from 'react-select';
 
 import { getAllCountries } from "../calls/countries";
 import {
@@ -30,7 +31,7 @@ const ViewEducationStudentAllStudent = () => {
       GPA: ""
     }
   );
-
+  
   useEffect(() => {
     getAllCountries()
       .then(response => {
@@ -46,6 +47,8 @@ const ViewEducationStudentAllStudent = () => {
     };
   }, []);
 
+
+  
   const [university, setUniversity] = useState([]);
   //ไปดึง api ของอันเก่ามาใช้จาก url
   const updateUniversity = () => {
@@ -69,6 +72,7 @@ const ViewEducationStudentAllStudent = () => {
   useEffect(() => {
     updateFaculty();
   }, []);
+
 
   const [course, setCourse] = useState([]);
   //ไปดึง api ของอันเก่ามาใช้จาก url
@@ -105,8 +109,8 @@ const ViewEducationStudentAllStudent = () => {
         item.name_uni.toLowerCase().includes(filterInput.name_uni.toLowerCase()) &&
         item.name_faculty.toLowerCase().includes(filterInput.name_faculty.toLowerCase()) &&
         item.name_course.toLowerCase().includes(filterInput.name_course.toLowerCase()) &&
-        item.GPA.toLowerCase().includes(filterInput.GPA.toLowerCase()) &&
-        item.name_course >= filterInput.name_course
+        item.GPA >= filterInput.GPA 
+        // &&item.name_course >= filterInput.name_course
         
       );
     });
@@ -185,6 +189,36 @@ const ViewEducationStudentAllStudent = () => {
             </FormGroup>
           </Col>
         </Row>
+        <Row>
+        <Col xs="4">
+            <FormGroup>
+              <Label for="id_university">ชื่อมหาวิทยาลัย</Label>
+              <Input type="text" name="name_uni" id="name_uni" placeholder="กรุณาใส่ชื่อมหาลัยที่จะค้นหา" value={filterInput.name_uni}onChange={e => handleFilterCountries(e)}>
+              </Input>
+            </FormGroup>
+          </Col>
+          <Col xs="4">
+            <FormGroup>
+              <Label for="id_faculty">คณะ</Label>
+              <Input type="text" name="name_faculty" id="name_faculty" placeholder="กรุณาใส่ชื่อคณะที่จะค้นหา"  value={filterInput.name_faculty}onChange={e => handleFilterCountries(e)}>
+              </Input>
+            </FormGroup>
+          </Col>
+          <Col xs="4">
+            <FormGroup>
+              <Label for="id_course">สาขา</Label>
+              <Input type="text" name="name_course" id="name_course" placeholder="กรุณาใส่ชื่อสาขาที่จะค้นหา"  value={filterInput.name_course}onChange={e => handleFilterCountries(e)}>
+              </Input>
+            </FormGroup>
+          </Col>
+          </Row>
+          {/* <Select
+      name="name_course"
+      id="name_course" placeholder="กรุณาใส่ชื่อสาขาที่จะค้นหา"  value={filterInput.name_course}onChange={e => handleFilterCountries(e)}
+      options = {university}
+
+          /> */}
+
         </div>
       </div>
       <div class="flex flex-col max-w-7xl px-4 mx-auto pt-2">

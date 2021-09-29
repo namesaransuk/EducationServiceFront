@@ -92,20 +92,26 @@ const ViewNewAll = () => {
                       scope="col"
                       className="break-all px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
-                      วันที่ลง
+                      กิจกรรมเริ่ม
                     </th>
                     <th
+                      scope="col"
+                      className="break-all px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
+                    >
+                      กิจกรรมจบ
+                    </th>
+                    {/* <th
                       scope="col"
                       className="px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       รายละเอียด
-                    </th>
-                    <th
+                    </th> */}
+                    {/* <th
                       scope="col"
                       className="px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                     >
                       url
-                    </th>
+                    </th> */}
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
@@ -132,14 +138,17 @@ const ViewNewAll = () => {
                         <div className="text-md text-gray-900">{Admin.new_name} </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap ">
-                        <div className="text-md text-gray-900">{Admin.new_date} </div>
+                        <div className="text-md text-gray-900">{Admin.new_date_open} </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-6 py-4 whitespace-nowrap ">
+                        <div className="text-md text-gray-900">{Admin.new_date_close} </div>
+                      </td>
+                      {/* <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-md text-gray-900">{Admin.new_detail}</div>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      </td> */}
+                      {/* <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-md text-gray-900">{Admin.new_url}</div>
-                      </td>
+                      </td> */}
                       <td><a href={"/Admin/EditNew/" + Admin.id_new} className="text-white bg-green-600 hover:bg-green-800 rounded-md px-4 py-2.5 hover:no-underline">
                           เเก้ไข
                         </a></td>     

@@ -73,7 +73,7 @@ const ViewInsertGroupCourse = () => {
       <h3 className="text-center">เพิ่มกลุ่มสาขา</h3>
       <Form onSubmit={saveGroupCourse}>
         <br />
-        <Label for="major">ชื่อกลุ่มสาขา</Label>
+        <Label for="name_major">ชื่อกลุ่มสาขา</Label>
         <Input
           type="text"
           name="name_major"

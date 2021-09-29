@@ -40,13 +40,13 @@ const ViewCarouselAll = () => {
     let result = await confirm(
       {
         title: <>คำเตือน!! </>,
-        message: 'คุณต้องการลบCaruselลำดับที่" ' + Name + ' "ใช่ไหม?',
+        message: 'คุณต้องการลบรูปสไลด์ลำดับที่" ' + Name + ' "ใช่ไหม?',
         confirmText: "ใช่",
         confirmColor: "primary",
         cancelText: "ไม่ใช่",
         cancelColor: "btn btn-danger",
 
-      }); (window.location.assign("/CarouselAll"))
+      }); (window.location.assign("/Admin/CarouselAll"))
 
     if (result) {
       axios.delete("http://localhost:8080/Carousel/DeleteCarousel/" + id)//คำสั่งลบที่ดึงมาจาก url
@@ -62,7 +62,7 @@ const ViewCarouselAll = () => {
       <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
         <div className="mx-auto text-center">
           <Row>
-            <Col><h3 className="block">ข้อมูลCarousel</h3>
+            <Col><h3 className="block">ข้อมูลรูปสไลด์</h3>
               <FormGroup>
                 <Label for="year_edu">ค้นหา</Label>
                 <Input type="text" className="text-center" name="fname_staff" id="fname_staff" placeholder="กรุณาใส่ชื่อที่จะค้นหา" onChange={(event) => handleSearch(event)} />
@@ -75,7 +75,7 @@ const ViewCarouselAll = () => {
       <div class="container-fluid mt-5">
         <Row className="pb-3">
           <Col className="text-right">
-            <a href="/Admin/InsertCarousel">เพิ่มCarousel</a>
+            <a href="/Admin/InsertCarousel">เพิ่มรูปสไลด์</a>
           </Col>
         </Row>        
         <div class="row row-cols-1 row-cols-md-3">
@@ -96,14 +96,14 @@ const ViewCarouselAll = () => {
                             href={"./EditCarousel/" + value.id_carousel}
                             className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                           >
-                            Edit
+                            เเก้ไข
                           </a>
                           <a
                             type="button"
                             onClick={() => deleteProduct(value.image_carousel, value.id_carousel)}
                             className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                           >
-                            Delete
+                            ลบ
                           </a>
                         </span>
                       </div>

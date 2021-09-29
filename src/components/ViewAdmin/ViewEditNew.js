@@ -11,8 +11,10 @@ import { Progress, Button, Form, FormGroup, Label, Input, Container, Row, Alert 
 const ViewEditNew = ({ id }) => {
     const initNew = {
         new_name: "",
-        new_date: "",
+        new_date_open: "",
+        new_date_close: "",
         file: "",
+        new_sub_detail: "",
         new_detail: "",
         new_url: "",
     };
@@ -87,14 +89,17 @@ const ViewEditNew = ({ id }) => {
     const saveProduct = () => {
         var data = {
             new_name: news.new_name,
-            new_date: news.new_date,
+            new_date_open: news.new_date_open,
             new_detail: news.new_detail,
             new_url: news.new_url,
             new_image: news.new_image,
+            new_date_close: news.new_date_close,
+            new_sub_detail: news.new_sub_detail,
 
         };
-        if (data['new_name'] === "" || data['new_date'] === ""|| data['new_detail'] === "" 
-          ||data['new_url'] === "" || data['new_image'] === "" ) {
+        if (data['new_name'] === "" || data['new_date_open'] === ""
+        || data['new_date_open'] === ""|| data['new_date_close'] === "" 
+          ||data['new_url'] === "" ||data['new_sub_detail'] === "" || data['new_image'] === "" ) {
             Swal.fire(
 
                 'ผิดพลาด',
@@ -166,23 +171,53 @@ const ViewEditNew = ({ id }) => {
                     )}
                 </FormGroup>
                 <FormGroup>
-                    <Label for="new_date">วันที่ลง</Label>
+                    <Label for="new_date_open">วันเริ่มกิจกรรม</Label>
                     <Input
                         type="date"
-                        name="new_date"
-                        id="new_date"
-                        value={news.new_date}
+                        name="new_date_open"
+                        id="new_date_open"
+                        value={news.new_date_open}
                         onChange={handleInputChange}//เมื่อมีการพิมพ์ข้อความ
-                        placeholder={news.new_date}
+                        placeholder={news.new_date_open}
                     />
-                    {formik.errors.name && formik.touched.new_date(
-                        <p>{formik.errors.new_date}</p>
+                    {formik.errors.name && formik.touched.new_date_open(
+                        <p>{formik.errors.new_date_open}</p>
+                    )}
+                </FormGroup>
+                <FormGroup>
+                    <Label for="new_date_close">วันจบกิจกรรม</Label>
+                    <Input
+                        type="date"
+                        name="new_date_close"
+                        id="new_date_close"
+                        value={news.new_date_close}
+                        onChange={handleInputChange}//เมื่อมีการพิมพ์ข้อความ
+                        placeholder={news.new_date_close}
+                    />
+                    {formik.errors.name && formik.touched.new_date_close(
+                        <p>{formik.errors.new_date_close}</p>
+                    )}
+                </FormGroup>
+                <FormGroup>
+                    <Label for="new_sub_detail">รายละเอียดย่อย</Label>
+                    <Input
+                        type="text"
+                        name="new_sub_detail"
+                        id="new_sub_detail"
+                        value={news.new_sub_detail}
+                        onChange={handleInputChange}
+                        placeholder={news.new_sub_detail}
+                    />
+
+                    {formik.errors.name && formik.touched.new_sub_detail(
+                        <p>{formik.errors.new_sub_detail}</p> //เช็ค error
                     )}
                 </FormGroup>
                 <FormGroup>
                     <Label for="new_detail">รายละเอียด</Label>
                     <Input
-                        type="text"
+                        type="textarea"
+                        style={{ height: 150 }} 
                         name="new_detail"
                         id="new_detail"
                         value={news.new_detail}
@@ -199,7 +234,6 @@ const ViewEditNew = ({ id }) => {
                     <Input
                         type="text"
                         name="new_url"
-                        style={{ height: 200 }}
                         id="new_url"
                         value={news.new_url}
                         onChange={handleInputChange}

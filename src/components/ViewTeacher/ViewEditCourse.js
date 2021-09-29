@@ -110,7 +110,7 @@ const ViewEditCourse = ({ id }) => {
     <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
       <h3 className="text-center">เเก้ไขสาขา</h3>
       <Form>
-        <Label for="name_faculty">ชื่อสาขา</Label>
+        <Label for="name_course">ชื่อสาขา</Label>
         <Input
           type="text"
           name="name_course"
@@ -120,7 +120,7 @@ const ViewEditCourse = ({ id }) => {
           placeholder={course.name_course}
           required />
         <FormGroup>
-          <Label for="id_major">หลักสูตร</Label>
+          <Label for="id_degree">หลักสูตร</Label>
           <Input
             type="select"
             name="id_degree"

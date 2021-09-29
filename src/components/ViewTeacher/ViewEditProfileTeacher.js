@@ -111,10 +111,10 @@ const ViewEditProfile = ({ id }) => {
         <Row form>
           <Col md={3}>
             <FormGroup>
-              <Label for="id_stu">รหัสประจำตัว</Label>
+              <Label for="id_staff">รหัสประจำตัว</Label>
               <Input type="text"
                 name="id_staff"
-                id="productName"
+                id="id_staff"
                 value={teacher.id_staff || ""}
                 onChange={handleInputChange}
                 placeholder="ระบุรหัสประจำตัว" disabled />
@@ -122,7 +122,7 @@ const ViewEditProfile = ({ id }) => {
           </Col>
           <Col md={3}>
             <FormGroup>
-              <Label for="id_major">คำนำหน้า</Label>
+              <Label for="id_title">คำนำหน้า</Label>
               <Input
                 type="select"
                 name="id_title"
@@ -156,7 +156,7 @@ const ViewEditProfile = ({ id }) => {
           </Col>
           <Col md={3}>
             <FormGroup>
-              <Label for="lname_stu">นามสกุล</Label>
+              <Label for="lname_staff">นามสกุล</Label>
               <Input type="text"
                 name="lname_staff"
                 id="lname_staff"
@@ -180,7 +180,7 @@ const ViewEditProfile = ({ id }) => {
           </Col>
           <Col md={6}>
             <FormGroup>
-              <Label for="class">ตำเเหน่ง</Label>
+              <Label for="id_position">ตำเเหน่ง</Label>
               <Input
                 type="select"
                 name="id_position"
@@ -205,10 +205,10 @@ const ViewEditProfile = ({ id }) => {
         <Row form>
           <Col md={12}>
             <FormGroup>
-              <Label for="password_stu">รหัสผ่าน</Label>
+              <Label for="password_staff">รหัสผ่าน</Label>
               <Input type="password"
                 name="password_staff"
-                id="producttags"
+                id="password_staff"
                 value={teacher.password_staff || ""}
                 onChange={handleInputChange}
                 placeholder="ระบุรหัสผ่าน" />

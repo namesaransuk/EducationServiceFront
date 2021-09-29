@@ -234,11 +234,15 @@ function Index() {
                           <div className="">
                             <div className="mt-2 flex items-center text-sm text-gray-500">
                               <BriefcaseIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                              รายละเอียด : {Post.new_detail}
+                              รายละเอียด : {Post.new_sub_detail || "ประชาสัมพันธ์ทั่วไป"}
                             </div>
                             <div className="mt-2 flex items-center text-sm text-gray-500">
                               <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                              วันที่ลง : {Post.new_date}
+                              เริ่มกิจกรรม : {Post.new_date_open || "ไม่ระบุวัน"}
+                            </div>
+                             <div className="mt-2 flex items-center text-sm text-gray-500">
+                              <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+                              จบกิจกรรม : {Post.new_date_close || "ไม่ระบุวัน"}
                             </div>
                           </div>
                         </div>
@@ -246,7 +250,7 @@ function Index() {
                           <span className="">
                             <a
                               type="button"
-                              href={"/educationstudentdetail/" + Post.new_url}
+                              href={"/Student/New_detail/" + Post.id_new}
                               className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                               ดูรายละเอียด
@@ -317,10 +321,11 @@ function Index() {
               <SilderIndex />
             </div>)
         })}
-        <div class="wow fadeInUpBig bg-fixed w-full h-80 md:h-screen bg-center overflow-y-1" style={{ backgroundImage: `url("https://www.npru.ac.th/2019/img/gallery/npru-57.jpg")`, filter: 'blur(2px)' }}></div>
+           <div class="wow fadeInUpBig bg-fixed w-full h-72 md:h-96 bg-center overflow-y-1 shadow-inner" style={{ backgroundImage: `url("https://i.pinimg.com/originals/c9/7b/d3/c97bd3d324813cbf8cf36315c35aef63.jpg")`, filter: 'blur(0px)' }}>
+          <h2 className="flex py-32 md:py-44 z-50 font-semibold justify-center">ประชาสัมพันธ์</h2>
+        </div>
         <div class="container-fluid mt-5">
-          <center><h2> ประชาสัมพันธ์ </h2></center>
-
+          {/* <center><h2> ประชาสัมพันธ์ </h2></center> */}
           <div class="row row-cols-1 row-cols-md-3">
             {currentPosts.map((Post) => {
               return (
@@ -334,11 +339,15 @@ function Index() {
                           <div className="">
                             <div className="mt-2 flex items-center text-sm text-gray-500">
                               <BriefcaseIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                              รายละเอียด : {Post.new_detail}
+                              รายละเอียด : {Post.new_sub_detail || "กิจกรรมทั่วไป"}
                             </div>
                             <div className="mt-2 flex items-center text-sm text-gray-500">
                               <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
-                              วันที่ลง : {Post.new_date}
+                              เริ่มกิจกรรม : {Post.new_date_open || "ไม่ระบุวัน"}
+                            </div>
+                             <div className="mt-2 flex items-center text-sm text-gray-500">
+                              <LocationMarkerIcon className="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" aria-hidden="true" />
+                              จบกิจกรรม : {Post.new_date_close || "ไม่ระบุวัน"}
                             </div>
                           </div>
                         </div>
@@ -346,7 +355,7 @@ function Index() {
                           <span className="">
                             <a
                               type="button"
-                              href={"/educationstudentdetail/" + Post.new_url}
+                              href={Post.new_url}
                               className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                               ดูรายละเอียด

@@ -153,11 +153,11 @@ const ViewEditUniversity = ({ id }) => {
                         </Button>
                     </FormGroup></center>
                 <FormGroup>
-                    <Label for="productName">ชื่อมหาลัย</Label>
+                    <Label for="name_uni">ชื่อมหาลัย</Label>
                     <Input
                         type="text"
                         name="name_uni"
-                        id="productName"
+                        id="name_uni"
                         value={university.name_uni}
                         onChange={handlleInputChange}//เมื่อมีการพิมพ์ข้อความ
                         placeholder={university.name_uni}
@@ -167,11 +167,11 @@ const ViewEditUniversity = ({ id }) => {
                     )}
                 </FormGroup>
                 <FormGroup>
-                    <Label for="productCategory">URL</Label>
+                    <Label for="url_uni">URL</Label>
                     <Input
                         type="text"
                         name="url_uni"
-                        id="productCatgory"
+                        id="url_uni"
                         value={university.url_uni}
                         onChange={handlleInputChange}
                         placeholder={university.url_uni}
@@ -182,12 +182,12 @@ const ViewEditUniversity = ({ id }) => {
                     )}
                 </FormGroup>
                 <FormGroup>
-                    <Label for="productTags">รายละเอียด</Label>
+                    <Label for="detail_uni">รายละเอียด</Label>
                     <Input
                         type="textarea"
                         name="detail_uni"
                         style={{ height: 200 }}
-                        id="productTags"
+                        id="detail_uni"
                         value={university.detail_uni}
                         onChange={handlleInputChange}
                         placeholder={university.detail_uni}

@@ -100,7 +100,7 @@ const ViewEditImageCarousel = ({ id }) => {
                         ////ต่อตรงนี้
                         Swal.fire(
 
-                            'เเก้ไขข้อมูลรูปCarouselเรียบร้อย',
+                            'เเก้ไขข้อมูลรูปรูปสไลด์เรียบร้อย',
                             '',
                             'success'
                         )
@@ -109,8 +109,8 @@ const ViewEditImageCarousel = ({ id }) => {
                     } else {
 
                         Swal.fire(
-                            'เเก้ไขข้อมูลรูปCarouselผิดพลาด',
-                            'ชื่อCarouselนี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
+                            'เเก้ไขข้อมูลรูปสไลด์ผิดพลาด',
+                            'ชื่อรูปสไลด์นี้มีอยู่แล้วกรุณาเปลี่ยนชื่อ',
                             'error'
                         )
 
@@ -137,10 +137,10 @@ const ViewEditImageCarousel = ({ id }) => {
                         <Form onSubmit={formik.handleSubmit}>
                             
                            <br /><br /><br /><br />
-                            <h3 className="text-center">แก้ไขรูปCarousel</h3>
+                            <h3 className="text-center">แก้ไขรูปสไลด์</h3>
                               
                             <FormGroup>
-                                <Label for="productImage"> Carousel (รองรับเฉพาะรูปภาพที่มีขนาดไม่เกิน 2 Mb)</Label>
+                                <Label for="productImage"> รูปสไลด์ (รองรับเฉพาะรูปภาพที่มีขนาดไม่เกิน 2 Mb)</Label>
                                 <Input type="file"
                                     name="file"
                                     onChange={(event) => { formik.setFieldValue("file", event.currentTarget.files[0]) }}

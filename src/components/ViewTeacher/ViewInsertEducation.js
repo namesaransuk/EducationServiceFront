@@ -208,7 +208,7 @@ const ViewInsertEducation = () => {
         <Form>
         <Row form>
           <FormGroup>
-                    <Label for="productImage"> รูปการรับสมัคร (รองรับเฉพาะรูปภาพที่มีขนาดไม่เกิน 2 Mb)</Label>
+                    <Label for="file"> รูปการรับสมัคร (รองรับเฉพาะรูปภาพที่มีขนาดไม่เกิน 2 Mb)</Label>
                     <Input type="file"
                         name="file"
                         onChange={(event) => { formik.setFieldValue("file", event.currentTarget.files[0]) }} />
@@ -225,7 +225,7 @@ const ViewInsertEducation = () => {
                 <Label for="year_edu">ปีที่เปิดรับสมัคร</Label>
                 <Input type="select" name="year_edu" id="year_edu" value={formik.values.year_edu || ""}
                   onChange={formik.handleChange} >
-                  <option></option>
+                  <option>กรุณาเลือกปีที่เปิดรับสมัคร</option>
                   <option value="2021" >2021</option>
                   <option value="2022" >2022</option>
                   <option value="2023">2023</option>
@@ -239,7 +239,7 @@ const ViewInsertEducation = () => {
                 <Label for="id_round">รอบ</Label>
                 <Input type="select" name="id_round" id="id_round" placeholder="เลือกรอบที่ต้องการ" value={formik.values.id_round || ""}
                   onChange={formik.handleChange} >
-                  <option></option>
+                  <option>เลือกรอบที่ต้องการ</option>
                   {round.map((round) => {
                     return (
                       <option key={round.id_round} value={round.id_round}>{round.name_round}</option>
@@ -254,7 +254,7 @@ const ViewInsertEducation = () => {
 
                 <Input type="select" name="id_university" id="id_university" placeholder="เลือกมหาวิทยาลัยที่ต้องการ"
                   onChange={formik.handleChange} value={formik.values.id_university || ""} >
-                  <option></option>
+                  <option>กรุณาเลือกมหาวิทยาลัย</option>
                   {university.map((university) => {
                     return (
                       <option key={university.id_university} value={university.id_university}>
@@ -299,7 +299,7 @@ const ViewInsertEducation = () => {
               <FormGroup>
                 <Label for="tcas">Tcas</Label>
                 <Input type="select" name="tcas" id="tcas" onChange={formik.handleChange} value={formik.values.tcas || ""} >
-                  <option></option>
+                  <option>กรุณาเลือก</option>
                   <option>เข้าร่วม</option>
                   <option>ไม่เข้าร่วม</option>
                 </Input>
@@ -331,21 +331,22 @@ const ViewInsertEducation = () => {
           </Row>
           <FormGroup >
             <Label for="general">คุณสมบัติ</Label>
-            <Input style={{ height: 150 }} type="textarea" name="general" id="general" onChange={formik.handleChange} value={formik.values.general || ""} />
+            <Input style={{ height: 150 }} type="textarea" placeholder="กรุณาเพิ่มคุณสมบัติ"
+ name="general" id="general" onChange={formik.handleChange} value={formik.values.general || ""} />
           </FormGroup>
           <FormGroup>
             <Label for="doculment_edu">เอกสารที่ใช้</Label>
-            <Input style={{ height: 150 }} type="textarea" name="doculment_edu" id="doculment_edu" onChange={formik.handleChange} value={formik.values.doculment_edu || ""} />
+            <Input style={{ height: 150 }} type="textarea" placeholder="กรุณาเพิ่มเอกสาร" name="doculment_edu" id="doculment_edu" onChange={formik.handleChange} value={formik.values.doculment_edu || ""} />
 
           </FormGroup>
           <FormGroup>
             <Label for="note_edu">เงื่อนไขอื่นๆ</Label>
-            <Input type="textarea" name="note_edu" id="note_edu" onChange={formik.handleChange} value={formik.values.note_edu || ""} />
+            <Input type="textarea" name="note_edu" id="note_edu" placeholder="เงื่อนไขอื่นๆ" onChange={formik.handleChange} value={formik.values.note_edu || ""} />
           </FormGroup>
 
           <FormGroup>
             <Label for="url_doculment">URL</Label>
-            <Input type="text" name="url_doculment" id="url_doculment" onChange={formik.handleChange} placeholder="กรุณาใส่ URL" value={formik.values.url_doculment || ""} />
+            <Input type="text" name="url_doculment" id="url_doculment" placeholder="URL" onChange={formik.handleChange} placeholder="กรุณาใส่ URL" value={formik.values.url_doculment || ""} />
           </FormGroup>
           <div className="text-center">
             <Button className="w-25 btn btn-success" onClick={formik.handleSubmit}>ยืนยัน</Button>

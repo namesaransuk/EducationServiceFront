@@ -103,7 +103,7 @@ const ViewInsertCourse = () => {
     <div className="px-4 flex flex-col max-w-3xl mx-auto mt-32">
       <h3 className="text-center">เพิ่มสาขา</h3>
       <Form onSubmit={saveCourse}>
-        <Label for="examplePassword">ชื่อสาขา</Label>
+        <Label for="name_course">ชื่อสาขา</Label>
         <h1 className="display-3">
           <Input
             type="text"
@@ -115,7 +115,7 @@ const ViewInsertCourse = () => {
              />
         </h1>
         <FormGroup>
-          <Label for="id_major">หลักสูตร</Label>
+          <Label for="id_degree">หลักสูตร</Label>
           <Input
             type="select"
             name="id_degree"

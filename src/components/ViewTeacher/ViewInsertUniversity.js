@@ -144,7 +144,7 @@ const ViewInsertUniversity = () => {
             <h3 className="text-center">เพิ่มมหาวิทยาลัย</h3>
             <Form onSubmit={formik.handleSubmit}>
                 <FormGroup>
-                    <Label for="productName">ชื่อมหาลัย</Label>
+                    <Label for="name_uni">ชื่อมหาวิทยาลัย</Label>
                     <Input
                         type="text"
                         name="name_uni"
@@ -158,7 +158,7 @@ const ViewInsertUniversity = () => {
                     )}
                 </FormGroup>
                 <FormGroup>
-                    <Label for="productCategory">URL</Label>
+                    <Label for="url_uni">URL</Label>
                     <Input
                         type="text"
                         name="url_uni"
@@ -173,7 +173,7 @@ const ViewInsertUniversity = () => {
                     )}
                 </FormGroup>
                 <FormGroup>
-                    <Label for="productTags">รายละเอียด</Label>
+                    <Label for="detail_uni">รายละเอียด</Label>
                     <Input style={{ height: 150 }} type="textarea"
                         name="detail_uni"
                         id="productTags"
@@ -186,7 +186,7 @@ const ViewInsertUniversity = () => {
                     )}
                 </FormGroup>
                 <FormGroup>
-                    <Label for="productImage"> โลโกมหาลัย (รองรับเฉพาะรูปภาพที่มีขนาดไม่เกิน 2 Mb)</Label>
+                    <Label for="file"> โลโกมหาลัย (รองรับเฉพาะรูปภาพที่มีขนาดไม่เกิน 2 Mb)</Label>
                     <Input type="file"
                         name="file"
                         onChange={(event) => { formik.setFieldValue("file", event.currentTarget.files[0]) }} />
