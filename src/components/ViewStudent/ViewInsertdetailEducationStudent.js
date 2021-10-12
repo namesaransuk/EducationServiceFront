@@ -28,7 +28,7 @@ const ViewInsertdetailEducationStudent = ({id}) => {
 };
 
   useEffect(() => {
-      axios.get("http://localhost:8080/students/"+id)
+      axios.get("https://educationservice.herokuapp.com/student/getStudent/"+id)
       .then((response)=>{
         setStudent(response.data);
       });
@@ -36,7 +36,7 @@ const ViewInsertdetailEducationStudent = ({id}) => {
 
   //ไปดึง api ของอันเก่ามาใช้จาก url
       const updateEducationdata = () =>{
-          axios.get("http://localhost:8080/EducationData/getAllEducationData").then((response) => {
+          axios.get("https://educationservice.herokuapp.com/getAllEducationData").then((response) => {
               console.log(response);
               setEducationdata(response.data);
           });
@@ -50,7 +50,7 @@ const ViewInsertdetailEducationStudent = ({id}) => {
       const [university, setUniversity] = useState([]);
       //ไปดึง api ของอันเก่ามาใช้จาก url
       const updateUniversity = () => {
-        axios.get("http://localhost:8080/EducationData/getAllEducationUniversity").then((response) => {
+        axios.get("https://educationservice.herokuapp.com/EducationData/getAllEducationUniversity").then((response) => {
           console.log(response);
           setUniversity(response.data.university);
         });
@@ -62,7 +62,7 @@ const ViewInsertdetailEducationStudent = ({id}) => {
       const [faculty, setFaculty] = useState([]);
       //ไปดึง api ของอันเก่ามาใช้จาก url
       const updateFaculty = () => {
-        axios.get("http://localhost:8080/EducationData/getAllEducationFaculty").then((response) => {
+        axios.get("https://educationservice.herokuapp.com/EducationData/getAllEducationFaculty").then((response) => {
           console.log(response);
           setFaculty(response.data.faculty);
         });
@@ -74,7 +74,7 @@ const ViewInsertdetailEducationStudent = ({id}) => {
       const [course, setCourse] = useState([]);
       //ไปดึง api ของอันเก่ามาใช้จาก url
       const updateCourse = () => {
-        axios.get("http://localhost:8080/EducationData/getAllEducationCourse").then((response) => {
+        axios.get("https://educationservice.herokuapp.com/EducationData/getAllEducationCourse").then((response) => {
           console.log(response);
           setCourse(response.data.course);
         });
@@ -85,7 +85,7 @@ const ViewInsertdetailEducationStudent = ({id}) => {
       const [groupmajor, setGroupMajor] = useState([]);
       //ไปดึง api ของอันเก่ามาใช้จาก url
       const updateGroupMajor = () => {
-        axios.get("http://localhost:8080/EducationData/getAllEducationMajor").then((response) => {
+        axios.get("https://educationservice.herokuapp.com/EducationData/getAllEducationMajor").then((response) => {
           console.log(response);
           setGroupMajor(response.data.major);
         });
@@ -117,7 +117,7 @@ const ViewInsertdetailEducationStudent = ({id}) => {
                             )
                 
                         } else {
-                            axios.post("http://localhost:8080/EducationStudent/", data)
+                            axios.post("https://educationservice.herokuapp.com/EducationStudent/addEducationStudent", data)
                             .then((res) => {
                                     console.log(res.data.message);
                                     if (res.data.message == "success") {

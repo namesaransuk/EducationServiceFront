@@ -26,7 +26,7 @@ const ViewEditEdudetail = ({ id }) => {
 
 
     useEffect(() => {
-        axios.get("http://localhost:8080/eduDetail/" + id)
+        axios.get("https://educationservice.herokuapp.com/eduDetail/getEduDetailById/" + id)
             .then((response) => {
                 console.log(response);
                 setEdudetail(response.data);
@@ -34,7 +34,7 @@ const ViewEditEdudetail = ({ id }) => {
     }, [id]);
 
     const updateFaculty = () => {
-        axios.get("http://localhost:8080/faculty").then((response) => {
+        axios.get("https://educationservice.herokuapp.com/faculty").then((response) => {
             console.log(response);
             setFaculty(response.data.faculty);
             console.log("Updating .....");
@@ -46,7 +46,7 @@ const ViewEditEdudetail = ({ id }) => {
 
     //Course
     const updateCourse = () => {
-        axios.get("http://localhost:8080/Course").then((response) => {
+        axios.get("https://educationservice.herokuapp.com/Course").then((response) => {
             console.log(response);
             setCourse(response.data.course);
             console.log("Updating .....");
@@ -58,7 +58,7 @@ const ViewEditEdudetail = ({ id }) => {
 
     //Curriculum
     const updateCurriculum = () => {
-        axios.get("http://localhost:8080/Curriculum").then((respond) => {
+        axios.get("https://educationservice.herokuapp.com/Curriculum").then((respond) => {
             console.log(respond);
             setCurriculum(respond.data.curriculum);
             console.log("Update...")
@@ -70,7 +70,7 @@ const ViewEditEdudetail = ({ id }) => {
 
     //Major
     const updateMajor = () => {
-        axios.get("http://localhost:8080/groupmajor").then((respond) => {
+        axios.get("https://educationservice.herokuapp.com/groupmajor").then((respond) => {
             console.log(respond);
             setMajor(respond.data.major);
             console.log("Update...")
@@ -110,7 +110,7 @@ const ViewEditEdudetail = ({ id }) => {
                 'error'
             )
         } else {
-            axios.put("http://localhost:8080/updateEduDetail/" + edudetail.id_edu_detail, data)
+            axios.put("https://educationservice.herokuapp.com/eduDetail/updateEduDetail/" + edudetail.id_edu_detail, data)
                 .then((res) => {
                     console.log(res.data.message);
                     if (res.data.message == "success") {

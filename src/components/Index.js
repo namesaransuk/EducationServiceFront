@@ -106,7 +106,7 @@ function Index() {
 
   const [namelogo, setNamelogo] = useState([])
   useEffect(() => {
-    axios.get("http://localhost:8080/NameLogo/getDataNameLogo")
+    axios.get("https://educationservice.herokuapp.com/NameLogo/getDataNameLogo")
       .then((response) => {
         setNamelogo(response.data);
       })
@@ -125,7 +125,7 @@ function Index() {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const res = await axios.get('http://localhost:8080/EducationNew/');
+      const res = await axios.get('https://educationservice.herokuapp.com/EducationNew/getDataNewAll');
       setPosts(res.data);
     };
 
@@ -167,7 +167,7 @@ function Index() {
   const [educationdata, setEducationdata] = useState([]);
   //ไปดึง api ของอันเก่ามาใช้จาก url
   const updateEducationdata = () => {
-    axios.get("http://localhost:8080/EducationData/getAllEducationData").then((response) => {
+    axios.get("https://educationservice.herokuapp.com/EducationData/getAllEducationData").then((response) => {
       console.log(response);
       setEducationdata(response.data);
     });
@@ -352,10 +352,10 @@ function Index() {
                           </div>
                         </div>
                         <div className="mt-3 lg:mt-0">
-                          <span className="">
+                        <span className="">
                             <a
                               type="button"
-                              href={Post.new_url}
+                              href={"/Student/New_detail/" + Post.id_new}
                               className="hover:no-underline inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                               ดูรายละเอียด

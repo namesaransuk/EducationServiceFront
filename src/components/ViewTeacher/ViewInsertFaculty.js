@@ -38,7 +38,7 @@ const ViewInsertFaculty = () => {
         'error'
       )
     } else {
-      axios.post("http://localhost:8080/faculty/createFaculty", data)
+      axios.post("https://educationservice.herokuapp.com/faculty/createFaculty", data)
         .then((res) => {
           console.log(res.data.message);
           if (res.data.message == "success") {

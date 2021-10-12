@@ -25,7 +25,7 @@ const ViewFacultyAll = () => {
 
 
   useEffect(() => {
-    axios('http://localhost:8080/Faculty/searchFaculty?keyword=')
+    axios('https://educationservice.herokuapp.com/Faculty/searchFaculty?keyword=')
       .then(response => {
         console.log(response.data)
         setFaculty(response.data);

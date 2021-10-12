@@ -28,7 +28,7 @@ const ViewEditEducation = ({ id }) => {
 
 
   useEffect(() => {
-    axios.get("http://localhost:8080/Education/" + id)
+    axios.get("https://educationservice.herokuapp.com/Education/" + id)
       .then((response) => {
         console.log(response);
         setEducation(response.data);
@@ -72,7 +72,7 @@ const ViewEditEducation = ({ id }) => {
       )
 
     } else {
-      axios.put("http://localhost:8080/Education/updateEducation/" + education.id_education, data)
+      axios.put("https://educationservice.herokuapp.com/Education/updateEducation/" + education.id_education, data)
         .then((res) => {
           console.log(res.data.message);
           if (res.data.message == "success") {
@@ -103,7 +103,7 @@ const ViewEditEducation = ({ id }) => {
     };
   }
   const updateUniversity = () => {
-    axios.get("http://localhost:8080/university").then((response) => {
+    axios.get("https://educationservice.herokuapp.com/university").then((response) => {
       console.log(response);
       setUniversity(response.data.university);
       console.log("Updating .....");
@@ -113,7 +113,7 @@ const ViewEditEducation = ({ id }) => {
     updateUniversity();
   }, []);
   const updateRound = () => {
-    axios.get("http://localhost:8080/Round").then((response) => {
+    axios.get("https://educationservice.herokuapp.com/Round").then((response) => {
       console.log(response);
       setRound(response.data.round);
       console.log("Updating .....");

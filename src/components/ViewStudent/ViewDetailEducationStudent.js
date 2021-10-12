@@ -14,7 +14,7 @@ const ViewDetailEducationStudent = ({ id }) => {
   const [student, setStudent] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/students/" + id)
+    axios.get("https://educationservice.herokuapp.com/student/getStudent/" + id)
       .then((response) => {
         setStudent(response.data);
       });
@@ -22,7 +22,7 @@ const ViewDetailEducationStudent = ({ id }) => {
 
   const [education, setEducation] = useState(session);
   useEffect(() => {
-    axios.get("http://localhost:8080/EducationStudent/" + id)
+    axios.get("https://educationservice.herokuapp.com/EducationStudent/getEducation/" + id)
       .then((response) => {
         setEducation(response.data);
       });
@@ -34,6 +34,7 @@ const ViewDetailEducationStudent = ({ id }) => {
         <div class="flex flex-col max-w-3xl mx-auto px-4 mt-32">
           <center><Button href={"/Student/insertdetaileducationstudent/" + student.id_stu}>เพิ่มข้อมูลการศึกษาต่อ</Button></center>
         </div>
+        <br /><br /><br /><br /><br /><br /><br />
       </div>
     );
   } else {

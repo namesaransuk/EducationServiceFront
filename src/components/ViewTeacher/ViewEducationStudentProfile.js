@@ -13,7 +13,7 @@ const ViewEducationStudentProfile = ({ id }) => {
   const [student, setStudent] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/students/" + id)
+    axios.get("https://educationservice.herokuapp.com/student/getStudent/" + id)
       .then((response) => {
         setStudent(response.data);
       });
@@ -21,7 +21,7 @@ const ViewEducationStudentProfile = ({ id }) => {
 
   const [education, setEducation] = useState(session);
   useEffect(() => {
-    axios.get("http://localhost:8080/EducationStudent/" + id)
+    axios.get("https://educationservice.herokuapp.com/EducationStudent/" + id)
       .then((response) => {
         setEducation(response.data);
       });

@@ -20,14 +20,14 @@ const ViewEditProfile = ({ id }) => {
   const [submited, setSumited] = useState(false)
   const [title, setTitle] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:8080/title/getTitle")
+    axios.get("https://educationservice.herokuapp.com/title/getTitle")
       .then((response) => {
         setTitle(response.data.title);
       });
   }, [id]);//เมื่อidมีการเปลี่ยนเเปรง ก็จะรีหน้าทำการเปลี่ยนที่เราเปลี่ย
 
   useEffect(() => {
-    axios.get("http://localhost:8080/students/" + id)
+    axios.get("https://educationservice.herokuapp.com/student/getStudent/" + id)
       .then((response) => {
         setStudent(response.data);
       });
@@ -68,7 +68,7 @@ const ViewEditProfile = ({ id }) => {
       )
 
     } else {
-      axios.put("http://localhost:8080/students/" + student.id_stu, data)
+      axios.put("https://educationservice.herokuapp.com/student/updateProfileStudent/" + student.id_stu, data)
         .then((res) => {
           console.log(res.data.message);
           if (res.data.message == "success") {

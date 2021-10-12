@@ -53,7 +53,7 @@ const Header = () => {
     // }
     const [namelogo, setNamelogo] = useState([])
     useEffect(() => {
-        axios.get("http://localhost:8080/NameLogo/getDataNameLogo")
+        axios.get("https://educationservice.herokuapp.com/NameLogo/getDataNameLogo")
             .then((response) => {
                 setNamelogo(response.data);
             })

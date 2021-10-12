@@ -21,7 +21,7 @@ const ViewEditNew = ({ id }) => {
 
     const [news,setNews] = useState(initNew)
     useEffect(() => {
-        axios.get("http://localhost:8080/EducationNew/getDataNewId/" + id)
+        axios.get("https://educationservice.herokuapp.com/EducationNew/getDataNewId/" + id)
         .then((response) => {
             setNews(response.data)
         });
@@ -108,7 +108,7 @@ const ViewEditNew = ({ id }) => {
             )
 
         } else {
-            axios.put("http://localhost:8080/EducationNew/updateDataNew/" + id, data)
+            axios.put("https://educationservice.herokuapp.com/EducationNew/updateDataNew/" + id, data)
                 .then((res) => {
                     console.log(res.data.message);
                     if (res.data.message == "success") {
@@ -198,20 +198,25 @@ const ViewEditNew = ({ id }) => {
                         <p>{formik.errors.new_date_close}</p>
                     )}
                 </FormGroup>
+                
                 <FormGroup>
                     <Label for="new_sub_detail">รายละเอียดย่อย</Label>
                     <Input
-                        type="text"
+                        type="select"
                         name="new_sub_detail"
                         id="new_sub_detail"
                         value={news.new_sub_detail}
                         onChange={handleInputChange}
+                        >
                         placeholder={news.new_sub_detail}
-                    />
+                        <option disabled value={news.new_sub_detail}>{news.new_sub_detail}</option>
+                        <option value="ข่าวประชาสัมพันธ์ทั่วไป">ข่าวประชาสัมพันธ์ทั่วไป</option>
+                        <option value="ข่าวประชาสัมพันธ์กิจกรรม">ข่าวประชาสัมพันธ์กิจกรรม</option>
+                    
 
                     {formik.errors.name && formik.touched.new_sub_detail(
                         <p>{formik.errors.new_sub_detail}</p> //เช็ค error
-                    )}
+                    )}</Input>
                 </FormGroup>
                 <FormGroup>
                     <Label for="new_detail">รายละเอียด</Label>

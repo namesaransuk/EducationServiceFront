@@ -37,7 +37,7 @@ const LoginForm = () => {
 
     const [namelogo, setNamelogo] = useState([])
     useEffect(() => {
-      axios.get("http://localhost:8080/NameLogo/getDataNameLogo")
+      axios.get("https://educationservice.herokuapp.com/NameLogo/getDataNameLogo")
         .then((response) => {
           setNamelogo(response.data);
         })
@@ -53,7 +53,7 @@ const LoginForm = () => {
             password_user: user.password_user,
         };
 
-        await axios.post("http://localhost:8080/Login", data)
+        await axios.post("https://educationservice.herokuapp.com/Login", data)
         .then((res) => {
             console.log(res.data.message);
             if (res.data.message == "Student") {

@@ -26,7 +26,7 @@ const ViewCarouselAll = () => {
   }
 
   useEffect(() => {
-    axios.get("http://localhost:8080/Carousel/getCarousel")
+    axios.get("https://educationservice.herokuapp.com/Carousel/getCarousel")
       .then((response) => {
         setCarousel(response.data);
         setFilteredData(response.data);
@@ -49,7 +49,7 @@ const ViewCarouselAll = () => {
       }); (window.location.assign("/Admin/CarouselAll"))
 
     if (result) {
-      axios.delete("http://localhost:8080/Carousel/DeleteCarousel/" + id)//คำสั่งลบที่ดึงมาจาก url
+      axios.delete("https://educationservice.herokuapp.com/Carousel/DeleteCarousel/" + id)//คำสั่งลบที่ดึงมาจาก url
         .then((response) => {
           setCarousel(); //อัพเดตหน้าว่าลบไปเเล้ว
         });

@@ -40,7 +40,7 @@ const ViewEducationAll = ({ id }) => {
 
 
   useEffect(() => {
-    axios.get("http://localhost:8080/EduDetail/getEduDetailByIdeducation/" + id)
+    axios.get("https://educationservice.herokuapp.com/EduDetail/getEduDetailByIdeducation/" + id)
       .then((response) => {
         setEdudetail(response.data);
         setFilteredData(response.data);
@@ -49,7 +49,7 @@ const ViewEducationAll = ({ id }) => {
   }, [id]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/Education/" + id)
+    axios.get("https://educationservice.herokuapp.com/Education/" + id)
       .then((response) => {
         setEducation(response.data);
       });

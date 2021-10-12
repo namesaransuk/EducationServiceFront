@@ -30,7 +30,7 @@ const ViewInsertEduDetail = ({ id }) => {
     const [major, setMajor] = useState([])
 
     useEffect(() => {
-                axios.get("http://localhost:8080/Education/" + id)
+                axios.get("https://educationservice.herokuapp.com/Education/" + id)
                     .then((response) => {
                         setEdu(response.data);
                     });
@@ -48,7 +48,7 @@ const ViewInsertEduDetail = ({ id }) => {
 
     //Faculty
     const updateFaculty = () => {
-        axios.get("http://localhost:8080/faculty").then((response) => {
+        axios.get("https://educationservice.herokuapp.com/faculty").then((response) => {
             console.log(response);
             setFaculty(response.data.faculty);
             console.log("Updating .....");
@@ -60,7 +60,7 @@ const ViewInsertEduDetail = ({ id }) => {
 
     //Course
     const updateCourse = () => {
-        axios.get("http://localhost:8080/Course").then((response) => {
+        axios.get("https://educationservice.herokuapp.com/Course").then((response) => {
             console.log(response);
             setCourse(response.data.course);
             console.log("Updating .....");
@@ -72,7 +72,7 @@ const ViewInsertEduDetail = ({ id }) => {
 
     //Curriculum
     const updateCurriculum = () => {
-        axios.get("http://localhost:8080/Curriculum").then((respond) => {
+        axios.get("https://educationservice.herokuapp.com/Curriculum").then((respond) => {
             console.log(respond);
             setCurriculum(respond.data.curriculum);
             console.log("Update...")
@@ -84,7 +84,7 @@ const ViewInsertEduDetail = ({ id }) => {
 
     //Major
     const updateMajor = () => {
-        axios.get("http://localhost:8080/groupmajor").then((respond) => {
+        axios.get("https://educationservice.herokuapp.com/groupmajor").then((respond) => {
             console.log(respond);
             setMajor(respond.data.major);
             console.log("Update...")
@@ -127,7 +127,7 @@ const ViewInsertEduDetail = ({ id }) => {
             
         } 
         else {
-            axios.post("http://localhost:8080/eduDetail/createEduDetail", data)
+            axios.post("https://educationservice.herokuapp.com/eduDetail/createEduDetail", data)
                 .then((res) => {
                     console.log(res.data.message);
                     if (res.data.message == "success") {
@@ -246,7 +246,7 @@ const ViewInsertEduDetail = ({ id }) => {
                                     <Input type="select" name="id_education" id="id_education"
                                         onChange={handleInputChange} value={edudetail.id_education || ""}>
                                     <option>***กรุณาเลือก***</option>
-                                      <option value={edu.id_education}>{edu.id_education}</option>
+                                      <option value={edu.id_education}>รับทราบ</option>
                                     
                                     </Input>
 

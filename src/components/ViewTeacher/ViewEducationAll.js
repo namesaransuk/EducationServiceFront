@@ -35,7 +35,7 @@ const ViewEducationAll = () => {
 
 
   useEffect(() => {
-    axios('http://localhost:8080/education/searchEducation?keyword=')
+    axios('https://educationservice.herokuapp.com/education/searchEducation?keyword=')
       .then(response => {
         console.log(response.data)
         setEducation(response.data);

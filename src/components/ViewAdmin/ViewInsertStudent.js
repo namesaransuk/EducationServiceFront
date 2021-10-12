@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Container, Form, FormGroup, Label, CustomInput, Table, Button } from 'reactstrap';
 import * as XLSX from 'xlsx';
 import Swal from 'sweetalert2';
+import { data } from 'autoprefixer';
 
 
 
@@ -45,27 +46,82 @@ const ViewInsertStudent = () => {
   };
 
   const addStudents = () => {
-    axios.post("http://localhost:8080/Staff/AddStudentAll", students)
-      .then((response) => {
-        console.log(response);
-        setSubmitted(true);
+  
+
+    /*students.forEach(data => {
+      //console.log(data);
+     /* const json = JSON.stringify({
+        id_stu: data.id_stu,
+        title: data.title,
+        fname_stu: data.fname,
+        lname_stu: data.lname,
+        id_curriculum: data.id_curriculum,
+        GPA_stu: data.GPA_stu,
+        year_class: data.year_class,
+        class_room: data.class,
+        year_stu: data.year_stu,
+        password_stu: data.password,
+        
+        });*/
+      /*var dataStudent = {
+                id_stu: data.id_stu,
+                title: data.title,
+                fname_stu: data.fname,
+                lname_stu: data.lname,
+                id_curriculum: data.id_curriculum,
+                GPA_stu: data.GPA_stu,
+                year_class: data.year_class,
+                class_room: data.class,
+                year_stu: data.year_stu,
+                password_stu: data.password,
+
+      }*/
+      
+      for(let i = 0 ; i<students.length ; i++){
+        
+        axios.post("https://educationservice.herokuapp.com/Staff/AddOneStudent", {
+                  "id_stu": students[i].id_stu ,
+                  "title": students[i].title,
+                  "fname_stu": students[i].fname,
+                  "lname_stu": students[i].lname,
+                  "id_curriculum":students[i].id_curriculum,
+                  "gpa_stu": students[i].gpa_stu,
+                  "year_class": students[i].year_class,
+                  "room": students[i].room,
+                  "year_stu": students[i].year_stu,
+                  "password_stu": students[i].password
+  })
+      .then((res) => {
+        console.log(res.data);
+        if(res.data.message == "success"){
+          Swal.fire(
+            'เพิ่มรายชื่อนักเรียนสำเร็จ',
+            '',
+            'success'
+          )
+          .then(() => window.location.assign("/Admin/dashboardadmin"))
+        }else{
+          Swal.fire(
+            'เพิ่มรายชื่อนักเรียนผิดพลาด',
+            'รายชื่อนักเรียนนี้มีอยู่แล้ว',
+            'error'
+          )
+        }
       })
       .catch((error) => {
         console.log(error);
       });
+
+      }
+     
+      
+      /*});*/
+
   };
 
   return (
     <div>
-      {submited ? (
-        Swal.file(
-          'เพิ่มข้อมูลนักเรียนเรียบร้อย',
-          ' ',
-          'success',
-
-        )
-          (window.location.assign("/Admin/insertstudent"))
-      ) : (
+      <br />
         <div className="mt-32">
           <div className="px-4 flex flex-col max-w-3xl mx-auto">
             <div className="text-center mx-auto">
@@ -138,7 +194,7 @@ const ViewInsertStudent = () => {
                           scope="col"
                           className="px-6 py-3 text-left text-md font-medium text-white uppercase tracking-wider"
                         >
-                          รหัสผ่าน
+                          เกรด
                         </th>
                       </tr>
                     </thead>
@@ -152,7 +208,7 @@ const ViewInsertStudent = () => {
                               <img className="h-10 w-10 rounded-full" src={person.image} alt="" />
                             </div> */}
                                 <div className="ml-4">
-                                  <div className="text-md font-medium text-gray-900">key={students.id_stu}</div>
+                                  <div className="text-md font-medium text-gray-900">{students.id_stu}</div>
                                 </div>
                               </div>
                             </td>
@@ -169,26 +225,32 @@ const ViewInsertStudent = () => {
                               <div className="text-md text-gray-900">{students.year_class}</div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-md text-gray-900">{students.class}</div>
+                              <div className="text-md text-gray-900">{students.room}</div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="text-md text-gray-900">{students.year_stu}</div>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
-                              <div className="text-md text-gray-900">{students.password}</div>
+                              <div className="text-md text-gray-900">{students.gpa_stu}</div>
                             </td>
                           </tr>
                         )
                       })}
                     </tbody>
                   </table>
+                 
 
                 </div>
               </div>
             </div>
           </div>
+          <div></div>
+          <div></div>
+          <div className="text-center">
+          <Button className="btn btn-success w-25"  onClick={addStudents}>บันทึก</Button>
+          </div>
         </div>
-      )}
+     
     </div>
 
 

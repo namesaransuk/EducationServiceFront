@@ -66,7 +66,7 @@ const ViewEditImageCarousel = ({ id }) => {
     const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/Carousel/getCarouselId/" + id)
+        axios.get("https://educationservice.herokuapp.com/Carousel/getCarouselId/" + id)
           .then((response) => {
             setCarousel(response.data)
           });
@@ -93,7 +93,7 @@ const ViewEditImageCarousel = ({ id }) => {
             )
 
         } else {
-            axios.put("http://localhost:8080/Carousel/updateCarousel/" + id, data)
+            axios.put("https://educationservice.herokuapp.com/Carousel/updateCarousel/" + id, data)
                 .then((res) => {
                     console.log(res.data.message);
                     if (res.data.message == "success") {

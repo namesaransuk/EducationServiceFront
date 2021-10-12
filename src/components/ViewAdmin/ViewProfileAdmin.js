@@ -7,7 +7,7 @@ const ViewProfileAdmin = ({ id }) => {
   const [admin, setAdmin] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/Teacher/getStaff/" + id)
+    axios.get("https://educationservice.herokuapp.com/Teacher/getStaff/" + id)
       .then((response) => {
         setAdmin(response.data);
       });

@@ -26,7 +26,7 @@ const ViewInsertStaff = (props) => {
   const [submited, setSumited] = useState(false);
 
   const selectTiltle = () => {
-    axios.get("http://localhost:8080/Title/getTitle")
+    axios.get("https://educationservice.herokuapp.com/Title/getTitle")
       .then((response) => {
         console.log(response);
         setTitle(response.data.title);
@@ -35,7 +35,7 @@ const ViewInsertStaff = (props) => {
   }
 
   const selectPosition = () => {
-    axios.get("http://localhost:8080/position")
+    axios.get("https://educationservice.herokuapp.com/position")
       .then((response) => {
         console.log(response);
         setPosition(response.data.position);
@@ -74,7 +74,7 @@ const ViewInsertStaff = (props) => {
       )
 
     } else {
-      axios.post("http://localhost:8080/staff/AddTeacher", data)
+      axios.post("https://educationservice.herokuapp.com/staff/AddTeacher", data)
         .then((res) => {
           console.log(res.data.message);
           if (res.data.message == "success") {

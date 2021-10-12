@@ -64,7 +64,7 @@ const ViewEditImageNew = ({ id }) => {
     })
     const [news, setNews] = useState(initNew)
     useEffect(() => {
-        axios.get("http://localhost:8080/EducationNew/getDataNewId/" + id)
+        axios.get("https://educationservice.herokuapp.com/EducationNew/getDataNewId/" + id)
         .then((response) => {
             setNews(response.data)
         });
@@ -91,7 +91,7 @@ const ViewEditImageNew = ({ id }) => {
             )
 
         } else {
-            axios.put("http://localhost:8080/EducationNew/updateDataNewImage/" + id, data)
+            axios.put("https://educationservice.herokuapp.com/EducationNew/updateDataNewImage/" + id, data)
                 .then((res) => {
                     console.log(res.data.message);
                     if (res.data.message == "success") {

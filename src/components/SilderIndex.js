@@ -24,7 +24,7 @@ const SilderIndex = (props) => {
   const [animating, setAnimating] = useState(false);
   const [carousel, setCarousel] = useState([]);
   useEffect(() => {
-    axios('http://localhost:8080/Carousel/getCarousel')
+    axios('https://educationservice.herokuapp.com/Carousel/getCarousel')
       .then(response => {
         console.log(response.data)
         setCarousel(response.data);

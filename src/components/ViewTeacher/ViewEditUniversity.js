@@ -70,7 +70,7 @@ const ViewEditUniversity = ({ id }) => {
     const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/university/" + id)
+        axios.get("https://educationservice.herokuapp.com/university/" + id)
             .then((response) => {
                 setUniversity(response.data)
             });
@@ -104,7 +104,7 @@ const ViewEditUniversity = ({ id }) => {
             )
 
         } else {
-            axios.put("http://localhost:8080/university/" + id, data)
+            axios.put("https://educationservice.herokuapp.com/university/" + id, data)
                 .then((res) => {
                     console.log(res.data.message);
                     if (res.data.message == "success") {

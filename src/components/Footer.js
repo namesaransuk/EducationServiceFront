@@ -16,7 +16,7 @@ const Footer = () => {
     }
     const [footer, setFooter] = useState([])
     useEffect(() => {
-      axios.get("http://localhost:8080/Footer/getFooter")
+      axios.get("https://educationservice.herokuapp.com/Footer/getFooter")
         .then((response) => {
             setFooter(response.data);
         })

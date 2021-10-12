@@ -40,7 +40,7 @@ const ViewUniversity = () => {
 
 
   useEffect(() => {
-    axios('http://localhost:8080/university/searchUniversity?keyword=')
+    axios('https://educationservice.herokuapp.com/university/searchUniversity?keyword=')
       .then(response => {
         console.log(response.data)
         setUniversity(response.data);

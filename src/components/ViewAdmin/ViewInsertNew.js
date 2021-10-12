@@ -115,7 +115,7 @@ const ViewInsertNew = () => {
                 'error'
             )
         } else {
-            axios.post("http://localhost:8080/EducationNew/createDataNew", data)
+            axios.post("https://educationservice.herokuapp.com/EducationNew/createDataNew", data)
                 .then((res) => {
                     console.log(res.data.message);
                     if (res.data.message == "success") {
@@ -197,16 +197,21 @@ const ViewInsertNew = () => {
                 </FormGroup>
                 <FormGroup>
                     <Label for="productTags">รายละเอียดย่อย</Label>
-                    <Input type="text"
+                    <Input 
+                        type="select"
                         name="new_sub_detail"
                         id="new_sub_detail"
                         value={formik.values.new_sub_detail}
                         onChange={formik.handleChange}
-                        placeholder="ระบุรายละเอียดย่อย"
-                         />
+                        >
+                        <option disabled value="กรุณาเลือก">กรุณาเลือก</option>
+                        <option value="ข่าวประชาสัมพันธ์ทั่วไป">ข่าวประชาสัมพันธ์ทั่วไป</option>
+                        <option value="ข่าวประชาสัมพันธ์กิจกรรม">ข่าวประชาสัมพันธ์กิจกรรม</option>
+                        
                     {formik.errors.name && formik.touched.new_sub_detail(
                         <p>{formik.errors.new_sub_detail}</p>
-                    )}
+                        
+                    )}  </Input>
                 </FormGroup>
                 <FormGroup>
                     <Label for="productTags">รายละเอียด</Label>

@@ -27,7 +27,7 @@ const ViewGroupCourse = (props) => {
 
 
   useEffect(() => {
-    axios('http://localhost:8080/groupmajor/searchgroupmajor?keyword=')
+    axios('https://educationservice.herokuapp.com/groupmajor/searchgroupmajor?keyword=')
       .then(response => {
         console.log(response.data)
         setMajor(response.data);

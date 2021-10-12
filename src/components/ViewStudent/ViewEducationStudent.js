@@ -24,7 +24,7 @@ const ViewEducationStudent = (props) => {
   }
 
   useEffect(() => {
-    axios.get("http://localhost:8080/University/getUniversityAll").then((response) => {
+    axios.get("https://educationservice.herokuapp.com/University/getUniversityAll").then((response) => {
       console.log(response);
       setFilteredData(response.data);
       setUniversity(response.data);

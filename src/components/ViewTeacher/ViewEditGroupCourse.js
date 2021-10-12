@@ -16,7 +16,7 @@ const ViewEditGroupCourse = ({ id }) => {
 
 
   useEffect(() => {
-    axios.get("http://localhost:8080/groupmajor/" + id)
+    axios.get("https://educationservice.herokuapp.com/groupmajor/" + id)
       .then((response) => {
         setGroupCourse(response.data)
       });
@@ -46,7 +46,7 @@ const ViewEditGroupCourse = ({ id }) => {
       )
 
     } else {
-      axios.put("http://localhost:8080/groupmajor/" + id, data)
+      axios.put("https://educationservice.herokuapp.com/groupmajor/" + id, data)
         .then((res) => {
           console.log(res.data.message);
           if (res.data.message == "success") {

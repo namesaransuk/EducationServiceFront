@@ -20,14 +20,14 @@ const ViewEditCourse = ({ id }) => {
   const [submited, setSumited] = useState(false);
 
   const selectCouse = () => {
-    axios.get("http://localhost:8080/Course/getCourse/" + id)
+    axios.get("https://educationservice.herokuapp.com/Course/getCourse/" + id)
       .then((response) => {
         setCourse(response.data)
       });
   }
 
   const selectMajor = () => {
-    axios.get("http://localhost:8080/groupmajor")
+    axios.get("https://educationservice.herokuapp.com/groupmajor")
       .then((response) => {
         console.log(response);
         setMajor(response.data.major);
@@ -36,7 +36,7 @@ const ViewEditCourse = ({ id }) => {
   }
 
   const selectDegree = () => {
-    axios.get("http://localhost:8080/degree")
+    axios.get("https://educationservice.herokuapp.com/degree")
       .then((response) => {
         console.log(response);
         setDegree(response.data.degree);
@@ -75,7 +75,7 @@ const ViewEditCourse = ({ id }) => {
       )
 
     } else {
-      axios.put("http://localhost:8080/Course/" + id, data)
+      axios.put("https://educationservice.herokuapp.com/Course/" + id, data)
         .then((res) => {
           console.log(res.data.message);
           if (res.data.message == "success") {

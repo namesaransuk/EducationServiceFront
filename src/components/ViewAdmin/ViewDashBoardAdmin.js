@@ -11,7 +11,7 @@ const ViewDashBoardAdmin = (props) => {
 
   const [namelogo, setNamelogo] = useState([])
   useEffect(() => {
-    axios.get("http://localhost:8080/NameLogo/getDataNameLogo")
+    axios.get("https://educationservice.herokuapp.com/NameLogo/getDataNameLogo")
       .then((response) => {
         setNamelogo(response.data);
       })
@@ -22,7 +22,7 @@ const ViewDashBoardAdmin = (props) => {
 
   const [footer, setFooter] = useState([])
   useEffect(() => {
-    axios.get("http://localhost:8080/Footer/getFooter")
+    axios.get("https://educationservice.herokuapp.com/Footer/getFooter")
       .then((response) => {
         setFooter(response.data);
       })
@@ -40,6 +40,11 @@ const ViewDashBoardAdmin = (props) => {
             {/* "http://localhost:8080/" */}
               <a href="/Admin/insertstudent">
                 <div type="submit" className="items-center text-center justify-center py-32 border border-transparent text-lg md:text-xl lg:text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">เพิ่มรายชื่อนักเรียน</div>
+              </a>
+            </Col>
+            <Col sm={6}>
+              <a href="/Admin/StudentAll">
+              <div type="submit" className="items-center text-center justify-center py-32 border border-transparent text-lg md:text-xl lg:text-2xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">ข้อมูลรายชื่อนักเรียน</div>
               </a>
             </Col>
             <Col sm={6}>

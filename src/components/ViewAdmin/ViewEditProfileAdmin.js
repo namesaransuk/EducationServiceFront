@@ -20,21 +20,21 @@ import Swal from 'sweetalert2';
       const [position, setPosition] = useState([]);
 
       useEffect(() => {
-        axios.get("http://localhost:8080/position")
+        axios.get("https://educationservice.herokuapp.com/position")
         .then((response)=>{
           setPosition(response.data.position);
         });
     }, [id]);//เมื่อidมีการเปลี่ยนเเปรง ก็จะรีหน้าทำการเปลี่ยนที่เราเปลี่ยน 
 
     useEffect(() => {
-      axios.get("http://localhost:8080/title/getTitle")
+      axios.get("https://educationservice.herokuapp.com/title/getTitle")
       .then((response)=>{
         setTitle(response.data.title);
       });
   }, [id]);//เมื่อidมีการเปลี่ยนเเปรง ก็จะรีหน้าทำการเปลี่ยนที่เราเปลี่ย
   
       useEffect(() => {
-        axios.get("http://localhost:8080/Teacher/getStaff/"+id)
+        axios.get("https://educationservice.herokuapp.com/Teacher/getStaff/"+id)
         .then((response)=>{
           setTeacher(response.data);
         });
@@ -73,7 +73,7 @@ import Swal from 'sweetalert2';
             )
 
         } else {
-            axios.put("http://localhost:8080/Teacher/updateTeacher/"+teacher.id_staff, data)
+            axios.put("https://educationservice.herokuapp.com/Teacher/updateTeacher/"+teacher.id_staff, data)
             .then((res) => {
                     console.log(res.data.message);
                     if (res.data.message == "success") {

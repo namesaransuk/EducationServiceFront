@@ -7,7 +7,7 @@ const ViewProfile = ({ id }) => {
   const [student, setStudent] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/students/" + id)
+    axios.get("https://educationservice.herokuapp.com/student/getStudent/" + id)
       .then((response) => {
         setStudent(response.data);
       });

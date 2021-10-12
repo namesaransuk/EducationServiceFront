@@ -170,6 +170,7 @@ import EditNew from "./pages/Admin/EditNew";
 import EditImageNew from "./pages/Admin/EditImageNew";
 import EditFooter from "./pages/Admin/EditFooter";
 import New_detail from "./pages/Admin/New_detail";
+import Studentall from "./pages/Admin/Studentall";
 
 import Hometeacher from "./pages/Hometeacher";
 
@@ -246,6 +247,7 @@ const App = () => {
         <Route path="/Admin/EditImageNew/:id" component={EditImageNew} />
         <Route path="/Admin/insertstudent" component={InsertStudent} />
         <Route path="/Admin/EditFooter/:id" component={EditFooter} />
+        <Route path="/Admin/Studentall" component={Studentall} />
 
         <Route path="/Test" component={Test} />
         <Route path="/Tests" component={Test} />

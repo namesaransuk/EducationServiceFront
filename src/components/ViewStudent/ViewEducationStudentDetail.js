@@ -16,7 +16,7 @@ const ViewEducationStudentDetail = ({ id }) => {
   const [educationdataia, setEducationdataia] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/EducationData/getEducationdataid/" + id)
+    axios.get("https://educationservice.herokuapp.com/EducationData/getEducationdataid/" + id)
       .then((response) => {
         setEducationdataia(response.data);
       });

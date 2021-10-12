@@ -20,7 +20,7 @@ const ViewEditFooter = ({ id }) => {
 
     const [footer, setFooter] = useState(initFooter)
     useEffect(() => {
-        axios.get("http://localhost:8080/Footer/getFooterId/" + id)
+        axios.get("https://educationservice.herokuapp.com/Footer/getFooterId/" + id)
         .then((response) => {
             setFooter(response.data)
         });
@@ -52,7 +52,7 @@ const ViewEditFooter = ({ id }) => {
             )
 
         } else {
-            axios.put("http://localhost:8080/Footer/updateFooter/" + id, data)
+            axios.put("https://educationservice.herokuapp.com/Footer/updateFooter/" + id, data)
                 .then((res) => {
                     console.log(res.data.message);
                     if (res.data.message == "success") {

@@ -14,7 +14,7 @@ const ViewEducationStudentClass = ({ id }) => {
 
     //ไปดึง api ของอันเก่ามาใช้จาก url
     useEffect(() => {
-      axios.get("http://localhost:8080/Teacher/getYearClass/"+ id).then((response) => {
+      axios.get("https://educationservice.herokuapp.com/Teacher/getYearClass/"+ id).then((response) => {
         console.log(response);
         setClassS(response.data);
       });

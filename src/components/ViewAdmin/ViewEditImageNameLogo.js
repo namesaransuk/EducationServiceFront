@@ -64,7 +64,7 @@ const ViewEditImageNameLogo = ({ id }) => {
     })
     const [namelogo, setNamelogo] = useState(initNameLogo)
     useEffect(() => {
-        axios.get("http://localhost:8080/NameLogo/getDataNameLogoId/" + id)
+        axios.get("https://educationservice.herokuapp.com/NameLogo/getDataNameLogoId/" + id)
         .then((response) => {
             setNamelogo(response.data)
         });
@@ -91,7 +91,7 @@ const ViewEditImageNameLogo = ({ id }) => {
             )
 
         } else {
-            axios.put("http://localhost:8080/NameLogo/updateDataNameLogoImage/" + id, data)
+            axios.put("https://educationservice.herokuapp.com/NameLogo/updateDataNameLogoImage/" + id, data)
                 .then((res) => {
                     console.log(res.data.message);
                     if (res.data.message == "success") {

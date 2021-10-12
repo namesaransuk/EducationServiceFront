@@ -16,7 +16,7 @@ const ViewNew_detail = ({ id }) => {
   const [educationdataia, setEducationdataia] = useState([]);
   const [posts, setPosts] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:8080/EducationNew/" + id)
+    axios.get("https://educationservice.herokuapp.com/EducationNew/" + id)
       .then((response) => {
         setPosts(response.data);
       });
@@ -36,7 +36,7 @@ const ViewNew_detail = ({ id }) => {
           </div>
           <div className="border-t border-gray-200">
           <div className="bg-gray-50">
-            <center> <img width="40%" alt="ยังไม่ได้อัพเดตตราประจำมหาลัย" src={posts.new_image || 'https://via.placeholder.com/300'} /></center>
+            <center> <img width="40%" alt="รูปกำลังมีปัญหา" src={posts.new_image || 'https://via.placeholder.com/300'} /></center>
             </div>
             
             <div className="bg-gray-50 p-4 sm:grid sm:grid-cols-3 sm:gap-4">

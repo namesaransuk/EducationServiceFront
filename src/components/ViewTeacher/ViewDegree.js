@@ -23,7 +23,7 @@ const ViewDegreeAll = (props) => {
     }
 
   useEffect(() => {
-    axios('http://localhost:8080/degree/searchDegree?keyword=')
+    axios('https://educationservice.herokuapp.com/degree/searchDegree?keyword=')
     .then(response => {
     console.log(response.data)
     setDegree(response.data);

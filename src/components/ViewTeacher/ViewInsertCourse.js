@@ -5,26 +5,19 @@ import {
   CardTitle, CardSubtitle, Jumbotron, Table, Alert
 } from 'reactstrap';
 import Swal from 'sweetalert2';
-
-
-
-
-
 const ViewInsertCourse = () => {
-
   const initCourse = {
       name_course: "",
       id_major: "",
       id_degree: "",
     }
-
   const [Course, setCourse] = useState(initCourse);
   const [major, setMajor] = useState([]);
   const [degree, setDegree] = useState([]);
 
 
   const selectMajor = () => {
-      axios.get("http://localhost:8080/groupmajor")
+      axios.get("https://educationservice.herokuapp.com/groupmajor")
       .then((response) =>{
         console.log(response);
         setMajor(response.data.major);
@@ -33,7 +26,7 @@ const ViewInsertCourse = () => {
     }
 
     const selectDegree = () => {
-      axios.get("http://localhost:8080/degree")
+      axios.get("https://educationservice.herokuapp.com/degree")
       .then((response) => {
         console.log(response);
         setDegree(response.data.degree);
@@ -69,7 +62,7 @@ const ViewInsertCourse = () => {
           )
 
       } else {
-          axios.post("http://localhost:8080/Course/createCourse",data)
+          axios.post("https://educationservice.herokuapp.com/Course/createCourse",data)
           .then((res) => {
                   console.log(res.data.message);
                   if (res.data.message == "success") {

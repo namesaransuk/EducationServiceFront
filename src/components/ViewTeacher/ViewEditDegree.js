@@ -16,7 +16,7 @@ const ViewEditDegree = ({ id }) => {
   const [submited, setSumited] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/degree/getDegree/" + id)
+    axios.get("https://educationservice.herokuapp.com/degree/getDegree/" + id)
       .then((response) => {
         setDegree(response.data);
       });
@@ -44,7 +44,7 @@ const ViewEditDegree = ({ id }) => {
         'error'
       )
     } else {
-      axios.put("http://localhost:8080/degree/" + id, data)
+      axios.put("https://educationservice.herokuapp.com/degree/" + id, data)
         .then((res) => {
           console.log(res.data.message);
           if (res.data.message == "success") {

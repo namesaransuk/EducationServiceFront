@@ -38,7 +38,7 @@ const ViewInsertGroupCourse = () => {
         )
 
     } else {
-        axios.post("http://localhost:8080/groupmajor", data)
+        axios.post("https://educationservice.herokuapp.com/groupmajor", data)
         .then((res) => {
                 console.log(res.data.message);
                 if (res.data.message == "success") {

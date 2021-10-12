@@ -37,7 +37,7 @@ const ViewInsertDegree = () => {
             'error'
         )
     } else {
-        axios.post("http://localhost:8080/degree" , data)
+        axios.post("https://educationservice.herokuapp.com/degree" , data)
       .then((res) => {
                 console.log(res.data.message);
                 if (res.data.message == "success") {

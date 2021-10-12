@@ -32,7 +32,7 @@ const ViewNewAll = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios.get('http://localhost:8080/EducationNew');
+      const response = await axios.get('https://educationservice.herokuapp.com/EducationNew');
       setAdmin(response.data);
       setFilteredData(response.data);
         };

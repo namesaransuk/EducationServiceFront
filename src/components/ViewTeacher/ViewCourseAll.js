@@ -28,7 +28,7 @@ const ViewCourseAll = (props) => {
 
 
   useEffect(() => {
-    axios('http://localhost:8080/course/searchCourse?keyword=')
+    axios('https://educationservice.herokuapp.com/course/searchCourse?keyword=')
       .then(response => {
         console.log(response.data)
         setCourse(response.data);

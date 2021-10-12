@@ -135,7 +135,7 @@ const ViewInsertEducation = () => {
       )
 
     } else {
-      axios.post("http://localhost:8080/Education/createEducation", data)
+      axios.post("https://educationservice.herokuapp.com/Education/createEducation", data)
         .then((res) => {
           console.log(res.data.message);
           if (res.data.message == "success") {
@@ -167,7 +167,7 @@ const ViewInsertEducation = () => {
   }
 
   const updateUniversity = () => {
-    axios.get("http://localhost:8080/university").then((response) => {
+    axios.get("https://educationservice.herokuapp.com/university").then((response) => {
       console.log(response);
       setUniversity(response.data.university);
       console.log("Updating .....");
@@ -178,7 +178,7 @@ const ViewInsertEducation = () => {
   }, []);
 
   const updateEducate = () => {
-    axios.get("hhttp://localhost:8080/education/getEducation").then((response) => {
+    axios.get("https://educationservice.herokuapp.com/education/getEducation").then((response) => {
       console.log(response);
       setEducate(response.data.university);
       console.log("Updating .....");
@@ -189,7 +189,7 @@ const ViewInsertEducation = () => {
   }, []);
 
   const updateRound = () => {
-    axios.get("http://localhost:8080/Round").then((response) => {
+    axios.get("https://educationservice.herokuapp.com/Round").then((response) => {
       console.log(response);
       setRound(response.data.round);
       console.log("Updating .....");
