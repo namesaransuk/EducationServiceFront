@@ -42,8 +42,7 @@ const ViewEditFooter = ({ id }) => {
             footer_devloper_detail: footer.footer_devloper_detail,
             footer_license: footer.footer_license,
         };
-        if (data['footer_contact'] === "" || data['footer_contact_detail'] === ""|| data['footer_devloper'] === ""
-        || data['footer_devloper_detail'] === ""|| data['footer_license'] === "" ) {
+        if (data['footer_license'] === "" ) {
             Swal.fire(
 
                 'ผิดพลาด',

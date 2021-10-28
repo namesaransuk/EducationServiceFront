@@ -34,7 +34,7 @@ const ViewDetailEducationStudent = ({ id }) => {
         <div class="flex flex-col max-w-3xl mx-auto px-4 mt-32">
           <center><Button href={"/Student/insertdetaileducationstudent/" + student.id_stu}>เพิ่มข้อมูลการศึกษาต่อ</Button></center>
         </div>
-        <br /><br /><br /><br /><br /><br /><br />
+        <br /><br /><br /><br /><br /><br /><br />  <br />  <br />  <br />  <br />  <br />
       </div>
     );
   } else {
@@ -84,7 +84,7 @@ const ViewDetailEducationStudent = ({ id }) => {
             </a>
           </div>
         </Form>
-
+        <br /><br />
       </div>
 
     );

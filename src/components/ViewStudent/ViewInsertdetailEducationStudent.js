@@ -243,7 +243,7 @@ const ViewInsertdetailEducationStudent = ({id}) => {
      </Row>
                         <Button className="btn btn-success" >ยืนยัน</Button>
                     </Form>
-            
+                    <br />
         </Container >
     );
 }

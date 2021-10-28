@@ -91,7 +91,7 @@ const ViewEditFaculty = ({ id }) => {
         <div className="text-center">
           <Button className="w-25 btn btn-success" onClick={saveFaculty}>บันทึก</Button>
         </div>
-      </Form>
+      </Form><br /><br /><br />
 
 
 

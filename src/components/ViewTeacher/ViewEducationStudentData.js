@@ -30,6 +30,10 @@ const ViewEducationStudentData = ({ id }) => {
         return data
       } else if (data.fname_stu.search(value) != -1) {
         return data
+      } else if (data.class.search(value) != -1) {
+        return data
+      } else if (data.year_class.search(value) != -1) {
+        return data
       } else if (data.id_stu.search(value) != -1) {
         return data
       }
@@ -126,7 +130,7 @@ const ViewEducationStudentData = ({ id }) => {
                   ))}
                 </tbody>
               </table>
-
+              <br /><br /><br /><br /><br />
             </div>
           </div>               <center> {filteredData.length === 0 && <span>ไม่พบข้อมูลที่ค้นหา</span>} </center>
         </div>

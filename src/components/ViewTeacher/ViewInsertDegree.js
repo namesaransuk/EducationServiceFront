@@ -100,7 +100,7 @@ const ViewInsertDegree = () => {
         <div className="text-center">
           <Button className="btn btn-success w-25" >บันทึก</Button>
         </div>
-      </Form>
+      </Form><br />
     </div>
 
   );

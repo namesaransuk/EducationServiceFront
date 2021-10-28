@@ -146,7 +146,6 @@ import EditEdudetail from "./pages/Teacher/EditEdudetail";
 import DegreeAll from "./pages/Teacher/DegreeAll";
 import InsertDegree from "./pages/Teacher/InsertDegree";
 import EditDegree from "./pages/Teacher/EditDegree";
-import Test from "./pages/Student/Test";
 import EducationStudentClass from "./pages/Teacher/EducationStudentClass";
 import EducationStudentData from "./pages/Teacher/EducationStudentData";
 import EducationStudentProfile from "./pages/Teacher/EducationStudentProfile";
@@ -249,8 +248,6 @@ const App = () => {
         <Route path="/Admin/EditFooter/:id" component={EditFooter} />
         <Route path="/Admin/Studentall" component={Studentall} />
 
-        <Route path="/Test" component={Test} />
-        <Route path="/Tests" component={Test} />
         
       </Switch>
       <Footer/>

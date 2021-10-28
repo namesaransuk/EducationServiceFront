@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome' //fornt
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
-import Pagination from '../pagination/paginationnew';
 
 import {
   Row, Col, Button, FormGroup, Label, Input,
