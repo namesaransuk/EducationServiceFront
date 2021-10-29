@@ -8,6 +8,7 @@ import {
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ckeditor, { CKEditor } from '@ckeditor/ckeditor5-react'
 import { PaperClipIcon } from '@heroicons/react/solid'
+import "./vieweducationstudent.css"
 
 
 const ViewEducationStudentDetail = ({ id }) => {
@@ -33,7 +34,7 @@ const ViewEducationStudentDetail = ({ id }) => {
             <div className="col-span-1 ml-auto hidden sm:block">
               <img
                 className="h-20 w-auto -mt-5"
-                src="https://www.npru.ac.th/2019/img/Npru-logo.png"
+                src={educationdataia.logo_uni || 'https://via.placeholder.com/604x317'}
                 alt="Workflow"
               />
             </div>
@@ -78,7 +79,7 @@ const ViewEducationStudentDetail = ({ id }) => {
                   <li className="pl-3 pr-4 py-3 flex items-center justify-between text-md">
                     <div className="w-0 flex-1 flex items-center">
                       <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
-                      <span className="ml-2 flex-1 w-0 truncate">ประกาศรับรับสมัคร ภาคปกติ v1.pdf</span>
+                      <span className="ml-2 flex-1 w-0 truncate">ประกาศรับรับสมัคร</span>
                     </div>
                     <div className="ml-4 flex-shrink-0">
                       <a href={educationdataia.url_doculment} className="font-medium text-indigo-600 hover:text-indigo-500">
@@ -115,12 +116,8 @@ const ViewEducationStudentDetail = ({ id }) => {
                 <p className="-mb-2" style={{ whiteSpace: 'pre-wrap' }}>{educationdataia.general}</p>
               </div>
               <div className="px-4 py-3 bg-gray-50 text-center sm:px-6">
-                <button
-                  type="submit"
-                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-md font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  ดูรายละเอียดเพิ่มเติม
-                  </button>
+              <a className="bu1"href={educationdataia.url_doculment}>ดูรายละเอียดเพิ่มเติม</a>
+
               </div>
             </div>
           </div>
@@ -148,12 +145,7 @@ const ViewEducationStudentDetail = ({ id }) => {
                   <p className="-mb-2" style={{ whiteSpace: 'pre-wrap' }}>{educationdataia.doculment_edu}</p>
                 </div>
                 <div className="px-4 py-3 bg-gray-50 text-center sm:px-6">
-                  <button
-                    type="submit"
-                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-md font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    ดูรายละเอียดเพิ่มเติม
-                  </button>
+                  <a className="bu1"href={educationdataia.url_doculment}>ดูรายละเอียดเพิ่มเติม</a>
                 </div>
               </div>
             </form>

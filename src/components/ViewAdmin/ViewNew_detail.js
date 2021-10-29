@@ -21,10 +21,21 @@ const ViewNew_detail = ({ id }) => {
         setPosts(response.data);
       });
   }, [id]);//เมื่อidมีการเปลี่ยนเเปรง ก็จะรีหน้าทำการเปลี่ยนที่เราเปลี่ยน
-
+ 
+  const [modal, setModal] = React.useState(false);
   
+  // Toggle for Modal
+  const toggle1 = () => setModal(!modal);
+
   return (
     <div>
+         
+            <Modal isOpen={modal}
+                toggle={toggle1}
+                modalTransition={{ timeout: 1000 }}>
+                <ModalBody>
+                <img width="100%" alt="รูปกำลังมีปัญหา" src={posts.new_image || 'https://via.placeholder.com/300'} />                </ModalBody>
+            </Modal>
       <div className="mt-32 mb-5 container-fluid sm:container">
         <div className="bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 shadow overflow-hidden rounded-lg">
           <div className="p-5 -mb-5 flex items-center justify-center md:grid md:grid-cols-3">
@@ -36,7 +47,7 @@ const ViewNew_detail = ({ id }) => {
           </div>
           <div className="border-t border-gray-200">
           <div className="bg-gray-50">
-            <center> <img width="40%" alt="รูปกำลังมีปัญหา" src={posts.new_image || 'https://via.placeholder.com/300'} /></center>
+            <center><button><img onClick={toggle1} style={{ width: '20rem',height:'20rem' }} alt="รูปกำลังมีปัญหา" src={posts.new_image || 'https://via.placeholder.com/300'} /></button></center>
             </div>
             
             <div className="bg-gray-50 p-4 sm:grid sm:grid-cols-3 sm:gap-4">

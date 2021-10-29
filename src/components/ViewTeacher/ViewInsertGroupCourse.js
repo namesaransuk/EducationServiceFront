@@ -84,7 +84,7 @@ const ViewInsertGroupCourse = () => {
         <div className="text-center">
           <Button className="btn btn-success w-25">บันทึก</Button>
         </div>
-      </Form></div>
+      </Form><br /><br /><br /></div>
   )
 }
 

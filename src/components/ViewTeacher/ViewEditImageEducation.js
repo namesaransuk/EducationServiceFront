@@ -154,7 +154,7 @@ const ViewEditImageEducation = ({ id }) => {
                                  )}
                              </FormGroup>
                              <Button type="submit" className="btn btn-success" >ตกลง</Button>
-                         </Form>
+                         </Form>    <br />    <br />
             
         </div>
     )

@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Swal from 'sweetalert2';
 import { Disclosure, Menu, Transition, Popover } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { Helmet } from "react-helmet";
 
 
 const Header = () => {
@@ -93,6 +94,10 @@ const Header = () => {
     if (session.id === null) {
         return (
             <div className="fixed left-0 right-0 z-50 top-0">
+                  <Helmet>
+            <title>{namelogo.LogoWeb || 'EducationService'}</title>
+            <link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/james2-67f02.appspot.com/o/images%2Funiversitylogo_1634186217?alt=media&token=dc801557-c5ec-4207-bcb0-3bd155bd92cb" />
+        </Helmet>
                 {/* เต็มหน้าจอ */}
                 <div className="mx-auto">
                     <div className="pb-2 sm:pt-4 md:pt-4 bg-yellow-600">
@@ -213,6 +218,10 @@ const Header = () => {
     else if (session.fname_staff = session.fname_staff) {
         return (
             <div className="fixed left-0 right-0 z-50 top-0">
+                     <Helmet>
+            <title>{namelogo.LogoWeb || 'EducationService'}</title>
+            <link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/james2-67f02.appspot.com/o/images%2Funiversitylogo_1634186217?alt=media&token=dc801557-c5ec-4207-bcb0-3bd155bd92cb" />
+        </Helmet>
                 {/* เต็มหน้าจอ */}
                 <div className="mx-auto">
                     <div className="pb-2 sm:pt-4 md:pt-4 bg-gradient-to-r from-green-400 to-blue-500">
@@ -412,6 +421,10 @@ const Header = () => {
     else if (session.fname_admin = session.fname_admin) {
         return (
             <div className="fixed left-0 right-0 z-50 top-0">
+                     <Helmet>
+            <title>{namelogo.LogoWeb || 'EducationService'}</title>
+            <link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/james2-67f02.appspot.com/o/images%2Funiversitylogo_1634186217?alt=media&token=dc801557-c5ec-4207-bcb0-3bd155bd92cb" />
+        </Helmet>
                 {/* เต็มหน้าจอ */}
                 <div className="mx-auto">
                     <div className="pb-2 sm:pt-4 md:pt-4 bg-indigo-800">
@@ -612,6 +625,10 @@ const Header = () => {
     else if (session.fname = session.fname) {
         return (
             <div className="fixed left-0 right-0 z-50 top-0">
+                     <Helmet>
+            <title>{namelogo.LogoWeb || 'EducationService'}</title>
+            <link rel="icon" href="https://firebasestorage.googleapis.com/v0/b/james2-67f02.appspot.com/o/images%2Funiversitylogo_1634186217?alt=media&token=dc801557-c5ec-4207-bcb0-3bd155bd92cb" />
+        </Helmet>
                 {/* เต็มหน้าจอ */}
                 <div className="mx-auto">
                     <div className="pb-2 sm:pt-4 md:pt-4 bg-yellow-600">

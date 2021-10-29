@@ -106,7 +106,7 @@ const ViewEditDegree = ({ id }) => {
         </div>
       </Form>
 
-
+      <br /><br />
     </div>
 
   );
